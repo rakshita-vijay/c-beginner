@@ -1,40 +1,57 @@
-// without functions
+// with functions
 
 #include <stdio.h>
-#include <string.h>
 
 struct employee
 {
-    char name[50];
-    char dateOfJoin[20];
-    float salary;
+    char employeeName[50];
+    char employeeDateOfJoin[20];
+    float employeeSalary;
 };
+
+void getDataFromUser(int employeeNumber);
+void printDataObtainedFromUser(int employeeNumber, char employeeName[50], char employeeDateOfJoin[20], float employeeSalary);
+
+void getDataFromUser(int employeeNumber)
+{
+    struct employee emp;
+
+    printf("Enter Name of Employee Number %i: ", employeeNumber);
+    scanf("%s", emp.employeeName);
+    // printf("\n");
+
+    printf("Enter Date of Join of Employee Number %i: ", employeeNumber);
+    scanf("%s", emp.employeeDateOfJoin);
+    // printf("\n");
+
+    printf("Enter Salary of Employee Number %i: ", employeeNumber);
+    scanf("%f", &emp.employeeSalary);
+    // printf("\n");
+
+    printDataObtainedFromUser(employeeNumber, emp.employeeName, emp.employeeDateOfJoin, emp.employeeSalary);
+}
+
+void printDataObtainedFromUser(int employeeNumber, char employeeName[50], char employeeDateOfJoin[20], float employeeSalary)
+{
+    printf("\nDETAILS OF EMPLOYEE NUMBER %i: \n", employeeNumber);
+    printf("1> Name: %s \n2> Date of Join: %s\n3> Salary: %f \n", employeeName, employeeDateOfJoin, employeeSalary);
+    printf("\n~*~*~*~*~*~*~*~*~*~*~*~*~ \n \n");
+}
 
 int main()
 {
-    struct employee No1 = {"David", "17-02-2006", 1234567890};
+    int noOfEmployees = 0;
+    int employeeNumber;
+    char employeeName[50];
+    char employeeDateOfJoin[12];
+    float employeeSalary;
 
-    printf("Name of Employee: %s \n", No1.name);
-    printf("Date of Join of Employee: %s \n", No1.dateOfJoin);
-    printf("Salary of Employee: %f \n", No1.salary);
+    printf("Enter the number of employees: ");
+    scanf("%i", &noOfEmployees);
+    printf("\n~*~*~*~*~*~*~*~*~*~*~*~*~ \n \n");
 
-    struct employee No2 = {"", "", 0.0};
-
-    printf("Enter data: \n");
-
-    printf("Name: ");
-    scanf("%s", No2.name);
-    printf("\n");
-
-    printf("Date of Join: ");
-    scanf("%s", No2.dateOfJoin);
-    printf("\n");
-
-    printf("Salary: ");
-    scanf("%f", &No2.salary);
-    printf("\n");
-
-    printf("Name of Employee: %s \n", No2.name);
-    printf("Date of Join of Employee: %s \n", No2.dateOfJoin);
-    printf("Salary of Employee: %f \n", No2.salary);
+    for (employeeNumber = 1; employeeNumber <= noOfEmployees; employeeNumber++)
+    {
+        getDataFromUser(employeeNumber);
+    }
 }
