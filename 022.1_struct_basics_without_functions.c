@@ -1,3 +1,5 @@
+// without functions
+
 #include <stdio.h>
 #include <string.h>
 
