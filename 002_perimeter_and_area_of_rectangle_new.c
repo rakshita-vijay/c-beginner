@@ -1,10 +1,21 @@
-// without functions
+// with functions
 
 #include <stdio.h>
 
+float PerimeterOfRectangle(float LengthOfSide, float WidthOfSide)
+{
+    return 2.0*(LengthOfSide+WidthOfSide);
+}
+
+float AreaOfRectangle(float LengthOfSide, float WidthOfSide)
+{
+    return LengthOfSide*WidthOfSide;
+}
+
 int main()
 {
-    double LengthOfSide, WidthOfSide, PerimeterOfRectangle, AreaOfRectangle;
+    float LengthOfSide, WidthOfSide;
+    float perimeter, area;
 
     printf("Enter LengthOfSide: ");
     scanf("%f", &LengthOfSide);
@@ -14,9 +25,9 @@ int main()
     scanf("%f", &WidthOfSide);
     printf("\n");
 
-    PerimeterOfRectangle = 2.0*(LengthOfSide+WidthOfSide);
-    AreaOfRectangle = LengthOfSide*WidthOfSide;
+    perimeter = PerimeterOfRectangle(LengthOfSide, WidthOfSide);
+    area = AreaOfRectangle(LengthOfSide, WidthOfSide);
 
-    printf("PerimeterOfRectangle is: %f \n", PerimeterOfRectangle);
-    printf("AreaOfRectangle is: %f \n", AreaOfRectangle);
+    printf("Perimeter Of Rectangle is: %f \n", perimeter);
+    printf("Area Of Rectangle is: %f \n", area);
 }
