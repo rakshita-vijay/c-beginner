@@ -34,8 +34,7 @@ struct rainfall calc() {} // returns a struct with format of arrayRainfall
 */
 
 float calcTotalRainfallPerYear(struct rainfall12M year2k) {
-  return (year2k.inch1 + year2k.inch2 + year2k.inch3 + year2k.inch4 + year2k.inch5 + year2k.inch6 + year2k.inch7 +
-          year2k.inch8 + year2k.inch9 + year2k.inch10 + year2k.inch11 + year2k.inch12);
+  return (year2k.inch1 + year2k.inch2 + year2k.inch3 + year2k.inch4 + year2k.inch5 + year2k.inch6 + year2k.inch7 + year2k.inch8 + year2k.inch9 + year2k.inch10 + year2k.inch11 + year2k.inch12);
 }
 
 void printTotalRainfallPerYear(int years[5], struct rainfall12M arrayRainfall[]) {
@@ -232,8 +231,7 @@ void printAverageRainfallPerMonthAcross5Years(char months[], struct rainfall12M 
     // (averagePerMonthAcross5Years[monthNumber]<10) ? printf("0%.2f  ", averagePerMonthAcross5Years[monthNumber]) :
     // printf("%.2f  ", averagePerMonthAcross5Years[monthNumber]);
 
-    printf((averagePerMonthAcross5Years[monthNumber] < 10) ? "0%.2f  " : "%.2f  ",
-           averagePerMonthAcross5Years[monthNumber]);
+    printf((averagePerMonthAcross5Years[monthNumber] < 10) ? "0%.2f  " : "%.2f  ", averagePerMonthAcross5Years[monthNumber]);
   }
 
   printf("\n \n~*~*~*~*~*~*~*~*~*~*~*~*~ \n \n");
@@ -243,13 +241,12 @@ int main() {
   int years[5] = {2000, 2001, 2002, 2003, 2004};
   char months[] = {"Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec"};
 
-  struct rainfall12M year2k0 = {1.2, 2.3, 3.4, 4.5, 5.6, 6.7, 7.8, 8.9, 9.10, 10.11, 11.12, 12.13};     // type: struct
-  struct rainfall12M year2k1 = {2.3, 3.4, 4.5, 5.6, 6.7, 7.8, 8.9, 9.10, 10.11, 11.12, 12.13, 13.14};   // type: struct
-  struct rainfall12M year2k2 = {3.4, 4.5, 5.6, 6.7, 7.8, 8.9, 9.10, 10.11, 11.12, 12.13, 13.14, 14.15}; // type: struct
-  struct rainfall12M year2k3 = {4.5, 5.6, 6.7, 7.8, 8.9, 9.10, 10.11, 11.12, 12.13, 13.14, 14.15, 15.16}; // type:
-                                                                                                          // struct
-  struct rainfall12M year2k4 = {5.6,   6.7,   7.8,   8.9,   9.10,  10.11,
-                                11.12, 12.13, 13.14, 14.15, 15.16, 16.17}; // type: struct
+  struct rainfall12M year2k0 = {1.2, 2.3, 3.4, 4.5, 5.6, 6.7, 7.8, 8.9, 9.10, 10.11, 11.12, 12.13};         // type: struct
+  struct rainfall12M year2k1 = {2.3, 3.4, 4.5, 5.6, 6.7, 7.8, 8.9, 9.10, 10.11, 11.12, 12.13, 13.14};       // type: struct
+  struct rainfall12M year2k2 = {3.4, 4.5, 5.6, 6.7, 7.8, 8.9, 9.10, 10.11, 11.12, 12.13, 13.14, 14.15};     // type: struct
+  struct rainfall12M year2k3 = {4.5, 5.6, 6.7, 7.8, 8.9, 9.10, 10.11, 11.12, 12.13, 13.14, 14.15, 15.16};   // type:
+                                                                                                            // struct
+  struct rainfall12M year2k4 = {5.6, 6.7, 7.8, 8.9, 9.10, 10.11, 11.12, 12.13, 13.14, 14.15, 15.16, 16.17}; // type: struct
 
   // to create an array of structures:
   struct rainfall12M arrayRainfall[] = {year2k0, year2k1, year2k2, year2k3, year2k4}; // type: array of structs

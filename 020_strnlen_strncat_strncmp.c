@@ -81,8 +81,6 @@ int main() {
 
   printf("\n");
 
-  printf("The entered character arrays \'%s\' and \'%s\' have been compared and the characters present in both in "
-         "order are: ",
-         string1, string2);
+  printf("The entered character arrays \'%s\' and \'%s\' have been compared and the characters present in both in order are: ", string1, string2);
   strnCmp(string1, string2);
 }

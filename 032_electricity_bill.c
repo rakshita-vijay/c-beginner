@@ -31,32 +31,22 @@ int calcTotalCost(int numberOfUnits) {
 
   if ((for1To100Units.beginningOfBlock <= numberOfUnits) && (numberOfUnits <= for1To100Units.endingOfBlock)) {
     return numberOfUnits * (for1To100Units.costPerUnitForBlock);
-  } else if ((for101To400Units.beginningOfBlock <= numberOfUnits) &&
-             (numberOfUnits <= for101To400Units.endingOfBlock)) {
+  } else if ((for101To400Units.beginningOfBlock <= numberOfUnits) && (numberOfUnits <= for101To400Units.endingOfBlock)) {
     // if 200 units, then 200 = 100+100
     // 800+1000 = 2800
 
-    return ((for1To100Units.endingOfBlock) * (for1To100Units.costPerUnitForBlock)) +
-           (numberOfUnits - (for1To100Units.endingOfBlock)) * (for101To400Units.costPerUnitForBlock);
-  } else if ((for401To700Units.beginningOfBlock <= numberOfUnits) &&
-             (numberOfUnits <= for401To700Units.endingOfBlock)) {
+    return ((for1To100Units.endingOfBlock) * (for1To100Units.costPerUnitForBlock)) + (numberOfUnits - (for1To100Units.endingOfBlock)) * (for101To400Units.costPerUnitForBlock);
+  } else if ((for401To700Units.beginningOfBlock <= numberOfUnits) && (numberOfUnits <= for401To700Units.endingOfBlock)) {
     // if 500 units, then 500 = 100+300+100
     // 800+3000+1300 = 5100
 
-    return ((for1To100Units.endingOfBlock) * (for1To100Units.costPerUnitForBlock)) +
-           (((for101To400Units.endingOfBlock) - (for1To100Units.endingOfBlock)) *
-            (for101To400Units.costPerUnitForBlock)) +
-           (numberOfUnits - for101To400Units.endingOfBlock) * (for401To700Units.costPerUnitForBlock);
+    return ((for1To100Units.endingOfBlock) * (for1To100Units.costPerUnitForBlock)) + (((for101To400Units.endingOfBlock) - (for1To100Units.endingOfBlock)) * (for101To400Units.costPerUnitForBlock)) + (numberOfUnits - for101To400Units.endingOfBlock) * (for401To700Units.costPerUnitForBlock);
   } else {
     // if 800 units, then 800 = 100+300+300+100
     // 800+3000+3900+1500 = 9200
 
-    return (
-        ((for1To100Units.endingOfBlock) * (for1To100Units.costPerUnitForBlock)) +
-        (((for101To400Units.endingOfBlock) - (for1To100Units.endingOfBlock)) * (for101To400Units.costPerUnitForBlock)) +
-        (((for401To700Units.endingOfBlock) - (for101To400Units.endingOfBlock)) *
-         (for401To700Units.costPerUnitForBlock)) +
-        (numberOfUnits - for401To700Units.endingOfBlock) * (above700Units.costPerUnitForBlock));
+    return (((for1To100Units.endingOfBlock) * (for1To100Units.costPerUnitForBlock)) + (((for101To400Units.endingOfBlock) - (for1To100Units.endingOfBlock)) * (for101To400Units.costPerUnitForBlock)) + (((for401To700Units.endingOfBlock) - (for101To400Units.endingOfBlock)) * (for401To700Units.costPerUnitForBlock)) +
+            (numberOfUnits - for401To700Units.endingOfBlock) * (above700Units.costPerUnitForBlock));
   }
 }
 

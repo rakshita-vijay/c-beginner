@@ -9,8 +9,7 @@ struct employee {
 };
 
 void getDataFromUser(int employeeNumber);
-void printDataObtainedFromUser(int employeeNumber, char employeeName[50], char employeeDateOfJoin[20],
-                               float employeeSalary);
+void printDataObtainedFromUser(int employeeNumber, char employeeName[50], char employeeDateOfJoin[20], float employeeSalary);
 
 void getDataFromUser(int employeeNumber) {
   struct employee emp;
@@ -30,8 +29,7 @@ void getDataFromUser(int employeeNumber) {
   printDataObtainedFromUser(employeeNumber, emp.employeeName, emp.employeeDateOfJoin, emp.employeeSalary);
 }
 
-void printDataObtainedFromUser(int employeeNumber, char employeeName[50], char employeeDateOfJoin[20],
-                               float employeeSalary) {
+void printDataObtainedFromUser(int employeeNumber, char employeeName[50], char employeeDateOfJoin[20], float employeeSalary) {
   printf("\nDETAILS OF EMPLOYEE NUMBER %i: \n", employeeNumber);
   printf("1> Name: %s \n2> Date of Join: %s\n3> Salary: %f \n", employeeName, employeeDateOfJoin, employeeSalary);
   printf("\n~*~*~*~*~*~*~*~*~*~*~*~*~ \n \n");

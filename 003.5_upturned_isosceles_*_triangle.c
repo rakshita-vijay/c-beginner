@@ -28,8 +28,7 @@ int main() {
       printf("*");
     }
 
-    for (int numberOfAsterisks = numberOfLines - 1; numberOfAsterisks > (numberOfLines - lineNumber);
-         numberOfAsterisks--) {
+    for (int numberOfAsterisks = numberOfLines - 1; numberOfAsterisks > (numberOfLines - lineNumber); numberOfAsterisks--) {
       printf("*");
     }
 
