@@ -28,36 +28,33 @@ char checkIfPlayerHasWon(char arr[9]) {
 
   }
   */
-  if ((arr[0] == arr[1] && arr[1] == arr[2]) || (arr[3] == arr[4] && arr[4] == arr[5]) ||
-      (arr[6] == arr[7] && arr[7] == arr[8]) || (arr[0] == arr[3] && arr[3] == arr[6]) ||
-      (arr[1] == arr[4] && arr[4] == arr[7]) || (arr[2] == arr[5] && arr[5] == arr[8]) ||
-      (arr[0] == arr[4] && arr[4] == arr[8]) || (arr[2] == arr[4] && arr[4] == arr[6])) {
-    return 'w';
+  if ((arr[0] == arr[1] && arr[1] == arr[2]) || (arr[3] == arr[4] && arr[4] == arr[5]) || (arr[6] == arr[7] && arr[7] == arr[8]) || (arr[0] == arr[3] && arr[3] == arr[6]) || (arr[1] == arr[4] && arr[4] == arr[7]) || (arr[2] == arr[5] && arr[5] == arr[8]) || (arr[0] == arr[4] && arr[4] == arr[8]) || (arr[2] == arr[4] && arr[4] == arr[6])) {
+    return 'w'; // Win
   } else {
-    return 'l';
+    return 'l'; // Lose
   }
 }
 
 char markChoiceOnGrid(char arr[9], int gridChoice, char playerNumber) {
-  char ending = 'd';
+  char ending = 'd'; // Don't break
 
   if (playerNumber == '1') {
     arr[(gridChoice - 1)] = 'x';
     ending = drawGrid(arr, '1');
-    if (ending == 'b') {
+    if (ending == 'b') { // Break
       return ending;
     }
   } else {
     arr[gridChoice - 1] = 'o';
     ending = drawGrid(arr, '2');
-    if (ending == 'b') {
+    if (ending == 'b') { // Break
       return ending;
     }
   }
 }
 
 char drawGrid(char arr[9], char playerNumber) {
-  char res = 'l';
+  char res = 'l'; // Lose
 
   printf("Tic Tac Toe: A Game");
   printf("\n    Player 1: x");
@@ -71,9 +68,9 @@ char drawGrid(char arr[9], char playerNumber) {
   // printf("\n   %i   |   %i   |   %i \n-------|-------|-------\n   %i   |   %i   |   %i \n-------|-------|-------\n %i
   // |   %i   |   %i \n\n", arr[0], arr[1], arr[2], arr[3], arr[4], arr[5], arr[6], arr[7], arr[8]);
   res = checkIfPlayerHasWon(arr);
-  if (res == 'w') {
+  if (res == 'w') { // Win
     printf("Congrats! You have won, Player %c!", playerNumber);
-    return 'b';
+    return 'b'; // Break
   }
 }
 
@@ -83,7 +80,7 @@ int main() {
   drawGrid(arr, '1');
 
   int count;
-  char endRes = 'd';
+  char endRes = 'd'; // Don't break
 
   for (count = 1; count <= 9; count++) {
     if (count % 2 != 0) {
@@ -95,7 +92,7 @@ int main() {
         scanf("%d", &gridChoice);
       }
       endRes = markChoiceOnGrid(arr, gridChoice, '1');
-      if (endRes == 'b') {
+      if (endRes == 'b') { // Break
         break;
       }
     } else {
@@ -107,7 +104,7 @@ int main() {
         scanf("%d", &gridChoice);
       }
       endRes = markChoiceOnGrid(arr, gridChoice, '2');
-      if (endRes == 'b') {
+      if (endRes == 'b') { // Break
         break;
       }
     }
