@@ -3,9 +3,9 @@
 #include <stdio.h>
 
 void drawGrid(char rows[], char columns[], char grid[]) {
-  printf("                   Connect Four: A Game");
-  printf("\n                       Player 1: x");
-  printf("\n                       Player 2: o \n");
+  printf("                Connect Four: A Game");
+  printf("\n                    Player 1: x");
+  printf("\n                    Player 2: o \n");
 
   int gridCount = 0;
 
