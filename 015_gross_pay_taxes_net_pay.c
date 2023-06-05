@@ -74,25 +74,21 @@ struct taxBlock {
 };
 
 float calcTaxes(float grossPay) {
-  struct taxBlock taxBlockOne = {0, 300000, 0.00};
-  struct taxBlock taxBlockTwo = {300001, 400000, 0.05};
-  struct taxBlock taxBlockThree = {400001, 550000, 0.10};
-  struct taxBlock taxBlockFour = {550001, 750000, 0.15};
-  struct taxBlock taxBlockFive = {750001, 0, 0.20};
-
   float tax = 0.0;
-  int count;
+  int index;
+  float initialPay;
+  initialPay = grossPay;
 
-  struct taxBlock arr[] = {taxBlockOne, taxBlockTwo, taxBlockThree, taxBlockFour, taxBlockFive};
+  struct taxBlock arr[] = {{1, 300000, 0.00}, {300001, 400000, 0.05}, {400001, 550000, 0.10}, {550001, 750000, 0.15}, {750001, 0, 0.20}};
 
-  for (count = 0; ((arr[count]).endingOfBlock) != 0, grossPay >= ((arr[count]).endingOfBlock); count++) {
-    tax += ((((arr[count]).endingOfBlock) - ((arr[count]).beginningOfBlock)) * ((arr[count]).taxForBlock));
-  }
-  if (grossPay >= ((arr[count + 1]).beginningOfBlock)) {
-    tax += (grossPay - ((arr[count]).endingOfBlock)) * ((arr[count + 1]).taxForBlock);
-  }
-  if (((arr[count + 1]).endingOfBlock) == 0) {
-    tax += (grossPay - ((arr[count + 1]).beginningOfBlock) + 1) * ((arr[count + 1]).taxForBlock);
+  for (index = 0, initialPay = grossPay; initialPay != 0; index++) { // initialPay = 550000, 250000
+    if (initialPay <= (((arr[index]).endingOfBlock) - ((arr[index]).beginningOfBlock) + 1)) {
+      tax += (initialPay * ((arr[index]).taxForBlock));
+      break;
+    } else {
+      tax += ((((arr[index]).endingOfBlock) - ((arr[index]).beginningOfBlock) + 1) * ((arr[index]).taxForBlock));
+      initialPay -= (((arr[index]).endingOfBlock) - ((arr[index]).beginningOfBlock) + 1);
+    }
   }
   return tax;
 }
