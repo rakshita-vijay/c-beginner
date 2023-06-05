@@ -2,18 +2,29 @@
 
 #include <stdio.h>
 
-void drawGrid(char rows[], char columns[]) {
-  printf("Connect Four: A Game");
-  printf("\n    Player 1: x");
-  printf("\n    Player 2: o \n");
+void drawGrid(char rows[], char columns[], char grid[]) {
+  printf("                   Connect Four: A Game");
+  printf("\n                       Player 1: x");
+  printf("\n                       Player 2: o \n");
+
+  int gridCount = 0;
 
   for (int rowCount = 0; rowCount < 6; rowCount++) {
-    for (int columnCount = 0; columnCount < 7; columnCount++) {
-      printf("\n|  %c%c  |  %c%c  |  %c%c  |  %c%c  |  %c%c  |  %c%c  |  %c%c  |", rows[rowCount], columns[columnCount], rows[rowCount], columns[columnCount + 1], rows[rowCount], columns[columnCount + 2], rows[rowCount], columns[columnCount + 3], rows[rowCount], columns[columnCount + 4], rows[rowCount], columns[columnCount + 5], rows[rowCount], columns[columnCount + 6]);
-      printf("\n|------|------|------|------|------|------|------|");
+    for (; grid[gridCount] != '\0';) {
+      printf("\n   %c   |  %c  |  %c  |  %c  |  %c  |  %c  |  %c  |  %c  |", rows[rowCount], grid[gridCount], grid[gridCount + 1], grid[gridCount + 2], grid[gridCount + 3], grid[gridCount + 4], grid[gridCount + 5], grid[gridCount + 6]);
+      gridCount += 7;
       break;
     }
+    printf("\n       |-----|-----|-----|-----|-----|-----|-----|");
   }
+
+  printf("\n\n       ");
+
+  for (int columnCount = 0; columnCount < 7; columnCount++) {
+    printf("   %c  ", columns[columnCount]);
+  }
+
+  printf("\n\n");
 }
 
 char checkIfFilled(char rows[], int columnChoice) {
@@ -23,12 +34,14 @@ char checkIfFilled(char rows[], int columnChoice) {
   }
   return res;
   */
+  return 'y';
 }
 
 int main() {
   char rows[] = {'a', 'b', 'c', 'd', 'e', 'f', '\0'};
   char columns[] = {'1', '2', '3', '4', '5', '6', '7', '\0'};
-  drawGrid(rows, columns);
+  char grid[] = {'a', ' ', ' ', ' ', ' ', ' ', ' ', 'b', ' ', ' ', ' ', ' ', ' ', ' ', 'c', ' ', ' ', ' ', ' ', ' ', ' ', 'd', ' ', ' ', ' ', ' ', ' ', ' ', 'e', ' ', ' ', ' ', ' ', ' ', ' ', 'f', ' ', ' ', ' ', ' ', ' ', 'g', '\0'};
+  drawGrid(rows, columns, grid);
 
   int columnChoice;
   int countMoves;
