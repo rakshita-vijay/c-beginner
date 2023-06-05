@@ -28,7 +28,7 @@ void drawGrid(char rows[], char columns[], char grid[]) {
 }
 
 char checkIfFilled(char grid[], int columnChoice) {
-  if ((grid[columnChoice + 1] == 'x') || (grid[columnChoice + 1] == 'o')) {
+  if ((grid[columnChoice - 1] == 'x') || (grid[columnChoice - 1] == 'o')) {
     return 'y';
   }
 
@@ -37,14 +37,30 @@ char checkIfFilled(char grid[], int columnChoice) {
   }
 }
 
-char markChoiceOnGrid(char grid[], int columnChoice, char playerNumber) {
-  return 'f';
+void markChoiceOnGrid(char rows[], char columns[], char grid[], int columnChoice, char playerNumber) {
+  int gridNumber = columnChoice + 35;
+  for (; gridNumber >= 1; gridNumber -= 7) {
+    char res = checkIfFilled(grid, gridNumber);
+    if (res == 'n') {
+      if (playerNumber == '1') {
+        grid[gridNumber - 1] = 'x';
+        break;
+      }
+
+      else if (playerNumber == '2') {
+        grid[gridNumber - 1] = 'o';
+        break;
+      }
+    }
+  }
+  drawGrid(rows, columns, grid);
 }
 
 int main() {
   char rows[] = {'a', 'b', 'c', 'd', 'e', 'f', '\0'};
   char columns[] = {'1', '2', '3', '4', '5', '6', '7', '\0'};
-  char grid[] = {'a', ' ', ' ', ' ', ' ', ' ', ' ', 'b', ' ', ' ', ' ', ' ', ' ', ' ', 'c', ' ', ' ', ' ', ' ', ' ', ' ', 'd', ' ', ' ', ' ', ' ', ' ', ' ', 'e', ' ', ' ', ' ', ' ', ' ', ' ', 'f', ' ', ' ', ' ', ' ', ' ', 'g', '\0'};
+  char grid[] = {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '\0'};
+  // char grid[] = {'a', ' ', ' ', ' ', ' ', ' ', ' ', 'b', ' ', ' ', ' ', ' ', ' ', ' ', 'c', ' ', ' ', ' ', ' ', ' ', ' ', 'd', ' ', ' ', ' ', ' ', ' ', ' ', 'e', ' ', ' ', ' ', ' ', ' ', ' ', 'f', ' ', ' ', ' ', ' ', ' ', 'g', '\0'};
   drawGrid(rows, columns, grid);
 
   int columnChoice;
@@ -53,6 +69,7 @@ int main() {
 
   for (countMoves = 1; countMoves <= 42; countMoves++) {
     if (countMoves % 2 != 0) {
+      printf("\n~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~ \n \n");
       printf("Player 1 (x): Enter your choice of column number: ");
       scanf("%i", &columnChoice);
       printf("\n");
@@ -70,10 +87,11 @@ int main() {
         resultOfCheckIfFilled = checkIfFilled(grid, columnChoice);
       }
 
-      char res = markChoiceOnGrid(grid, columnChoice, '1');
+      markChoiceOnGrid(rows, columns, grid, columnChoice, '1');
     }
 
     else {
+      printf("\n~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~ \n \n");
       printf("Player 2 (o): Enter your choice of column number: ");
       scanf("%i", &columnChoice);
       printf("\n");
@@ -91,7 +109,7 @@ int main() {
         resultOfCheckIfFilled = checkIfFilled(grid, columnChoice);
       }
 
-      markChoiceOnGrid(grid, columnChoice, '2');
+      markChoiceOnGrid(rows, columns, grid, columnChoice, '2');
     }
   }
 }
