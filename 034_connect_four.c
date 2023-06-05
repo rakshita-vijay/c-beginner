@@ -1,10 +1,13 @@
 // Connect Four : 6x7 grid
 
 #include <stdio.h>
+char checkIfPlayerHasWon(char grid[], char playerNumber, int gridNumber) {
+  return 'w';
+}
 
 void drawGrid(char rows[], char columns[], char grid[]) {
-  printf("                Connect Four: A Game");
-  printf("\n                    Player 1: x");
+  printf("                Connect Four: A Game ");
+  printf("\n                    Player 1: x ");
   printf("\n                    Player 2: o \n");
 
   int gridCount = 0;
@@ -38,7 +41,7 @@ char checkIfFilled(char grid[], int columnChoice) {
 }
 
 void markChoiceOnGrid(char rows[], char columns[], char grid[], int columnChoice, char playerNumber) {
-  int gridNumber = columnChoice + 35;
+  int gridNumber = columnChoice + 35; // c*(r-1)
   for (; gridNumber >= 1; gridNumber -= 7) {
     char res = checkIfFilled(grid, gridNumber);
     if (res == 'n') {
@@ -54,6 +57,12 @@ void markChoiceOnGrid(char rows[], char columns[], char grid[], int columnChoice
     }
   }
   drawGrid(rows, columns, grid);
+
+  // ~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~
+
+  char res = checkIfPlayerHasWon(grid, playerNumber, gridNumber);
+
+  // ~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~
 }
 
 int main() {
