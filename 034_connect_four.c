@@ -27,14 +27,18 @@ void drawGrid(char rows[], char columns[], char grid[]) {
   printf("\n\n");
 }
 
-char checkIfFilled(char rows[], int columnChoice) {
-  /*for (int rowCount = 5; rowCount >= 0; rowCount--) {
-    if rows
-      [rowCount]
+char checkIfFilled(char grid[], int columnChoice) {
+  if ((grid[columnChoice + 1] == 'x') || (grid[columnChoice + 1] == 'o')) {
+    return 'y';
   }
-  return res;
-  */
-  return 'y';
+
+  else {
+    return 'n';
+  }
+}
+
+char markChoiceOnGrid(char grid[], int columnChoice, char playerNumber) {
+  return 'f';
 }
 
 int main() {
@@ -45,19 +49,49 @@ int main() {
 
   int columnChoice;
   int countMoves;
-  char resutOfCheckIfFilled = 'n';
+  char resultOfCheckIfFilled;
 
   for (countMoves = 1; countMoves <= 42; countMoves++) {
     if (countMoves % 2 != 0) {
       printf("Player 1 (x): Enter your choice of column number: ");
       scanf("%i", &columnChoice);
       printf("\n");
-      resutOfCheckIfFilled = checkIfFilled(rows, columnChoice);
-    } else {
+
+      while ((columnChoice < 1) || (7 < columnChoice)) {
+        printf("Invalid choice. Select another, Player 1.");
+        scanf("%d", &columnChoice);
+      }
+
+      resultOfCheckIfFilled = checkIfFilled(grid, columnChoice);
+
+      while (resultOfCheckIfFilled == 'y') {
+        printf("Invalid choice. Select another, Player 1.");
+        scanf("%d", &columnChoice);
+        resultOfCheckIfFilled = checkIfFilled(grid, columnChoice);
+      }
+
+      char res = markChoiceOnGrid(grid, columnChoice, '1');
+    }
+
+    else {
       printf("Player 2 (o): Enter your choice of column number: ");
       scanf("%i", &columnChoice);
       printf("\n");
-      resutOfCheckIfFilled = checkIfFilled(rows, columnChoice);
+
+      while ((columnChoice < 1) || (7 < columnChoice)) {
+        printf("Invalid choice. Select another, Player 2.");
+        scanf("%d", &columnChoice);
+      }
+
+      resultOfCheckIfFilled = checkIfFilled(grid, columnChoice);
+
+      while (resultOfCheckIfFilled == 'y') {
+        printf("Invalid choice. Select another, Player 2.");
+        scanf("%d", &columnChoice);
+        resultOfCheckIfFilled = checkIfFilled(grid, columnChoice);
+      }
+
+      markChoiceOnGrid(grid, columnChoice, '2');
     }
   }
 }
