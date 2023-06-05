@@ -18,7 +18,8 @@ void drawGrid(char rows[], char columns[]) {
 
 char checkIfFilled(char rows[], int columnChoice) {
   /*for (int rowCount = 5; rowCount >= 0; rowCount--) {
-    if
+    if rows
+      [rowCount]
   }
   return res;
   */
@@ -43,6 +44,7 @@ int main() {
       printf("Player 2 (o): Enter your choice of column number: ");
       scanf("%i", &columnChoice);
       printf("\n");
+      resutOfCheckIfFilled = checkIfFilled(rows, columnChoice);
     }
   }
 }
