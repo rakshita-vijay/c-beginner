@@ -69,7 +69,7 @@ char drawGrid(char arr[9], char playerNumber) {
   // |   %i   |   %i \n\n", arr[0], arr[1], arr[2], arr[3], arr[4], arr[5], arr[6], arr[7], arr[8]);
   res = checkIfPlayerHasWon(arr);
   if (res == 'w') { // Win
-    printf("Congrats! You have won, Player %c!", playerNumber);
+    printf("Congrats, Player %c! You have won! ", playerNumber);
     return 'b'; // Break
   }
 }

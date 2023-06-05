@@ -1,8 +1,92 @@
 // Connect Four : 6x7 grid
 
 #include <stdio.h>
-char checkIfPlayerHasWon(char grid[], char playerNumber, int gridNumber) {
-  return 'w';
+
+char check_W_Left(char grid[], int gridNumberForCoder) {
+  if ((grid[gridNumberForCoder] == grid[gridNumberForCoder - 1]) && (grid[gridNumberForCoder] == grid[gridNumberForCoder - 2]) && (grid[gridNumberForCoder] == grid[gridNumberForCoder - 3])) {
+    return 'w';
+  }
+
+  else {
+    return 'l';
+  }
+}
+char check_E_Right(char grid[], int gridNumberForCoder) {
+  if ((grid[gridNumberForCoder] == grid[gridNumberForCoder + 1]) && (grid[gridNumberForCoder] == grid[gridNumberForCoder + 2]) && (grid[gridNumberForCoder] == grid[gridNumberForCoder + 3])) {
+    return 'w';
+  }
+
+  else {
+    return 'l';
+  }
+}
+char check_N_Top(char grid[], int gridNumberForCoder) {
+  if ((grid[gridNumberForCoder] == grid[gridNumberForCoder - 7]) && (grid[gridNumberForCoder] == grid[gridNumberForCoder - 14]) && (grid[gridNumberForCoder] == grid[gridNumberForCoder - 21])) {
+    return 'w';
+  }
+
+  else {
+    return 'l';
+  }
+}
+char check_S_Down(char grid[], int gridNumberForCoder) {
+  if ((grid[gridNumberForCoder] == grid[gridNumberForCoder + 7]) && (grid[gridNumberForCoder] == grid[gridNumberForCoder + 14]) && (grid[gridNumberForCoder] == grid[gridNumberForCoder + 21])) {
+    return 'w';
+  }
+
+  else {
+    return 'l';
+  }
+}
+char check_NW(char grid[], int gridNumberForCoder) {
+  if ((grid[gridNumberForCoder] == grid[gridNumberForCoder - 8]) && (grid[gridNumberForCoder] == grid[gridNumberForCoder - 16]) && (grid[gridNumberForCoder] == grid[gridNumberForCoder - 24])) {
+    return 'w';
+  }
+
+  else {
+    return 'l';
+  }
+}
+char check_NE(char grid[], int gridNumberForCoder) {
+  if ((grid[gridNumberForCoder] == grid[gridNumberForCoder - 6]) && (grid[gridNumberForCoder] == grid[gridNumberForCoder - 12]) && (grid[gridNumberForCoder] == grid[gridNumberForCoder - 18])) {
+    return 'w';
+  }
+
+  else {
+    return 'l';
+  }
+}
+char check_SW(char grid[], int gridNumberForCoder) {
+  if ((grid[gridNumberForCoder] == grid[gridNumberForCoder + 6]) && (grid[gridNumberForCoder] == grid[gridNumberForCoder + 12]) && (grid[gridNumberForCoder] == grid[gridNumberForCoder + 18])) {
+    return 'w';
+  }
+
+  else {
+    return 'l';
+  }
+}
+char check_SE(char grid[], int gridNumberForCoder) {
+  if ((grid[gridNumberForCoder] == grid[gridNumberForCoder + 8]) && (grid[gridNumberForCoder] == grid[gridNumberForCoder + 16]) && (grid[gridNumberForCoder] == grid[gridNumberForCoder + 24])) {
+    return 'w';
+  }
+
+  else {
+    return 'l';
+  }
+}
+
+char checkIfPlayerHasWon(char grid[], int gridNumber) {
+  char choice;
+
+  int gridNumberForCoder = gridNumber - 1;
+
+  if ((check_W_Left(grid, gridNumberForCoder) == 'w') || (check_E_Right(grid, gridNumberForCoder) == 'w') || (check_N_Top(grid, gridNumberForCoder) == 'w') || (check_S_Down(grid, gridNumberForCoder) == 'w') || (check_NW(grid, gridNumberForCoder) == 'w') || (check_NE(grid, gridNumberForCoder) == 'w') || (check_SW(grid, gridNumberForCoder) == 'w') || (check_SE(grid, gridNumberForCoder) == 'w')) {
+    return 'w';
+  }
+
+  else {
+    return 'l';
+  }
 }
 
 void drawGrid(char rows[], char columns[], char grid[]) {
@@ -40,7 +124,7 @@ char checkIfFilled(char grid[], int columnChoice) {
   }
 }
 
-void markChoiceOnGrid(char rows[], char columns[], char grid[], int columnChoice, char playerNumber) {
+char markChoiceOnGrid(char rows[], char columns[], char grid[], int columnChoice, char playerNumber) {
   int gridNumber = columnChoice + 35; // c*(r-1)
   for (; gridNumber >= 1; gridNumber -= 7) {
     char res = checkIfFilled(grid, gridNumber);
@@ -60,8 +144,16 @@ void markChoiceOnGrid(char rows[], char columns[], char grid[], int columnChoice
 
   // ~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~
 
-  char res = checkIfPlayerHasWon(grid, playerNumber, gridNumber);
+  char res = checkIfPlayerHasWon(grid, gridNumber);
 
+  if (res == 'w') {
+    printf("Congrats, Player %c! You have won! ", playerNumber);
+    return 'w';
+  }
+
+  else {
+    return 'l';
+  }
   // ~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~
 }
 
@@ -96,7 +188,10 @@ int main() {
         resultOfCheckIfFilled = checkIfFilled(grid, columnChoice);
       }
 
-      markChoiceOnGrid(rows, columns, grid, columnChoice, '1');
+      char res = markChoiceOnGrid(rows, columns, grid, columnChoice, '1');
+      if (res == 'w') {
+        break;
+      }
     }
 
     else {
@@ -118,7 +213,10 @@ int main() {
         resultOfCheckIfFilled = checkIfFilled(grid, columnChoice);
       }
 
-      markChoiceOnGrid(rows, columns, grid, columnChoice, '2');
+      char res = markChoiceOnGrid(rows, columns, grid, columnChoice, '2');
+      if (res == 'w') {
+        break;
+      }
     }
   }
 }
