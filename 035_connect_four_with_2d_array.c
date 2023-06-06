@@ -130,10 +130,11 @@ bool markChoiceOnGrid(char rows[], char columns[], char arrayOfRows[6][7], int c
 
   // if (checkIfPlayerHasWon(arrayOfRows, rowNumber, (columnChoice - 1))) {
   //   printf("Congrats, Player %c! You have won!", playerNumber);
-  // return true;
+  //   return true;
   // } else {
   return false;
   // }
+
   // ~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~
 }
 
@@ -174,9 +175,9 @@ int main() {
       }
 
       bool res = markChoiceOnGrid(rows, columns, arrayOfRows, columnChoice, '1');
-      // if (res) {
-      break;
-      // }
+      if (res) {
+        break;
+      }
     } else {
       columnChoice = promptForColumnChoice('2');
 
@@ -189,9 +190,9 @@ int main() {
       }
 
       bool res = markChoiceOnGrid(rows, columns, arrayOfRows, columnChoice, '2');
-      // if (res) {
-      break;
-      // }
+      if (res) {
+        break;
+      }
     }
   }
 }
