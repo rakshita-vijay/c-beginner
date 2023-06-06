@@ -145,39 +145,49 @@ struct arr createDiagonalArray(char arrayOfRows[6][7], int rowNumber, int column
 }
 
 char checkIfPlayerHasWonHorizontally(struct arr arrayOfHorizontalValues) {
+  int check = 0;
+
   for (int count = 0; count < 4; count++) {
     if ((arrayOfHorizontalValues.array[count] == arrayOfHorizontalValues.array[count + 1]) && (arrayOfHorizontalValues.array[count] == arrayOfHorizontalValues.array[count + 2]) && (arrayOfHorizontalValues.array[count] == arrayOfHorizontalValues.array[count + 3])) {
-      return 'w';
-    } else {
-      return 'l';
+      check++;
+      break;
     }
   }
+
+  return ((check > 0) ? 'w' : 'l');
 }
 
 char checkIfPlayerHasWonVertically(struct arr arrayOfVerticalValues) {
+  int check = 0;
+
   for (int count = 0; count < 3; count++) {
     if ((arrayOfVerticalValues.array[count] == arrayOfVerticalValues.array[count + 1]) && (arrayOfVerticalValues.array[count] == arrayOfVerticalValues.array[count + 2]) && (arrayOfVerticalValues.array[count] == arrayOfVerticalValues.array[count + 3])) {
-      return 'w';
-    } else {
-      return 'l';
+      check++;
+      break;
     }
   }
+
+  return ((check > 0) ? 'w' : 'l');
 }
 
 char checkIfPlayerHasWonDiagonally(struct arr arrayOfDiagonalValues) {
+  int check = 0;
+
   for (int count = 0; count < 3; count++) {
     if ((arrayOfDiagonalValues.array[count] == arrayOfDiagonalValues.array[count + 1]) && (arrayOfDiagonalValues.array[count] == arrayOfDiagonalValues.array[count + 2]) && (arrayOfDiagonalValues.array[count] == arrayOfDiagonalValues.array[count + 3])) {
-      return 'w';
-    } else {
-      return 'l';
+      check++;
+      break;
     }
   }
+
+  return ((check > 0) ? 'w' : 'l');
 }
 
 // ~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~
 
 char checkIfPlayerHasWon(char arrayOfRows[6][7], int rowNumber, int columnChoice) {
-  /*if (check_W_Left(arrayOfRows, rowNumber, columnChoice) || check_E_Right(arrayOfRows, rowNumber, columnChoice) || check_N_Up(arrayOfRows, rowNumber, columnChoice) || check_S_Down(arrayOfRows, rowNumber, columnChoice) || check_NW(arrayOfRows, rowNumber, columnChoice) || check_NE(arrayOfRows, rowNumber, columnChoice) || check_SW(arrayOfRows, rowNumber, columnChoice) || check_SE(arrayOfRows, rowNumber, columnChoice) || check_l_and_r(arrayOfRows, rowNumber, columnChoice) || check_t_and_b(arrayOfRows, rowNumber, columnChoice) || check_diagonals(arrayOfRows, rowNumber, columnChoice)) {
+  /*
+  if (check_W_Left(arrayOfRows, rowNumber, columnChoice) || check_E_Right(arrayOfRows, rowNumber, columnChoice) || check_N_Up(arrayOfRows, rowNumber, columnChoice) || check_S_Down(arrayOfRows, rowNumber, columnChoice) || check_NW(arrayOfRows, rowNumber, columnChoice) || check_NE(arrayOfRows, rowNumber, columnChoice) || check_SW(arrayOfRows, rowNumber, columnChoice) || check_SE(arrayOfRows, rowNumber, columnChoice) || check_l_and_r(arrayOfRows, rowNumber, columnChoice) || check_t_and_b(arrayOfRows, rowNumber, columnChoice) || check_diagonals(arrayOfRows, rowNumber, columnChoice)) {
     return 'w';
   }
 
