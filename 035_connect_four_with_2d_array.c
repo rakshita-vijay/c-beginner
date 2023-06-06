@@ -3,6 +3,7 @@
 #include <stdbool.h>
 #include <stdio.h>
 
+/*
 bool check_W_Left(char arrayOfRows[6][7], int rowNumber, int columnChoice) {
   int count = 0;
   for (int adjacent = 1; adjacent < 4; adjacent++) {
@@ -94,6 +95,7 @@ bool check_t_and_b(char arrayOfRows[6][7], int rowNumber, int columnChoice) {
 bool check_diagonals(char arrayOfRows[6][7], int rowNumber, int columnChoice) {
   return (check_NW(arrayOfRows, rowNumber, columnChoice) && check_NE(arrayOfRows, rowNumber, columnChoice) && check_SW(arrayOfRows, rowNumber, columnChoice) && check_SE(arrayOfRows, rowNumber, columnChoice));
 }
+*/
 
 // ~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~
 
@@ -106,7 +108,7 @@ struct arr createHorizontalArray(char arrayOfRows[6][7], int rowNumber) {
   int columnNum;
   char hArr[7];
 
-  for (HIndex = 0, columnNum = 0; columnNum <= 7; HIndex++, columnNum++) {
+  for (HIndex = 0, columnNum = 0; columnNum < 7; HIndex++, columnNum++) {
     hArr[HIndex] = arrayOfRows[rowNumber][columnNum];
   }
 
@@ -119,7 +121,7 @@ struct arr createVerticalArray(char arrayOfRows[6][7], int columnChoice) {
   int rowNum;
   char vArr[6];
 
-  for (VIndex = 0, rowNum = 0; rowNum <= 6; VIndex++, rowNum++) {
+  for (VIndex = 0, rowNum = 0; rowNum < 6; VIndex++, rowNum++) {
     vArr[VIndex] = arrayOfRows[rowNum][columnChoice];
   }
   struct arr arrOfVerticalValues[1] = {vArr[6]};
@@ -135,7 +137,7 @@ struct arr createDiagonalArray(char arrayOfRows[6][7], int rowNumber, int column
     columnChoice--;
   }
 
-  while ((rowNumber <= 6) && (columnChoice <= 7)) {
+  while ((rowNumber < 6) && (columnChoice < 7)) {
     for (HVIndex = 0;; rowNumber++, columnChoice++) {
       dArr[HVIndex] = arrayOfRows[rowNumber][columnChoice];
     }
