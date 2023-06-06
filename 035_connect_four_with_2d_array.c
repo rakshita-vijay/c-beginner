@@ -3,194 +3,61 @@
 #include <stdbool.h>
 #include <stdio.h>
 
-/*
-bool check_W_Left(char arrayOfRows[6][7], int rowNumber, int columnChoice) {
-  int count = 0;
-  for (int adjacent = 1; adjacent < 4; adjacent++) {
-    if (arrayOfRows[rowNumber][columnChoice] == arrayOfRows[rowNumber][columnChoice - adjacent]) {
-      count++;
-    }
-  }
-  return (count == 3);
-}
-
-bool check_E_Right(char arrayOfRows[6][7], int rowNumber, int columnChoice) {
-  int count = 0;
-  for (int adjacent = 1; adjacent < 4; adjacent++) {
-    if (arrayOfRows[rowNumber][columnChoice] == arrayOfRows[rowNumber][columnChoice + adjacent]) {
-      count++;
-    }
-  }
-  return (count == 3);
-}
-
-bool check_N_Up(char arrayOfRows[6][7], int rowNumber, int columnChoice) {
-  int count = 0;
-  for (int adjacent = 1; adjacent < 4; adjacent++) {
-    if (arrayOfRows[rowNumber][columnChoice] == arrayOfRows[rowNumber - adjacent][columnChoice]) {
-      count++;
-    }
-  }
-  return (count == 3);
-}
-
-bool check_S_Down(char arrayOfRows[6][7], int rowNumber, int columnChoice) {
-  int count = 0;
-  for (int adjacent = 1; adjacent < 4; adjacent++) {
-    if (arrayOfRows[rowNumber][columnChoice] == arrayOfRows[rowNumber + adjacent][columnChoice]) {
-      count++;
-    }
-  }
-  return (count == 3);
-}
-
-bool check_NW(char arrayOfRows[6][7], int rowNumber, int columnChoice) {
-  int count = 0;
-  for (int adjacent = 1; adjacent < 4; adjacent++) {
-    if (arrayOfRows[rowNumber][columnChoice] == arrayOfRows[rowNumber - adjacent][columnChoice - adjacent]) {
-      count++;
-    }
-  }
-  return (count == 3);
-}
-
-bool check_NE(char arrayOfRows[6][7], int rowNumber, int columnChoice) {
-  int count = 0;
-  for (int adjacent = 1; adjacent < 4; adjacent++) {
-    if (arrayOfRows[rowNumber][columnChoice] == arrayOfRows[rowNumber - adjacent][columnChoice + adjacent]) {
-      count++;
-    }
-  }
-  return (count == 3);
-}
-
-bool check_SW(char arrayOfRows[6][7], int rowNumber, int columnChoice) {
-  int count = 0;
-  for (int adjacent = 1; adjacent < 4; adjacent++) {
-    if (arrayOfRows[rowNumber][columnChoice] == arrayOfRows[rowNumber + adjacent][columnChoice - adjacent]) {
-      count++;
-    }
-  }
-  return (count == 3);
-}
-
-bool check_SE(char arrayOfRows[6][7], int rowNumber, int columnChoice) {
-  int count = 0;
-  for (int adjacent = 1; adjacent < 4; adjacent++) {
-    if (arrayOfRows[rowNumber][columnChoice] == arrayOfRows[rowNumber + adjacent][columnChoice + adjacent]) {
-      count++;
-    }
-  }
-  return (count == 3);
-}
-
-bool check_l_and_r(char arrayOfRows[6][7], int rowNumber, int columnChoice) {
-  return (check_W_Left(arrayOfRows, rowNumber, columnChoice) && check_E_Right(arrayOfRows, rowNumber, columnChoice));
-}
-
-bool check_t_and_b(char arrayOfRows[6][7], int rowNumber, int columnChoice) {
-  return (check_N_Up(arrayOfRows, rowNumber, columnChoice) && check_S_Down(arrayOfRows, rowNumber, columnChoice));
-}
-
-bool check_diagonals(char arrayOfRows[6][7], int rowNumber, int columnChoice) {
-  return (check_NW(arrayOfRows, rowNumber, columnChoice) && check_NE(arrayOfRows, rowNumber, columnChoice) && check_SW(arrayOfRows, rowNumber, columnChoice) && check_SE(arrayOfRows, rowNumber, columnChoice));
-}
-*/
-
 // ~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~
 
-struct arr {
-  char array[7];
-};
+int MAX_COLUMNS = 7;
+int MAX_ROWS = 6;
 
-struct arr createHorizontalArray(char arrayOfRows[6][7], int rowNumber) {
-  int HIndex;
-  int columnNum;
-  char hArr[7];
+// struct arr {
+//   char array[7];
+// };
+int MAX_DIAGONAL = MAX_COLUMNS > MAX_ROWS ? MAX_ROWS : MAX_COLUMNS;
+char globalHorizontalArray[MAX_COLUMNS];
+char globalVerticalArray[MAX_ROWS];
+char globalDiagonalArray[MAX_DIAGONAL];
 
-  for (HIndex = 0, columnNum = 0; columnNum < 7; HIndex++, columnNum++) {
-    hArr[HIndex] = arrayOfRows[rowNumber][columnNum];
+void extractHorizontalValues(char arr[MAX_ROWS][MAX_COLUMNS], int row) {
+  for (int columnNum = 0; columnNum < MAX_COLUMNS; columnNum++) {
+    globalHorizontalArray[columnNum] = arr[row][columnNum];
   }
-
-  struct arr arrOfHorizontalValues[1] = {hArr[7]};
-  return arrOfHorizontalValues[0];
 }
 
-struct arr createVerticalArray(char arrayOfRows[6][7], int columnChoice) {
-  int VIndex;
-  int rowNum;
-  char vArr[6];
-
-  for (VIndex = 0, rowNum = 0; rowNum < 6; VIndex++, rowNum++) {
-    vArr[VIndex] = arrayOfRows[rowNum][columnChoice];
+void extractVerticalValues(char arr[MAX_ROWS][MAX_COLUMNS], int column) {
+  for (int rowNum = 0; rowNum < MAX_COLUMNS; rowNum++) {
+    globalVerticalArray[rowNum] = arr[rowNum][column];
   }
-  struct arr arrOfVerticalValues[1] = {vArr[6]};
-  return arrOfVerticalValues[0];
 }
 
-struct arr createDiagonalArray(char arrayOfRows[6][7], int rowNumber, int columnChoice) {
-  int HVIndex;
-  char dArr[6];
-
+void extractDiagonalArray(char arr[MAX_ROWS][MAX_COLUMNS], int rowNumber, int columnChoice) {
   while ((rowNumber >= 0) && (columnChoice >= 0)) {
     rowNumber--;
     columnChoice--;
   }
+  // at this point, either row or col will be at the boundary (if not both)
 
-  while ((rowNumber < 6) && (columnChoice < 7)) {
-    for (HVIndex = 0;; rowNumber++, columnChoice++) {
-      dArr[HVIndex] = arrayOfRows[rowNumber][columnChoice];
+  while ((rowNumber < MAX_ROWS) && (columnChoice < MAX_COLUMNS)) {
+    for (int HVIndex = 0;; rowNumber++, columnChoice++) {
+      globalDiagonalArray[HVIndex] = arr[rowNumber][columnChoice];
     }
   }
-  struct arr arrOfDiagonalValues[1] = {dArr[6]};
-  return arrOfDiagonalValues[0];
+  // at this point, the globalDiagonalArray might not be fully filled up
 }
 
-char checkIfPlayerHasWonHorizontally(struct arr arrayOfHorizontalValues) {
-  int check = 0;
-
-  for (int count = 0; count < 4; count++) {
-    if ((arrayOfHorizontalValues.array[count] == arrayOfHorizontalValues.array[count + 1]) && (arrayOfHorizontalValues.array[count] == arrayOfHorizontalValues.array[count + 2]) && (arrayOfHorizontalValues.array[count] == arrayOfHorizontalValues.array[count + 3])) {
-      check++;
-      break;
+bool checkIfWonGivenSingleArray(char arrayOfValues[], int length) {
+  for (int count = 0; (count + 4) < length; count++) {
+    if ((arrayOfValues[count] == arrayOfValues[count + 1]) && (arrayOfValues[count] == arrayOfValues[count + 2]) && (arrayOfValues[count] == arrayOfValues[count + 3])) {
+      return true;
     }
   }
-
-  return ((check > 0) ? 'w' : 'l');
-}
-
-char checkIfPlayerHasWonVertically(struct arr arrayOfVerticalValues) {
-  int check = 0;
-
-  for (int count = 0; count < 3; count++) {
-    if ((arrayOfVerticalValues.array[count] == arrayOfVerticalValues.array[count + 1]) && (arrayOfVerticalValues.array[count] == arrayOfVerticalValues.array[count + 2]) && (arrayOfVerticalValues.array[count] == arrayOfVerticalValues.array[count + 3])) {
-      check++;
-      break;
-    }
-  }
-
-  return ((check > 0) ? 'w' : 'l');
-}
-
-char checkIfPlayerHasWonDiagonally(struct arr arrayOfDiagonalValues) {
-  int check = 0;
-
-  for (int count = 0; count < 3; count++) {
-    if ((arrayOfDiagonalValues.array[count] == arrayOfDiagonalValues.array[count + 1]) && (arrayOfDiagonalValues.array[count] == arrayOfDiagonalValues.array[count + 2]) && (arrayOfDiagonalValues.array[count] == arrayOfDiagonalValues.array[count + 3])) {
-      check++;
-      break;
-    }
-  }
-
-  return ((check > 0) ? 'w' : 'l');
+  return false;
 }
 
 // ~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~
 
-char checkIfPlayerHasWon(char arrayOfRows[6][7], int rowNumber, int columnChoice) {
+bool checkIfPlayerHasWon(char arrayOfRows[MAX_ROWS][MAX_COLUMNS], int rowNumber, int columnChoice) {
   /*
-  if (check_W_Left(arrayOfRows, rowNumber, columnChoice) || check_E_Right(arrayOfRows, rowNumber, columnChoice) || check_N_Up(arrayOfRows, rowNumber, columnChoice) || check_S_Down(arrayOfRows, rowNumber, columnChoice) || check_NW(arrayOfRows, rowNumber, columnChoice) || check_NE(arrayOfRows, rowNumber, columnChoice) || check_SW(arrayOfRows, rowNumber, columnChoice) || check_SE(arrayOfRows, rowNumber, columnChoice) || check_l_and_r(arrayOfRows, rowNumber, columnChoice) || check_t_and_b(arrayOfRows, rowNumber, columnChoice) || check_diagonals(arrayOfRows, rowNumber, columnChoice)) {
-    return 'w';
+  if (check_W_Left(arrayOfRows, rowNumber, columnChoice) || check_E_Right(arrayOfRows, rowNumber, columnChoice) || check_N_Up(arrayOfRows, rowNumber, columnChoice) || check_S_Down(arrayOfRows, rowNumber, columnChoice) || check_NW(arrayOfRows, rowNumber, columnChoice) || check_NE(arrayOfRows, rowNumber, columnChoice) || check_SW(arrayOfRows, rowNumber, columnChoice) || check_SE(arrayOfRows,
+  rowNumber, columnChoice) || check_l_and_r(arrayOfRows, rowNumber, columnChoice) || check_t_and_b(arrayOfRows, rowNumber, columnChoice) || check_diagonals(arrayOfRows, rowNumber, columnChoice)) { return 'w';
   }
 
   else {
@@ -198,33 +65,29 @@ char checkIfPlayerHasWon(char arrayOfRows[6][7], int rowNumber, int columnChoice
   }
   */
 
-  struct arr arrayOfHorizontalValues = createHorizontalArray(arrayOfRows, rowNumber);
+  struct arr arrayOfHorizontalValues = extractHorizontalValues(arrayOfRows, rowNumber);
   struct arr arrayOfVerticalValues = createVerticalArray(arrayOfRows, columnChoice);
   struct arr arrayOfDiagonalValues = createDiagonalArray(arrayOfRows, rowNumber, columnChoice);
 
-  char hRes = checkIfPlayerHasWonHorizontally(arrayOfHorizontalValues);
-  char vRes = checkIfPlayerHasWonVertically(arrayOfVerticalValues);
-  char dRes = checkIfPlayerHasWonDiagonally(arrayOfDiagonalValues);
+  bool hRes = checkIfWonGivenSingleArray(arrayOfHorizontalValues, MAX_COLUMNS);
+  bool vRes = checkIfWonGivenSingleArray(arrayOfVerticalValues, MAX_ROWS);
+  bool dRes = checkIfWonGivenSingleArray(arrayOfDiagonalValues, MAX_DIAGONAL);
 
-  if ((hRes == 'w') || (vRes == 'w') || (dRes == 'w')) {
-    return 'w';
-  } else {
-    return 'l';
-  }
+  return hRes || vRes || dRes;
 }
 
 // ~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~
 
-void drawGrid(char rows[], char columns[], char arrayOfRows[6][7]) {
+void drawGrid(char rows[], char columns[], char arrayOfRows[MAX_ROWS][MAX_COLUMNS]) {
   printf("                Connect Four: A Game ");
   printf("\n                    Player 1: x ");
   printf("\n                    Player 2: o \n");
 
-  for (int rowCount = 0; rowCount < 6; rowCount++) {
-    for (int columnCount = 0; columnCount < 7;) {
+  for (int rowCount = 0; rowCount < MAX_ROWS; rowCount++) {
+    for (int columnCount = 0; columnCount < MAX_COLUMNS;) {
       for (; arrayOfRows[rowCount][columnCount] != '\0';) {
-        printf("\n   %c   |  %c  |  %c  |  %c  |  %c  |  %c  |  %c  |  %c  |", rows[rowCount], arrayOfRows[rowCount][columnCount], arrayOfRows[rowCount][columnCount + 1], arrayOfRows[rowCount][columnCount + 2], arrayOfRows[rowCount][columnCount + 3], arrayOfRows[rowCount][columnCount + 4], arrayOfRows[rowCount][columnCount + 5], arrayOfRows[rowCount][columnCount + 6]);
-        columnCount += 7;
+        printf("\n   %c   |  %c  |  %c  |  %c  |  %c  |  %c  |  %c  |  %c  |", rows[rowCount], arrayOfRows[rowCount][columnCount], arrayOfRows[rowCount][columnCount + 1], arrayOfRows[rowCount][columnCount + 2], arrayOfRows[rowCount][columnCount + 3], arrayOfRows[rowCount][columnCount + 4], arrayOfRows[rowCount][columnCount + 5], arrayOfRows[rowCount][columnCount + MAX_ROWS]);
+        columnCount += MAX_COLUMNS;
         break;
       }
     }
@@ -233,7 +96,7 @@ void drawGrid(char rows[], char columns[], char arrayOfRows[6][7]) {
 
   printf("\n\n       ");
 
-  for (int columnCount = 0; columnCount < 7; columnCount++) {
+  for (int columnCount = 0; columnCount < MAX_COLUMNS; columnCount++) {
     printf("   %c  ", columns[columnCount]);
   }
 
@@ -244,12 +107,12 @@ bool checkIfCellIsFilled(char cellValue) {
   return (cellValue != ' ');
 }
 
-char checkIfColumnIsFilled(char arrayOfRows[6][7], int columnChoice) {
+char checkIfColumnIsFilled(char arrayOfRows[MAX_ROWS][MAX_COLUMNS], int columnChoice) {
   return checkIfCellIsFilled(arrayOfRows[0][columnChoice - 1]) ? 'y' : 'n';
 }
 
-char markChoiceOnGrid(char rows[], char columns[], char arrayOfRows[6][7], int columnChoice, char playerNumber) {
-  int rowNumber = 5;
+bool markChoiceOnGrid(char rows[], char columns[], char arrayOfRows[MAX_ROWS][MAX_COLUMNS], int columnChoice, char playerNumber) {
+  int rowNumber = MAX_ROWS - 1;
   for (; rowNumber >= 0; rowNumber--) {
     if (!checkIfCellIsFilled(arrayOfRows[rowNumber][columnChoice - 1])) {
       break;
@@ -264,13 +127,11 @@ char markChoiceOnGrid(char rows[], char columns[], char arrayOfRows[6][7], int c
 
   // ~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~
 
-  char result = checkIfPlayerHasWon(arrayOfRows, rowNumber, (columnChoice - 1));
-
-  if (result == 'w') {
+  if (checkIfPlayerHasWon(arrayOfRows, rowNumber, (columnChoice - 1))) {
     printf("Congrats, Player %c! You have won! ", playerNumber);
-    return 'w';
+    return true;
   } else {
-    return 'l';
+    return false;
   }
   // ~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~
 }
@@ -278,7 +139,7 @@ char markChoiceOnGrid(char rows[], char columns[], char arrayOfRows[6][7], int c
 int main() {
   char rows[] = {'a', 'b', 'c', 'd', 'e', 'f', '\0'};
   char columns[] = {'1', '2', '3', '4', '5', '6', '7', '\0'};
-  char arrayOfRows[6][7] = {{' ', ' ', ' ', ' ', ' ', ' ', ' '}, {' ', ' ', ' ', ' ', ' ', ' ', ' '}, {' ', ' ', ' ', ' ', ' ', ' ', ' '}, {' ', ' ', ' ', ' ', ' ', ' ', ' '}, {' ', ' ', ' ', ' ', ' ', ' ', ' '}, {' ', ' ', ' ', ' ', ' ', ' ', ' '}};
+  char arrayOfRows[MAX_ROWS][MAX_COLUMNS] = {{' ', ' ', ' ', ' ', ' ', ' ', ' '}, {' ', ' ', ' ', ' ', ' ', ' ', ' '}, {' ', ' ', ' ', ' ', ' ', ' ', ' '}, {' ', ' ', ' ', ' ', ' ', ' ', ' '}, {' ', ' ', ' ', ' ', ' ', ' ', ' '}, {' ', ' ', ' ', ' ', ' ', ' ', ' '}};
   drawGrid(rows, columns, arrayOfRows);
 
   int columnChoice;
@@ -292,7 +153,7 @@ int main() {
       scanf("%i", &columnChoice);
       printf("\n");
 
-      while ((columnChoice < 1) || (7 < columnChoice)) {
+      while ((columnChoice < 1) || (MAX_COLUMNS < columnChoice)) {
         printf("Invalid choice. Select another, Player 1.");
         scanf("%d", &columnChoice);
       }
@@ -305,19 +166,17 @@ int main() {
         resultOfCheckIfColumnIsFilled = checkIfColumnIsFilled(arrayOfRows, columnChoice);
       }
 
-      char res = markChoiceOnGrid(rows, columns, arrayOfRows, columnChoice, '1');
-      if (res == 'w') {
+      bool res = markChoiceOnGrid(rows, columns, arrayOfRows, columnChoice, '1');
+      if (res) {
         break;
       }
-    }
-
-    else {
+    } else {
       printf("\n~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~ \n \n");
       printf("Player 2 (o): Enter your choice of column number: ");
       scanf("%i", &columnChoice);
       printf("\n");
 
-      while ((columnChoice < 1) || (7 < columnChoice)) {
+      while ((columnChoice < 1) || (MAX_COLUMNS < columnChoice)) {
         printf("Invalid choice. Select another, Player 2.");
         scanf("%d", &columnChoice);
       }
@@ -330,8 +189,8 @@ int main() {
         resultOfCheckIfColumnIsFilled = checkIfColumnIsFilled(arrayOfRows, columnChoice);
       }
 
-      char res = markChoiceOnGrid(rows, columns, arrayOfRows, columnChoice, '2');
-      if (res == 'w') {
+      bool res = markChoiceOnGrid(rows, columns, arrayOfRows, columnChoice, '2');
+      if (res) {
         break;
       }
     }
