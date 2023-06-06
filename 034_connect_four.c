@@ -140,6 +140,7 @@ char markChoiceOnGrid(char rows[], char columns[], char grid[], int columnChoice
       }
     }
   }
+
   drawGrid(rows, columns, grid);
 
   // ~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~

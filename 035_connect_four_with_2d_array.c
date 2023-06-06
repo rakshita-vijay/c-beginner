@@ -3,88 +3,88 @@
 #include <stdbool.h>
 #include <stdio.h>
 
-char check_W_Left(char arrayOfRows[6][7], int rowNumber, int columnChoice) {
+bool check_W_Left(char arrayOfRows[6][7], int rowNumber, int columnChoice) {
   int count = 0;
   for (int adjacent = 1; adjacent < 4; adjacent++) {
     if (arrayOfRows[rowNumber][columnChoice] == arrayOfRows[rowNumber][columnChoice - adjacent]) {
       count++;
     }
   }
-  return (count == 3) ? 'w' : 'l';
+  return (count == 3);
 }
 
-char check_E_Right(char arrayOfRows[6][7], int rowNumber, int columnChoice) {
+bool check_E_Right(char arrayOfRows[6][7], int rowNumber, int columnChoice) {
   int count = 0;
   for (int adjacent = 1; adjacent < 4; adjacent++) {
     if (arrayOfRows[rowNumber][columnChoice] == arrayOfRows[rowNumber][columnChoice + adjacent]) {
       count++;
     }
   }
-  return (count == 3) ? 'w' : 'l';
+  return (count == 3);
 }
 
-char check_N_Top(char arrayOfRows[6][7], int rowNumber, int columnChoice) {
+bool check_N_Top(char arrayOfRows[6][7], int rowNumber, int columnChoice) {
   int count = 0;
   for (int adjacent = 1; adjacent < 4; adjacent++) {
     if (arrayOfRows[rowNumber][columnChoice] == arrayOfRows[rowNumber - adjacent][columnChoice]) {
       count++;
     }
   }
-  return (count == 3) ? 'w' : 'l';
+  return (count == 3);
 }
 
-char check_S_Down(char arrayOfRows[6][7], int rowNumber, int columnChoice) {
+bool check_S_Down(char arrayOfRows[6][7], int rowNumber, int columnChoice) {
   int count = 0;
   for (int adjacent = 1; adjacent < 4; adjacent++) {
     if (arrayOfRows[rowNumber][columnChoice] == arrayOfRows[rowNumber + adjacent][columnChoice]) {
       count++;
     }
   }
-  return (count == 3) ? 'w' : 'l';
+  return (count == 3);
 }
 
-char check_NW(char arrayOfRows[6][7], int rowNumber, int columnChoice) {
+bool check_NW(char arrayOfRows[6][7], int rowNumber, int columnChoice) {
   int count = 0;
   for (int adjacent = 1; adjacent < 4; adjacent++) {
     if (arrayOfRows[rowNumber][columnChoice] == arrayOfRows[rowNumber - adjacent][columnChoice - adjacent]) {
       count++;
     }
   }
-  return (count == 3) ? 'w' : 'l';
+  return (count == 3);
 }
 
-char check_NE(char arrayOfRows[6][7], int rowNumber, int columnChoice) {
+bool check_NE(char arrayOfRows[6][7], int rowNumber, int columnChoice) {
   int count = 0;
   for (int adjacent = 1; adjacent < 4; adjacent++) {
     if (arrayOfRows[rowNumber][columnChoice] == arrayOfRows[rowNumber - adjacent][columnChoice + adjacent]) {
       count++;
     }
   }
-  return (count == 3) ? 'w' : 'l';
+  return (count == 3);
 }
 
-char check_SW(char arrayOfRows[6][7], int rowNumber, int columnChoice) {
+bool check_SW(char arrayOfRows[6][7], int rowNumber, int columnChoice) {
   int count = 0;
   for (int adjacent = 1; adjacent < 4; adjacent++) {
     if (arrayOfRows[rowNumber][columnChoice] == arrayOfRows[rowNumber + adjacent][columnChoice - adjacent]) {
       count++;
     }
   }
-  return (count == 3) ? 'w' : 'l';
+  return (count == 3);
 }
 
-char check_SE(char arrayOfRows[6][7], int rowNumber, int columnChoice) {
+bool check_SE(char arrayOfRows[6][7], int rowNumber, int columnChoice) {
   int count = 0;
   for (int adjacent = 1; adjacent < 4; adjacent++) {
     if (arrayOfRows[rowNumber][columnChoice] == arrayOfRows[rowNumber + adjacent][columnChoice + adjacent]) {
       count++;
     }
   }
-  return (count == 3) ? 'w' : 'l';
+  return (count == 3);
 }
 
 char checkIfPlayerHasWon(char arrayOfRows[6][7], int rowNumber, int columnChoice) {
-  if ((check_W_Left(arrayOfRows, rowNumber, columnChoice) == 'w') || (check_E_Right(arrayOfRows, rowNumber, columnChoice) == 'w') || (check_N_Top(arrayOfRows, rowNumber, columnChoice) == 'w') || (check_S_Down(arrayOfRows, rowNumber, columnChoice) == 'w') || (check_NW(arrayOfRows, rowNumber, columnChoice) == 'w') || (check_NE(arrayOfRows, rowNumber, columnChoice) == 'w') || (check_SW(arrayOfRows, rowNumber, columnChoice) == 'w') || (check_SE(arrayOfRows, rowNumber, columnChoice) == 'w')) {
+  if (check_W_Left(arrayOfRows, rowNumber, columnChoice) || check_E_Right(arrayOfRows, rowNumber, columnChoice) || check_N_Top(arrayOfRows, rowNumber, columnChoice) || check_S_Down(arrayOfRows, rowNumber, columnChoice) || check_NW(arrayOfRows, rowNumber, columnChoice) || check_NE(arrayOfRows, rowNumber, columnChoice) || check_SW(arrayOfRows, rowNumber, columnChoice) || check_SE(arrayOfRows, rowNumber, columnChoice)) {
     return 'w';
   }
 
@@ -119,17 +119,11 @@ void drawGrid(char rows[], char columns[], char arrayOfRows[6][7]) {
 }
 
 bool checkIfCellIsFilled(char cellValue) {
-  return cellValue != ' ';
+  return (cellValue != ' ');
 }
 
 char checkIfColumnIsFilled(char arrayOfRows[6][7], int columnChoice) {
   return checkIfCellIsFilled(arrayOfRows[0][columnChoice - 1]) ? 'y' : 'n';
-  // if ((arrayOfRows[0][columnChoice - 1] == 'x') || (arrayOfRows[0][columnChoice - 1] == 'o')) {
-  //   return 'y';
-  // }
-  // else {
-  //   return 'n';
-  // }
 }
 
 char markChoiceOnGrid(char rows[], char columns[], char arrayOfRows[6][7], int columnChoice, char playerNumber) {
@@ -138,17 +132,10 @@ char markChoiceOnGrid(char rows[], char columns[], char arrayOfRows[6][7], int c
     if (!checkIfCellIsFilled(arrayOfRows[rowNumber][columnChoice - 1])) {
       break;
     }
-    // if ((arrayOfRows[rowNumber][columnChoice - 1] != 'x') && (arrayOfRows[rowNumber][columnChoice - 1] != 'o')) {
-    //   break;
-    // }
   }
   char res = checkIfColumnIsFilled(arrayOfRows, columnChoice);
   if (res == 'n') {
-    // if (playerNumber == '1') {
-    arrayOfRows[rowNumber][columnChoice - 1] = (playerNumber == '1' ? 'x' : 'o');
-    // } else if (playerNumber == '2') {
-    //   arrayOfRows[rowNumber][columnChoice - 1] = 'o';
-    // }
+    arrayOfRows[rowNumber][columnChoice - 1] = ((playerNumber == '1') ? 'x' : 'o');
   }
 
   drawGrid(rows, columns, arrayOfRows);
