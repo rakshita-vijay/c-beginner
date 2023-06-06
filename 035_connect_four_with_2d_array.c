@@ -17,11 +17,11 @@ char globalHorizontalArray[7];
 char globalVerticalArray[6];
 char globalDiagonalArray[((7 > 6) ? 6 : 7)];
 
-// void extractHorizontalValues(char arr[6][7], int row) {
-//   for (int columnNum = 0; columnNum < 7; columnNum++) {
-//     globalHorizontalArray[columnNum] = arr[row][columnNum];
-//   }
-// }
+void extractHorizontalValues(char arr[6][7], int row) {
+  for (int columnNum = 0; columnNum < 7; columnNum++) {
+    globalHorizontalArray[columnNum] = arr[row][columnNum];
+  }
+}
 
 // void extractVerticalValues(char arr[6][7], int column) {
 //   for (int rowNum = 0; rowNum < 7; rowNum++) {
@@ -44,38 +44,38 @@ char globalDiagonalArray[((7 > 6) ? 6 : 7)];
 //   // at this point, the globalDiagonalArray might not be fully filled up
 // }
 
-// bool checkIfWonGivenSingleArray(char arrayOfValues[], int length) {
-//   for (int count = 0; (count + 4) <= length; count++) {
-//     if ((arrayOfValues[count] == arrayOfValues[count + 1]) && (arrayOfValues[count] == arrayOfValues[count + 2]) && (arrayOfValues[count] == arrayOfValues[count + 3])) {
-//       return true;
-//     }
-//   }
-//   return false;
-// }
+bool checkIfWonGivenSingleArray(char arrayOfValues[], int length) {
+  for (int count = 0; (count + 4) <= length; count++) {
+    if ((arrayOfValues[count] != ' ') && (arrayOfValues[count] == arrayOfValues[count + 1]) && (arrayOfValues[count] == arrayOfValues[count + 2]) && (arrayOfValues[count] == arrayOfValues[count + 3])) {
+      return true;
+    }
+  }
+  return false;
+}
 
 // ~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~
 
-// bool checkIfPlayerHasWon(char arrayOfRows[6][7], int rowNumber, int columnChoice) {
-//   /*
-//   if (check_W_Left(arrayOfRows, rowNumber, columnChoice) || check_E_Right(arrayOfRows, rowNumber, columnChoice) || check_N_Up(arrayOfRows, rowNumber, columnChoice) || check_S_Down(arrayOfRows, rowNumber, columnChoice) || check_NW(arrayOfRows, rowNumber, columnChoice) || check_NE(arrayOfRows, rowNumber, columnChoice) || check_SW(arrayOfRows, rowNumber, columnChoice) || check_SE(arrayOfRows,
-//   rowNumber, columnChoice) || check_l_and_r(arrayOfRows, rowNumber, columnChoice) || check_t_and_b(arrayOfRows, rowNumber, columnChoice) || check_diagonals(arrayOfRows, rowNumber, columnChoice)) { return 'w';
-//   }
+bool checkIfPlayerHasWon(char arrayOfRows[6][7], int rowNumber, int columnChoice) {
+  /*
+  if (check_W_Left(arrayOfRows, rowNumber, columnChoice) || check_E_Right(arrayOfRows, rowNumber, columnChoice) || check_N_Up(arrayOfRows, rowNumber, columnChoice) || check_S_Down(arrayOfRows, rowNumber, columnChoice) || check_NW(arrayOfRows, rowNumber, columnChoice) || check_NE(arrayOfRows, rowNumber, columnChoice) || check_SW(arrayOfRows, rowNumber, columnChoice) || check_SE(arrayOfRows,
+  rowNumber, columnChoice) || check_l_and_r(arrayOfRows, rowNumber, columnChoice) || check_t_and_b(arrayOfRows, rowNumber, columnChoice) || check_diagonals(arrayOfRows, rowNumber, columnChoice)) { return 'w';
+  }
 
-//   else {
-//     return 'l';
-//   }
-//   */
+  else {
+    return 'l';
+  }
+  */
 
-//   extractHorizontalValues(arrayOfRows, rowNumber);
-//   extractVerticalValues(arrayOfRows, columnChoice);
-//   extractDiagonalValues(arrayOfRows, rowNumber, columnChoice);
+  extractHorizontalValues(arrayOfRows, rowNumber);
+  // extractVerticalValues(arrayOfRows, columnChoice);
+  // extractDiagonalValues(arrayOfRows, rowNumber, columnChoice);
 
-//   bool hRes = checkIfWonGivenSingleArray(globalHorizontalArray, 7);
-//   bool vRes = checkIfWonGivenSingleArray(globalVerticalArray, 6);
-//   bool dRes = checkIfWonGivenSingleArray(globalDiagonalArray, ((7 > 6) ? 6 : 7));
+  bool hRes = checkIfWonGivenSingleArray(globalHorizontalArray, 7);
+  // bool vRes = checkIfWonGivenSingleArray(globalVerticalArray, 6);
+  // bool dRes =  checkIfWonGivenSingleArray(globalDiagonalArray, ((7 > 6) ? 6 : 7));
 
-//   return (hRes || vRes || dRes);
-// }
+  return (hRes); // || vRes || dRes);
+}
 
 // ~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~
 
@@ -128,12 +128,12 @@ bool markChoiceOnGrid(char rows[], char columns[], char arrayOfRows[6][7], int c
 
   // ~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~
 
-  // if (checkIfPlayerHasWon(arrayOfRows, rowNumber, (columnChoice - 1))) {
-  //   printf("Congrats, Player %c! You have won!", playerNumber);
-  //   return true;
-  // } else {
-  return false;
-  // }
+  if (checkIfPlayerHasWon(arrayOfRows, rowNumber, (columnChoice - 1))) {
+    printf("Congrats, Player %c! You have won!", playerNumber);
+    return true;
+  } else {
+    return false;
+  }
 
   // ~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~
 }
