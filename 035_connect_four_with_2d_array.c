@@ -23,11 +23,11 @@ void extractHorizontalValues(char arr[6][7], int row) {
   }
 }
 
-// void extractVerticalValues(char arr[6][7], int column) {
-//   for (int rowNum = 0; rowNum < 7; rowNum++) {
-//     globalVerticalArray[rowNum] = arr[rowNum][column];
-//   }
-// }
+void extractVerticalValues(char arr[6][7], int column) {
+  for (int rowNum = 0; rowNum < 6; rowNum++) {
+    globalVerticalArray[rowNum] = arr[rowNum][column];
+  }
+}
 
 // void extractDiagonalValues(char arr[6][7], int rowNumber, int columnChoice) {
 //   while ((rowNumber >= 0) && (columnChoice >= 0)) {
@@ -67,14 +67,14 @@ bool checkIfPlayerHasWon(char arrayOfRows[6][7], int rowNumber, int columnChoice
   */
 
   extractHorizontalValues(arrayOfRows, rowNumber);
-  // extractVerticalValues(arrayOfRows, columnChoice);
+  extractVerticalValues(arrayOfRows, columnChoice);
   // extractDiagonalValues(arrayOfRows, rowNumber, columnChoice);
 
   bool hRes = checkIfWonGivenSingleArray(globalHorizontalArray, 7);
-  // bool vRes = checkIfWonGivenSingleArray(globalVerticalArray, 6);
+  bool vRes = checkIfWonGivenSingleArray(globalVerticalArray, 6);
   // bool dRes =  checkIfWonGivenSingleArray(globalDiagonalArray, ((7 > 6) ? 6 : 7));
 
-  return (hRes); // || vRes || dRes);
+  return (hRes || vRes); // || dRes);
 }
 
 // ~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~
