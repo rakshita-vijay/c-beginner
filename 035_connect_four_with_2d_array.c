@@ -137,6 +137,20 @@ bool markChoiceOnGrid(char rows[], char columns[], char arrayOfRows[6][7], int c
   // ~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~
 }
 
+int promptForColumnChoice(char playerNumber) {
+  int columnChoice;
+  printf("\n~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~ \n \n");
+  printf("Player %c (%c): Enter your choice of column number: ", playerNumber, ((playerNumber == '1') ? 'x' : 'o'));
+  scanf("%i", &columnChoice);
+  printf("\n");
+
+  while ((columnChoice < 1) || (7 < columnChoice)) {
+    printf("Invalid choice. Select another, Player %c.", playerNumber);
+    scanf("%d", &columnChoice);
+  }
+  return columnChoice;
+}
+
 int main() {
   char rows[] = {'a', 'b', 'c', 'd', 'e', 'f', '\0'};
   char columns[] = {'1', '2', '3', '4', '5', '6', '7', '\0'};
@@ -149,15 +163,7 @@ int main() {
 
   for (countMoves = 1; countMoves <= 42; countMoves++) {
     if (countMoves % 2 != 0) {
-      printf("\n~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~ \n \n");
-      printf("Player 1 (x): Enter your choice of column number: ");
-      scanf("%i", &columnChoice);
-      printf("\n");
-
-      while ((columnChoice < 1) || (7 < columnChoice)) {
-        printf("Invalid choice. Select another, Player 1.");
-        scanf("%d", &columnChoice);
-      }
+      columnChoice = promptForColumnChoice('1');
 
       resultOfCheckIfColumnIsFilled = checkIfColumnIsFilled(arrayOfRows, columnChoice);
 
@@ -172,15 +178,7 @@ int main() {
       break;
       // }
     } else {
-      printf("\n~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~ \n \n");
-      printf("Player 2 (o): Enter your choice of column number: ");
-      scanf("%i", &columnChoice);
-      printf("\n");
-
-      while ((columnChoice < 1) || (7 < columnChoice)) {
-        printf("Invalid choice. Select another, Player 2.");
-        scanf("%d", &columnChoice);
-      }
+      columnChoice = promptForColumnChoice('2');
 
       resultOfCheckIfColumnIsFilled = checkIfColumnIsFilled(arrayOfRows, columnChoice);
 
@@ -190,7 +188,7 @@ int main() {
         resultOfCheckIfColumnIsFilled = checkIfColumnIsFilled(arrayOfRows, columnChoice);
       }
 
-      // bool res = markChoiceOnGrid(rows, columns, arrayOfRows, columnChoice, '2');
+      bool res = markChoiceOnGrid(rows, columns, arrayOfRows, columnChoice, '2');
       // if (res) {
       break;
       // }
