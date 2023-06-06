@@ -97,57 +97,111 @@ bool check_diagonals(char arrayOfRows[6][7], int rowNumber, int columnChoice) {
 
 // ~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~
 
-char[] createHorizontalArray(char arrayOfRows[6][7], int rowNumber) {
+struct arr {
+  char array[7];
+};
+
+struct arr createHorizontalArray(char arrayOfRows[6][7], int rowNumber) {
   int HIndex;
   int columnNum;
-  char arrOfHorizontalValues[];
+  char hArr[7];
 
   for (HIndex = 0, columnNum = 0; columnNum <= 7; HIndex++, columnNum++) {
-    arrOfHorizontalValues[HIndex] = arrayOfRows[rowNumber][columnNum];
+    hArr[HIndex] = arrayOfRows[rowNumber][columnNum];
   }
 
-  return arrOfHorizontalValues;
+  struct arr arrOfHorizontalValues[1] = {hArr[7]};
+  return arrOfHorizontalValues[0];
 }
 
-char[] createVerticalArray(char arrayOfRows[6][7], int columnChoice) {
+struct arr createVerticalArray(char arrayOfRows[6][7], int columnChoice) {
   int VIndex;
   int rowNum;
-  char arrOfVerticalValues[];
+  char vArr[6];
 
   for (VIndex = 0, rowNum = 0; rowNum <= 6; VIndex++, rowNum++) {
-    arrOfVerticalValues[VIndex] = arrayOfRows[rowNum][columnChoice];
+    vArr[VIndex] = arrayOfRows[rowNum][columnChoice];
   }
-
-  return arrOfVerticalValues;
+  struct arr arrOfVerticalValues[1] = {vArr[6]};
+  return arrOfVerticalValues[0];
 }
 
-char[] createDiagonalArray(char arrayOfRows[6][7], int rowNumber, int columnChoice) {
+struct arr createDiagonalArray(char arrayOfRows[6][7], int rowNumber, int columnChoice) {
   int HVIndex;
-  char arrOfDiagonalValues[];
+  char dArr[6];
 
-  for (; rowNumber >= 0, columnChoice >= 0;) {
+  while ((rowNumber >= 0) && (columnChoice >= 0)) {
     rowNumber--;
     columnChoice--;
   }
 
-  for (HVIndex = 0; rowNumber <= 6, columnChoice <= 7; rowNumber++, columnChoice++) {
-    arrOfDiagonalValues[HVIndex] = arrayOfRows[rowNumber][columnChoice];
+  while ((rowNumber <= 6) && (columnChoice <= 7)) {
+    for (HVIndex = 0;; rowNumber++, columnChoice++) {
+      dArr[HVIndex] = arrayOfRows[rowNumber][columnChoice];
+    }
   }
+  struct arr arrOfDiagonalValues[1] = {dArr[6]};
+  return arrOfDiagonalValues[0];
+}
 
-  return arrOfDiagonalValues;
+char checkIfPlayerHasWonHorizontally(struct arr arrayOfHorizontalValues) {
+  for (int count = 0; count < 4; count++) {
+    if ((arrayOfHorizontalValues.array[count] == arrayOfHorizontalValues.array[count + 1]) && (arrayOfHorizontalValues.array[count] == arrayOfHorizontalValues.array[count + 2]) && (arrayOfHorizontalValues.array[count] == arrayOfHorizontalValues.array[count + 3])) {
+      return 'w';
+    } else {
+      return 'l';
+    }
+  }
+}
+
+char checkIfPlayerHasWonVertically(struct arr arrayOfVerticalValues) {
+  for (int count = 0; count < 3; count++) {
+    if ((arrayOfVerticalValues.array[count] == arrayOfVerticalValues.array[count + 1]) && (arrayOfVerticalValues.array[count] == arrayOfVerticalValues.array[count + 2]) && (arrayOfVerticalValues.array[count] == arrayOfVerticalValues.array[count + 3])) {
+      return 'w';
+    } else {
+      return 'l';
+    }
+  }
+}
+
+char checkIfPlayerHasWonDiagonally(struct arr arrayOfDiagonalValues) {
+  for (int count = 0; count < 3; count++) {
+    if ((arrayOfDiagonalValues.array[count] == arrayOfDiagonalValues.array[count + 1]) && (arrayOfDiagonalValues.array[count] == arrayOfDiagonalValues.array[count + 2]) && (arrayOfDiagonalValues.array[count] == arrayOfDiagonalValues.array[count + 3])) {
+      return 'w';
+    } else {
+      return 'l';
+    }
+  }
 }
 
 // ~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~
 
 char checkIfPlayerHasWon(char arrayOfRows[6][7], int rowNumber, int columnChoice) {
-  if (check_W_Left(arrayOfRows, rowNumber, columnChoice) || check_E_Right(arrayOfRows, rowNumber, columnChoice) || check_N_Up(arrayOfRows, rowNumber, columnChoice) || check_S_Down(arrayOfRows, rowNumber, columnChoice) || check_NW(arrayOfRows, rowNumber, columnChoice) || check_NE(arrayOfRows, rowNumber, columnChoice) || check_SW(arrayOfRows, rowNumber, columnChoice) || check_SE(arrayOfRows, rowNumber, columnChoice) || check_l_and_r(arrayOfRows, rowNumber, columnChoice) || check_t_and_b(arrayOfRows, rowNumber, columnChoice) || check_diagonals(arrayOfRows, rowNumber, columnChoice)) {
+  /*if (check_W_Left(arrayOfRows, rowNumber, columnChoice) || check_E_Right(arrayOfRows, rowNumber, columnChoice) || check_N_Up(arrayOfRows, rowNumber, columnChoice) || check_S_Down(arrayOfRows, rowNumber, columnChoice) || check_NW(arrayOfRows, rowNumber, columnChoice) || check_NE(arrayOfRows, rowNumber, columnChoice) || check_SW(arrayOfRows, rowNumber, columnChoice) || check_SE(arrayOfRows, rowNumber, columnChoice) || check_l_and_r(arrayOfRows, rowNumber, columnChoice) || check_t_and_b(arrayOfRows, rowNumber, columnChoice) || check_diagonals(arrayOfRows, rowNumber, columnChoice)) {
     return 'w';
   }
 
   else {
     return 'l';
   }
+  */
+
+  struct arr arrayOfHorizontalValues = createHorizontalArray(arrayOfRows, rowNumber);
+  struct arr arrayOfVerticalValues = createVerticalArray(arrayOfRows, columnChoice);
+  struct arr arrayOfDiagonalValues = createDiagonalArray(arrayOfRows, rowNumber, columnChoice);
+
+  char hRes = checkIfPlayerHasWonHorizontally(arrayOfHorizontalValues);
+  char vRes = checkIfPlayerHasWonVertically(arrayOfVerticalValues);
+  char dRes = checkIfPlayerHasWonDiagonally(arrayOfDiagonalValues);
+
+  if ((hRes == 'w') || (vRes == 'w') || (dRes == 'w')) {
+    return 'w';
+  } else {
+    return 'l';
+  }
 }
+
+// ~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~
 
 void drawGrid(char rows[], char columns[], char arrayOfRows[6][7]) {
   printf("                Connect Four: A Game ");
