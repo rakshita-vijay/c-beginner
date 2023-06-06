@@ -23,7 +23,7 @@ bool check_E_Right(char arrayOfRows[6][7], int rowNumber, int columnChoice) {
   return (count == 3);
 }
 
-bool check_N_Top(char arrayOfRows[6][7], int rowNumber, int columnChoice) {
+bool check_N_Up(char arrayOfRows[6][7], int rowNumber, int columnChoice) {
   int count = 0;
   for (int adjacent = 1; adjacent < 4; adjacent++) {
     if (arrayOfRows[rowNumber][columnChoice] == arrayOfRows[rowNumber - adjacent][columnChoice]) {
@@ -83,8 +83,20 @@ bool check_SE(char arrayOfRows[6][7], int rowNumber, int columnChoice) {
   return (count == 3);
 }
 
+bool check_l_and_r(char arrayOfRows[6][7], int rowNumber, int columnChoice) {
+  return (check_W_Left(arrayOfRows, rowNumber, columnChoice) && check_E_Right(arrayOfRows, rowNumber, columnChoice));
+}
+
+bool check_t_and_b(char arrayOfRows[6][7], int rowNumber, int columnChoice) {
+  return (check_N_Up(arrayOfRows, rowNumber, columnChoice) && check_S_Down(arrayOfRows, rowNumber, columnChoice));
+}
+
+bool check_diagonals(char arrayOfRows[6][7], int rowNumber, int columnChoice) {
+  return (check_NW(arrayOfRows, rowNumber, columnChoice) && check_NE(arrayOfRows, rowNumber, columnChoice) && check_SW(arrayOfRows, rowNumber, columnChoice) && check_SE(arrayOfRows, rowNumber, columnChoice));
+}
+
 char checkIfPlayerHasWon(char arrayOfRows[6][7], int rowNumber, int columnChoice) {
-  if (check_W_Left(arrayOfRows, rowNumber, columnChoice) || check_E_Right(arrayOfRows, rowNumber, columnChoice) || check_N_Top(arrayOfRows, rowNumber, columnChoice) || check_S_Down(arrayOfRows, rowNumber, columnChoice) || check_NW(arrayOfRows, rowNumber, columnChoice) || check_NE(arrayOfRows, rowNumber, columnChoice) || check_SW(arrayOfRows, rowNumber, columnChoice) || check_SE(arrayOfRows, rowNumber, columnChoice)) {
+  if (check_W_Left(arrayOfRows, rowNumber, columnChoice) || check_E_Right(arrayOfRows, rowNumber, columnChoice) || check_N_Up(arrayOfRows, rowNumber, columnChoice) || check_S_Down(arrayOfRows, rowNumber, columnChoice) || check_NW(arrayOfRows, rowNumber, columnChoice) || check_NE(arrayOfRows, rowNumber, columnChoice) || check_SW(arrayOfRows, rowNumber, columnChoice) || check_SE(arrayOfRows, rowNumber, columnChoice) || check_l_and_r(arrayOfRows, rowNumber, columnChoice) || check_t_and_b(arrayOfRows, rowNumber, columnChoice) || check_diagonals(arrayOfRows, rowNumber, columnChoice)) {
     return 'w';
   }
 
@@ -215,3 +227,26 @@ int main() {
     }
   }
 }
+
+/*
+                Connect Four: A Game
+                    Player 1: x
+                    Player 2: o
+
+   a   |     |     |     |     |     |     |     |
+       |-----|-----|-----|-----|-----|-----|-----|
+   b   |     |     |     |     |     |     |     |
+       |-----|-----|-----|-----|-----|-----|-----|
+   c   |     |     |     |     |  o  |     |     |
+       |-----|-----|-----|-----|-----|-----|-----|
+   d   |     |  o  |  x  |     |  x  |  o  |     |
+       |-----|-----|-----|-----|-----|-----|-----|
+   e   |     |  x  |  o  |     |  x  |  x  |     |
+       |-----|-----|-----|-----|-----|-----|-----|
+   f   |  x  |  o  |  x  |     |  o  |  o  |  x  |
+       |-----|-----|-----|-----|-----|-----|-----|
+
+          1     2     3     4     5     6     7
+
+Congrats, Player 1! You have won! %
+*/
