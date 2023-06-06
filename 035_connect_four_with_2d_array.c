@@ -16,6 +16,7 @@
 char globalHorizontalArray[7];
 char globalVerticalArray[6];
 char globalDiagonalArray[((7 > 6) ? 6 : 7)];
+// char globalDiagonalArrayRight[((7 > 6) ? 6 : 7)];
 
 void extractHorizontalValues(char arr[6][7], int row) {
   for (int columnNum = 0; columnNum < 7; columnNum++) {
@@ -29,17 +30,38 @@ void extractVerticalValues(char arr[6][7], int column) {
   }
 }
 
-// void extractDiagonalValues(char arr[6][7], int rowNumber, int columnChoice) {
-//   while ((rowNumber >= 0) && (columnChoice >= 0)) {
+void extractDiagonalValuesFromLeftMargin(char arr[6][7], int rowNumber, int columnChoice) {
+  while ((rowNumber > 0) && (columnChoice > 0)) {
+    rowNumber--;
+    printf("%i \n", rowNumber);
+    columnChoice--;
+    printf("%i \n", columnChoice);
+  }
+  // at this point, either row or column will be at the boundary (if not both)
+  // (0, 3)
+
+  while ((rowNumber < 6) && (columnChoice < 7)) {
+    globalDiagonalArray[((rowNumber == 0) ? rowNumber : columnChoice)] = arr[rowNumber][columnChoice];
+    rowNumber++;
+    columnChoice++;
+  }
+  // at this point, the globalDiagonalArray might not be fully filled up
+}
+
+// void extractDiagonalValuesFromRightMargin(char arr[6][7], int rowNumber, int columnChoice) {
+//   while ((rowNumber > 0) && (columnChoice > 0)) {
 //     rowNumber--;
-//     columnChoice--;
+//     printf("%i \n", rowNumber);
+//     columnChoice++;
+//     printf("%i \n", columnChoice);
 //   }
 //   // at this point, either row or column will be at the boundary (if not both)
+//   // ()
 
 //   while ((rowNumber < 6) && (columnChoice < 7)) {
-//     for (int HVIndex = 0;; rowNumber++, columnChoice++) {
-//       globalDiagonalArray[HVIndex] = arr[rowNumber][columnChoice];
-//     }
+//     globalDiagonalArray[((rowNumber == 0) ? rowNumber : columnChoice)] = arr[rowNumber][columnChoice];
+//     rowNumber++;
+//     columnChoice++;
 //   }
 //   // at this point, the globalDiagonalArray might not be fully filled up
 // }
@@ -68,13 +90,15 @@ bool checkIfPlayerHasWon(char arrayOfRows[6][7], int rowNumber, int columnChoice
 
   extractHorizontalValues(arrayOfRows, rowNumber);
   extractVerticalValues(arrayOfRows, columnChoice);
-  // extractDiagonalValues(arrayOfRows, rowNumber, columnChoice);
+  extractDiagonalValuesFromLeftMargin(arrayOfRows, rowNumber, columnChoice);
+  // extractDiagonalValuesFromRightMargin(arrayOfRows, rowNumber, columnChoice);
 
   bool hRes = checkIfWonGivenSingleArray(globalHorizontalArray, 7);
   bool vRes = checkIfWonGivenSingleArray(globalVerticalArray, 6);
-  // bool dRes =  checkIfWonGivenSingleArray(globalDiagonalArray, ((7 > 6) ? 6 : 7));
+  bool dResL = checkIfWonGivenSingleArray(globalDiagonalArray, ((7 > 6) ? 6 : 7));
+  // bool dResR = checkIfWonGivenSingleArray(globalDiagonalArray, ((7 > 6) ? 6 : 7));
 
-  return (hRes || vRes); // || dRes);
+  return (hRes || vRes || dResL); // || dResR);
 }
 
 // ~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~
