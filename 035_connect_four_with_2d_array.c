@@ -95,6 +95,44 @@ bool check_diagonals(char arrayOfRows[6][7], int rowNumber, int columnChoice) {
   return (check_NW(arrayOfRows, rowNumber, columnChoice) && check_NE(arrayOfRows, rowNumber, columnChoice) && check_SW(arrayOfRows, rowNumber, columnChoice) && check_SE(arrayOfRows, rowNumber, columnChoice));
 }
 
+// ~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~
+
+char[] createHorizontalArray(char arrayOfRows[6][7], int rowNumber) {
+  int HIndex;
+  int columnNumber;
+  char arrOfHorizontalValues[];
+
+  for (HIndex = 0, columnNumber = 0; columnNumber <= 7; HIndex++, columnNumber++) {
+    arrOfHorizontalValues[HIndex] = arrayOfRows[rowNumber][columnNumber];
+  }
+
+  return arrOfHorizontalValues;
+}
+
+char[] createVerticalArray(char arrayOfRows[6][7], int rowNumber, int columnChoice) {
+  char arrOfVerticalValues[];
+}
+
+char[] createDiagonalArray(char arrayOfRows[6][7], int rowNumber, int columnChoice) {
+  char arrOfDiagonalValues[];
+
+  int HVIndex;
+  char arrOfHorizontalValues[];
+
+  for (; rowNumber >= 0, columnChoice >= 0;) {
+    rowNumber--;
+    columnChoice--;
+  }
+
+  for (HVIndex = 0; rowNumber <= 6, columnChoice <= 7; rowNumber++, columnChoice++) {
+    arrOfHorizontalValues[HVIndex] = arrayOfRows[rowNumber][columnChoice];
+  }
+
+  return arrOfHorizontalValues;
+}
+
+// ~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~
+
 char checkIfPlayerHasWon(char arrayOfRows[6][7], int rowNumber, int columnChoice) {
   if (check_W_Left(arrayOfRows, rowNumber, columnChoice) || check_E_Right(arrayOfRows, rowNumber, columnChoice) || check_N_Up(arrayOfRows, rowNumber, columnChoice) || check_S_Down(arrayOfRows, rowNumber, columnChoice) || check_NW(arrayOfRows, rowNumber, columnChoice) || check_NE(arrayOfRows, rowNumber, columnChoice) || check_SW(arrayOfRows, rowNumber, columnChoice) || check_SE(arrayOfRows, rowNumber, columnChoice) || check_l_and_r(arrayOfRows, rowNumber, columnChoice) || check_t_and_b(arrayOfRows, rowNumber, columnChoice) || check_diagonals(arrayOfRows, rowNumber, columnChoice)) {
     return 'w';
