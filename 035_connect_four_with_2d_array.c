@@ -1,22 +1,90 @@
 // Connect Four : 6x7 grid with 2D array
 
+#include <stdbool.h>
 #include <stdio.h>
 
-char check_W_Left(char grid[6][7], int rowNumber, int columnChoice) {
-  /*
-  if ((grid[rowNumber][columnChoice] == grid[rowNumber][columnChoice - 1]) && (grid[rowNumber][columnChoice] == grid[rowNumber][columnChoice - 2]) && (grid[rowNumber][columnChoice] == grid[rowNumber][columnChoice - 3])) {
-    return 'w';
-  }
-  */
-
+char check_W_Left(char arrayOfRows[6][7], int rowNumber, int columnChoice) {
   int count = 0;
   for (int adjacent = 1; adjacent < 4; adjacent++) {
-    if (grid[rowNumber][columnChoice] == grid[rowNumber][columnChoice - adjacent]) {
+    if (arrayOfRows[rowNumber][columnChoice] == arrayOfRows[rowNumber][columnChoice - adjacent]) {
       count++;
     }
   }
+  return (count == 3) ? 'w' : 'l';
+}
 
-  if (count == 3) {
+char check_E_Right(char arrayOfRows[6][7], int rowNumber, int columnChoice) {
+  int count = 0;
+  for (int adjacent = 1; adjacent < 4; adjacent++) {
+    if (arrayOfRows[rowNumber][columnChoice] == arrayOfRows[rowNumber][columnChoice + adjacent]) {
+      count++;
+    }
+  }
+  return (count == 3) ? 'w' : 'l';
+}
+
+char check_N_Top(char arrayOfRows[6][7], int rowNumber, int columnChoice) {
+  int count = 0;
+  for (int adjacent = 1; adjacent < 4; adjacent++) {
+    if (arrayOfRows[rowNumber][columnChoice] == arrayOfRows[rowNumber - adjacent][columnChoice]) {
+      count++;
+    }
+  }
+  return (count == 3) ? 'w' : 'l';
+}
+
+char check_S_Down(char arrayOfRows[6][7], int rowNumber, int columnChoice) {
+  int count = 0;
+  for (int adjacent = 1; adjacent < 4; adjacent++) {
+    if (arrayOfRows[rowNumber][columnChoice] == arrayOfRows[rowNumber + adjacent][columnChoice]) {
+      count++;
+    }
+  }
+  return (count == 3) ? 'w' : 'l';
+}
+
+char check_NW(char arrayOfRows[6][7], int rowNumber, int columnChoice) {
+  int count = 0;
+  for (int adjacent = 1; adjacent < 4; adjacent++) {
+    if (arrayOfRows[rowNumber][columnChoice] == arrayOfRows[rowNumber - adjacent][columnChoice - adjacent]) {
+      count++;
+    }
+  }
+  return (count == 3) ? 'w' : 'l';
+}
+
+char check_NE(char arrayOfRows[6][7], int rowNumber, int columnChoice) {
+  int count = 0;
+  for (int adjacent = 1; adjacent < 4; adjacent++) {
+    if (arrayOfRows[rowNumber][columnChoice] == arrayOfRows[rowNumber - adjacent][columnChoice + adjacent]) {
+      count++;
+    }
+  }
+  return (count == 3) ? 'w' : 'l';
+}
+
+char check_SW(char arrayOfRows[6][7], int rowNumber, int columnChoice) {
+  int count = 0;
+  for (int adjacent = 1; adjacent < 4; adjacent++) {
+    if (arrayOfRows[rowNumber][columnChoice] == arrayOfRows[rowNumber + adjacent][columnChoice - adjacent]) {
+      count++;
+    }
+  }
+  return (count == 3) ? 'w' : 'l';
+}
+
+char check_SE(char arrayOfRows[6][7], int rowNumber, int columnChoice) {
+  int count = 0;
+  for (int adjacent = 1; adjacent < 4; adjacent++) {
+    if (arrayOfRows[rowNumber][columnChoice] == arrayOfRows[rowNumber + adjacent][columnChoice + adjacent]) {
+      count++;
+    }
+  }
+  return (count == 3) ? 'w' : 'l';
+}
+
+char checkIfPlayerHasWon(char arrayOfRows[6][7], int rowNumber, int columnChoice) {
+  if ((check_W_Left(arrayOfRows, rowNumber, columnChoice) == 'w') || (check_E_Right(arrayOfRows, rowNumber, columnChoice) == 'w') || (check_N_Top(arrayOfRows, rowNumber, columnChoice) == 'w') || (check_S_Down(arrayOfRows, rowNumber, columnChoice) == 'w') || (check_NW(arrayOfRows, rowNumber, columnChoice) == 'w') || (check_NE(arrayOfRows, rowNumber, columnChoice) == 'w') || (check_SW(arrayOfRows, rowNumber, columnChoice) == 'w') || (check_SE(arrayOfRows, rowNumber, columnChoice) == 'w')) {
     return 'w';
   }
 
@@ -24,89 +92,16 @@ char check_W_Left(char grid[6][7], int rowNumber, int columnChoice) {
     return 'l';
   }
 }
-char check_E_Right(char grid[6][7], int rowNumber, int columnChoice) {
-  if ((grid[rowNumber][columnChoice] == grid[rowNumber][columnChoice + 1]) && (grid[rowNumber][columnChoice] == grid[rowNumber][columnChoice + 2]) && (grid[rowNumber][columnChoice] == grid[rowNumber][columnChoice + 3])) {
-    return 'w';
-  }
 
-  else {
-    return 'l';
-  }
-}
-char check_N_Top(char grid[6][7], int rowNumber, int columnChoice) {
-  if ((grid[rowNumber][columnChoice] == grid[rowNumber - 1][columnChoice]) && (grid[rowNumber][columnChoice] == grid[rowNumber - 2][columnChoice]) && (grid[rowNumber][columnChoice] == grid[rowNumber - 3][columnChoice])) {
-    return 'w';
-  }
-
-  else {
-    return 'l';
-  }
-}
-char check_S_Down(char grid[6][7], int rowNumber, int columnChoice) {
-  if ((grid[rowNumber][columnChoice] == grid[rowNumber + 1][columnChoice]) && (grid[rowNumber][columnChoice] == grid[rowNumber + 2][columnChoice]) && (grid[rowNumber][columnChoice] == grid[rowNumber + 3][columnChoice])) {
-    return 'w';
-  }
-
-  else {
-    return 'l';
-  }
-}
-char check_NW(char grid[6][7], int rowNumber, int columnChoice) {
-  if ((grid[rowNumber][columnChoice] == grid[rowNumber - 1][columnChoice - 1]) && (grid[rowNumber][columnChoice] == grid[rowNumber - 2][columnChoice - 2]) && (grid[rowNumber][columnChoice] == grid[rowNumber - 3][columnChoice - 3])) {
-    return 'w';
-  }
-
-  else {
-    return 'l';
-  }
-}
-char check_NE(char grid[6][7], int rowNumber, int columnChoice) {
-  if ((grid[rowNumber][columnChoice] == grid[rowNumber - 1][columnChoice + 1]) && (grid[rowNumber][columnChoice] == grid[rowNumber - 2][columnChoice + 2]) && (grid[rowNumber][columnChoice] == grid[rowNumber - 3][columnChoice + 3])) {
-    return 'w';
-  }
-
-  else {
-    return 'l';
-  }
-}
-char check_SW(char grid[6][7], int rowNumber, int columnChoice) {
-  if ((grid[rowNumber][columnChoice] == grid[rowNumber + 1][columnChoice - 1]) && (grid[rowNumber][columnChoice] == grid[rowNumber + 2][columnChoice - 2]) && (grid[rowNumber][columnChoice] == grid[rowNumber + 3][columnChoice - 3])) {
-    return 'w';
-  }
-
-  else {
-    return 'l';
-  }
-}
-char check_SE(char grid[6][7], int rowNumber, int columnChoice) {
-  if ((grid[rowNumber][columnChoice] == grid[rowNumber + 1][columnChoice + 1]) && (grid[rowNumber][columnChoice] == grid[rowNumber + 2][columnChoice + 2]) && (grid[rowNumber][columnChoice] == grid[rowNumber + 3][columnChoice + 3])) {
-    return 'w';
-  }
-
-  else {
-    return 'l';
-  }
-}
-
-char checkIfPlayerHasWon(char grid[6][7], int rowNumber, int columnChoice) {
-  if ((check_W_Left(grid, rowNumber, columnChoice) == 'w') || (check_E_Right(grid, rowNumber, columnChoice) == 'w') || (check_N_Top(grid, rowNumber, columnChoice) == 'w') || (check_S_Down(grid, rowNumber, columnChoice) == 'w') || (check_NW(grid, rowNumber, columnChoice) == 'w') || (check_NE(grid, rowNumber, columnChoice) == 'w') || (check_SW(grid, rowNumber, columnChoice) == 'w') || (check_SE(grid, rowNumber, columnChoice) == 'w')) {
-    return 'w';
-  }
-
-  else {
-    return 'l';
-  }
-}
-
-void drawGrid(char rows[], char columns[], char grid[6][7]) {
+void drawGrid(char rows[], char columns[], char arrayOfRows[6][7]) {
   printf("                Connect Four: A Game ");
   printf("\n                    Player 1: x ");
   printf("\n                    Player 2: o \n");
 
   for (int rowCount = 0; rowCount < 6; rowCount++) {
     for (int columnCount = 0; columnCount < 7;) {
-      for (; grid[rowCount][columnCount] != '\0';) {
-        printf("\n   %c   |  %c  |  %c  |  %c  |  %c  |  %c  |  %c  |  %c  |", rows[rowCount], grid[rowCount][columnCount], grid[rowCount][columnCount + 1], grid[rowCount][columnCount + 2], grid[rowCount][columnCount + 3], grid[rowCount][columnCount + 4], grid[rowCount][columnCount + 5], grid[rowCount][columnCount + 6]);
+      for (; arrayOfRows[rowCount][columnCount] != '\0';) {
+        printf("\n   %c   |  %c  |  %c  |  %c  |  %c  |  %c  |  %c  |  %c  |", rows[rowCount], arrayOfRows[rowCount][columnCount], arrayOfRows[rowCount][columnCount + 1], arrayOfRows[rowCount][columnCount + 2], arrayOfRows[rowCount][columnCount + 3], arrayOfRows[rowCount][columnCount + 4], arrayOfRows[rowCount][columnCount + 5], arrayOfRows[rowCount][columnCount + 6]);
         columnCount += 7;
         break;
       }
@@ -123,45 +118,49 @@ void drawGrid(char rows[], char columns[], char grid[6][7]) {
   printf("\n\n");
 }
 
-char checkIfFilled(char grid[6][7], int columnChoice) {
-  if ((grid[0][columnChoice - 1] == 'x') || (grid[0][columnChoice - 1] == 'o')) {
-    return 'y';
-  }
-
-  else {
-    return 'n';
-  }
+bool checkIfCellIsFilled(char cellValue) {
+  return cellValue != ' ';
 }
 
-char markChoiceOnGrid(char rows[], char columns[], char grid[6][7], int columnChoice, char playerNumber) {
+char checkIfColumnIsFilled(char arrayOfRows[6][7], int columnChoice) {
+  return checkIfCellIsFilled(arrayOfRows[0][columnChoice - 1]) ? 'y' : 'n';
+  // if ((arrayOfRows[0][columnChoice - 1] == 'x') || (arrayOfRows[0][columnChoice - 1] == 'o')) {
+  //   return 'y';
+  // }
+  // else {
+  //   return 'n';
+  // }
+}
 
-  int rowNumber = 0;
-  for (; grid[rowNumber][columnChoice] != '\0'; rowNumber++) {
-    if (((grid[rowNumber][columnChoice]) != 'x') || ((grid[rowNumber][columnChoice]) != 'o')) {
-      if (playerNumber == '1') {
-        grid[rowNumber][columnChoice] = 'x';
-        break;
-      }
-
-      else if (playerNumber == '2') {
-        grid[rowNumber][columnChoice] = 'o';
-        break;
-      }
+char markChoiceOnGrid(char rows[], char columns[], char arrayOfRows[6][7], int columnChoice, char playerNumber) {
+  int rowNumber = 5;
+  for (; rowNumber >= 0; rowNumber--) {
+    if (!checkIfCellIsFilled(arrayOfRows[rowNumber][columnChoice - 1])) {
+      break;
     }
+    // if ((arrayOfRows[rowNumber][columnChoice - 1] != 'x') && (arrayOfRows[rowNumber][columnChoice - 1] != 'o')) {
+    //   break;
+    // }
+  }
+  char res = checkIfColumnIsFilled(arrayOfRows, columnChoice);
+  if (res == 'n') {
+    // if (playerNumber == '1') {
+    arrayOfRows[rowNumber][columnChoice - 1] = (playerNumber == '1' ? 'x' : 'o');
+    // } else if (playerNumber == '2') {
+    //   arrayOfRows[rowNumber][columnChoice - 1] = 'o';
+    // }
   }
 
-  drawGrid(rows, columns, grid);
+  drawGrid(rows, columns, arrayOfRows);
 
   // ~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~
 
-  char res = checkIfPlayerHasWon(grid, rowNumber, columnChoice);
+  char result = checkIfPlayerHasWon(arrayOfRows, rowNumber, (columnChoice - 1));
 
-  if (res == 'w') {
+  if (result == 'w') {
     printf("Congrats, Player %c! You have won! ", playerNumber);
     return 'w';
-  }
-
-  else {
+  } else {
     return 'l';
   }
   // ~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~
@@ -170,12 +169,12 @@ char markChoiceOnGrid(char rows[], char columns[], char grid[6][7], int columnCh
 int main() {
   char rows[] = {'a', 'b', 'c', 'd', 'e', 'f', '\0'};
   char columns[] = {'1', '2', '3', '4', '5', '6', '7', '\0'};
-  char grid[6][7] = {{' ', ' ', ' ', ' ', ' ', ' ', ' '}, {' ', ' ', ' ', ' ', ' ', ' ', ' '}, {' ', ' ', ' ', ' ', ' ', ' ', ' '}, {' ', ' ', ' ', ' ', ' ', ' ', ' '}, {' ', ' ', ' ', ' ', ' ', ' ', ' '}, {' ', ' ', ' ', ' ', ' ', ' ', ' '}};
-  drawGrid(rows, columns, grid);
+  char arrayOfRows[6][7] = {{' ', ' ', ' ', ' ', ' ', ' ', ' '}, {' ', ' ', ' ', ' ', ' ', ' ', ' '}, {' ', ' ', ' ', ' ', ' ', ' ', ' '}, {' ', ' ', ' ', ' ', ' ', ' ', ' '}, {' ', ' ', ' ', ' ', ' ', ' ', ' '}, {' ', ' ', ' ', ' ', ' ', ' ', ' '}};
+  drawGrid(rows, columns, arrayOfRows);
 
   int columnChoice;
   int countMoves;
-  char resultOfCheckIfFilled;
+  char resultOfCheckIfColumnIsFilled;
 
   for (countMoves = 1; countMoves <= 42; countMoves++) {
     if (countMoves % 2 != 0) {
@@ -189,15 +188,15 @@ int main() {
         scanf("%d", &columnChoice);
       }
 
-      resultOfCheckIfFilled = checkIfFilled(grid, columnChoice);
+      resultOfCheckIfColumnIsFilled = checkIfColumnIsFilled(arrayOfRows, columnChoice);
 
-      while (resultOfCheckIfFilled == 'y') {
+      while (resultOfCheckIfColumnIsFilled == 'y') {
         printf("Invalid choice. Select another, Player 1.");
         scanf("%d", &columnChoice);
-        resultOfCheckIfFilled = checkIfFilled(grid, columnChoice);
+        resultOfCheckIfColumnIsFilled = checkIfColumnIsFilled(arrayOfRows, columnChoice);
       }
 
-      char res = markChoiceOnGrid(rows, columns, grid, columnChoice, '1');
+      char res = markChoiceOnGrid(rows, columns, arrayOfRows, columnChoice, '1');
       if (res == 'w') {
         break;
       }
@@ -214,15 +213,15 @@ int main() {
         scanf("%d", &columnChoice);
       }
 
-      resultOfCheckIfFilled = checkIfFilled(grid, columnChoice);
+      resultOfCheckIfColumnIsFilled = checkIfColumnIsFilled(arrayOfRows, columnChoice);
 
-      while (resultOfCheckIfFilled == 'y') {
+      while (resultOfCheckIfColumnIsFilled == 'y') {
         printf("Invalid choice. Select another, Player 2.");
         scanf("%d", &columnChoice);
-        resultOfCheckIfFilled = checkIfFilled(grid, columnChoice);
+        resultOfCheckIfColumnIsFilled = checkIfColumnIsFilled(arrayOfRows, columnChoice);
       }
 
-      char res = markChoiceOnGrid(rows, columns, grid, columnChoice, '2');
+      char res = markChoiceOnGrid(rows, columns, arrayOfRows, columnChoice, '2');
       if (res == 'w') {
         break;
       }
