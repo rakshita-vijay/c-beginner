@@ -99,25 +99,31 @@ bool check_diagonals(char arrayOfRows[6][7], int rowNumber, int columnChoice) {
 
 char[] createHorizontalArray(char arrayOfRows[6][7], int rowNumber) {
   int HIndex;
-  int columnNumber;
+  int columnNum;
   char arrOfHorizontalValues[];
 
-  for (HIndex = 0, columnNumber = 0; columnNumber <= 7; HIndex++, columnNumber++) {
-    arrOfHorizontalValues[HIndex] = arrayOfRows[rowNumber][columnNumber];
+  for (HIndex = 0, columnNum = 0; columnNum <= 7; HIndex++, columnNum++) {
+    arrOfHorizontalValues[HIndex] = arrayOfRows[rowNumber][columnNum];
   }
 
   return arrOfHorizontalValues;
 }
 
-char[] createVerticalArray(char arrayOfRows[6][7], int rowNumber, int columnChoice) {
+char[] createVerticalArray(char arrayOfRows[6][7], int columnChoice) {
+  int VIndex;
+  int rowNum;
   char arrOfVerticalValues[];
+
+  for (VIndex = 0, rowNum = 0; rowNum <= 6; VIndex++, rowNum++) {
+    arrOfVerticalValues[VIndex] = arrayOfRows[rowNum][columnChoice];
+  }
+
+  return arrOfVerticalValues;
 }
 
 char[] createDiagonalArray(char arrayOfRows[6][7], int rowNumber, int columnChoice) {
-  char arrOfDiagonalValues[];
-
   int HVIndex;
-  char arrOfHorizontalValues[];
+  char arrOfDiagonalValues[];
 
   for (; rowNumber >= 0, columnChoice >= 0;) {
     rowNumber--;
@@ -125,10 +131,10 @@ char[] createDiagonalArray(char arrayOfRows[6][7], int rowNumber, int columnChoi
   }
 
   for (HVIndex = 0; rowNumber <= 6, columnChoice <= 7; rowNumber++, columnChoice++) {
-    arrOfHorizontalValues[HVIndex] = arrayOfRows[rowNumber][columnChoice];
+    arrOfDiagonalValues[HVIndex] = arrayOfRows[rowNumber][columnChoice];
   }
 
-  return arrOfHorizontalValues;
+  return arrOfDiagonalValues;
 }
 
 // ~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~
