@@ -121,30 +121,38 @@ bool checkIfPlayerHasWon(char arrayOfRows[6][7], int rowNumber, int columnChoice
   extractDiagonalValuesFromLeftMargin(arrayOfRows, rowNumber, columnChoice);
   extractDiagonalValuesFromRightMargin(arrayOfRows, rowNumber, columnChoice);
 
-  bool hRes;
-  bool vRes;
-  bool dResL;
-  bool dResR;
+  bool hRes = false;
+  bool vRes = false;
+  bool dResL = false;
+  bool dResR = false;
+
+  printf("Before ifs");
 
   if (checkIf4PresentInAnyOrder(globalHorizontalArray, playerNumber)) {
     printf("1> ");
-    hRes = checkIfWonGivenSingleArray(globalHorizontalArray, 7);
+    hRes = checkIfWonGivenSingleArray(globalHorizontalArray, 8);
+    printf("hRes: %i", (int)hRes);
   }
 
   if (checkIf4PresentInAnyOrder(globalVerticalArray, playerNumber)) {
     printf("2> ");
-    vRes = checkIfWonGivenSingleArray(globalVerticalArray, 6);
+    vRes = checkIfWonGivenSingleArray(globalVerticalArray, 7);
+    printf("vRes: %i", (int)vRes);
   }
 
   if (checkIf4PresentInAnyOrder(globalDiagonalArrayLeft, playerNumber)) {
     printf("3> ");
-    dResL = checkIfWonGivenSingleArray(globalDiagonalArrayLeft, ((7 > 6) ? 6 : 7));
+    dResL = checkIfWonGivenSingleArray(globalDiagonalArrayLeft, ((8 > 7) ? 7 : 8));
+    printf("dResL: %i", (int)dResL);
   }
 
   if (checkIf4PresentInAnyOrder(globalDiagonalArrayRight, playerNumber)) {
     printf("4> ");
-    dResR = checkIfWonGivenSingleArray(globalDiagonalArrayRight, ((7 > 6) ? 6 : 7));
+    dResR = checkIfWonGivenSingleArray(globalDiagonalArrayRight, ((8 > 7) ? 7 : 8));
+    printf("dResR: %i", (int)dResR);
   }
+
+  printf("After ifs");
 
   // printf("\n dResL: %i", (int)dResL);
   // printf("\n dResR: %i", (int)dResR);
