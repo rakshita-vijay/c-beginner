@@ -36,8 +36,8 @@ void extractDiagonalValuesFromLeftMargin(char arr[6][7], int rowNumber, int colu
   while ((rowNumber > 0) && (columnChoice > 0)) {
     rowNumber--;
     columnChoice--;
-    printf("%i, %i \n", rowNumber, columnChoice);
-    printf("~");
+    // printf("%i, %i \n", rowNumber, columnChoice);
+    // printf("~");
   }
   // at this point, either row or column will be at the boundary (if not both)
   // (0, 3)
@@ -46,8 +46,8 @@ void extractDiagonalValuesFromLeftMargin(char arr[6][7], int rowNumber, int colu
 
   while ((rowNumber < 6) && (columnChoice < 7)) {
     globalDiagonalArrayLeft[HVIndex] = arr[rowNumber][columnChoice];
-    printf("%c\n", globalDiagonalArrayLeft[HVIndex]);
-    printf("~");
+    // printf("%c\n", globalDiagonalArrayLeft[HVIndex]);
+    // printf("~");
     rowNumber++;
     columnChoice++;
     HVIndex++;
@@ -61,7 +61,7 @@ void extractDiagonalValuesFromRightMargin(char arr[6][7], int rowNumber, int col
   while ((rowNumber > 0) && (columnChoice < 7)) {
     rowNumber--;
     columnChoice++;
-    printf("%i, %i \n", rowNumber, columnChoice);
+    // ("%i, %i \n", rowNumber, columnChoice);
   }
   // at this point, either row or column will be at the boundary (if not both)
   // (2,6)
@@ -87,7 +87,7 @@ bool checkIf4PresentInAnyOrder(char arrayOfValues[], char playerNumber) {
   while (arrayOfValues[indexOfArrayOfValues] != '\0') {
     if (arrayOfValues[indexOfArrayOfValues] == cellValue) {
       countIfMin4 += 1;
-      printf("~ %i ", countIfMin4);
+      // printf("~ %i ", countIfMin4);
     }
     indexOfArrayOfValues++;
   }
@@ -126,33 +126,33 @@ bool checkIfPlayerHasWon(char arrayOfRows[6][7], int rowNumber, int columnChoice
   bool dResL = false;
   bool dResR = false;
 
-  printf("Before ifs");
+  // printf("Before ifs");
 
   if (checkIf4PresentInAnyOrder(globalHorizontalArray, playerNumber)) {
-    printf("1> ");
+    // printf("1> ");
     hRes = checkIfWonGivenSingleArray(globalHorizontalArray, 8);
-    printf("hRes: %i", (int)hRes);
+    // printf("hRes: %i", (int)hRes);
   }
 
   if (checkIf4PresentInAnyOrder(globalVerticalArray, playerNumber)) {
-    printf("2> ");
+    // printf("2> ");
     vRes = checkIfWonGivenSingleArray(globalVerticalArray, 7);
-    printf("vRes: %i", (int)vRes);
+    // printf("vRes: %i", (int)vRes);
   }
 
   if (checkIf4PresentInAnyOrder(globalDiagonalArrayLeft, playerNumber)) {
-    printf("3> ");
+    // printf("3> ");
     dResL = checkIfWonGivenSingleArray(globalDiagonalArrayLeft, ((8 > 7) ? 7 : 8));
-    printf("dResL: %i", (int)dResL);
+    // printf("dResL: %i", (int)dResL);
   }
 
   if (checkIf4PresentInAnyOrder(globalDiagonalArrayRight, playerNumber)) {
-    printf("4> ");
+    // printf("4> ");
     dResR = checkIfWonGivenSingleArray(globalDiagonalArrayRight, ((8 > 7) ? 7 : 8));
-    printf("dResR: %i", (int)dResR);
+    // printf("dResR: %i", (int)dResR);
   }
 
-  printf("After ifs");
+  // printf("After ifs");
 
   // printf("\n dResL: %i", (int)dResL);
   // printf("\n dResR: %i", (int)dResR);
