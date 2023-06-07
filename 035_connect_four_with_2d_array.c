@@ -3,16 +3,6 @@
 #include <stdbool.h>
 #include <stdio.h>
 
-// ~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~
-
-// int maxColumns = 7;
-// int maxRows = 6;
-
-// struct arr {
-//   char array[7];
-// };
-
-// int maxDiagonal = ((7 > 6) ? 6 : 7);
 char globalHorizontalArray[8];
 char globalVerticalArray[7];
 char globalDiagonalArrayLeft[((8 > 7) ? 7 : 8)];
@@ -36,18 +26,13 @@ void extractDiagonalValuesFromLeftMargin(char arr[6][7], int rowNumber, int colu
   while ((rowNumber > 0) && (columnChoice > 0)) {
     rowNumber--;
     columnChoice--;
-    // printf("%i, %i \n", rowNumber, columnChoice);
-    // printf("~");
   }
   // at this point, either row or column will be at the boundary (if not both)
-  // (0, 3)
 
   int HVIndex = 0;
 
   while ((rowNumber < 6) && (columnChoice < 7)) {
     globalDiagonalArrayLeft[HVIndex] = arr[rowNumber][columnChoice];
-    // printf("%c\n", globalDiagonalArrayLeft[HVIndex]);
-    // printf("~");
     rowNumber++;
     columnChoice++;
     HVIndex++;
@@ -61,10 +46,8 @@ void extractDiagonalValuesFromRightMargin(char arr[6][7], int rowNumber, int col
   while ((rowNumber > 0) && (columnChoice < 7)) {
     rowNumber--;
     columnChoice++;
-    // ("%i, %i \n", rowNumber, columnChoice);
   }
   // at this point, either row or column will be at the boundary (if not both)
-  // (2,6)
 
   int HVIndex = 0;
 
@@ -87,7 +70,6 @@ bool checkIf4PresentInAnyOrder(char arrayOfValues[], char playerNumber) {
   while (arrayOfValues[indexOfArrayOfValues] != '\0') {
     if (arrayOfValues[indexOfArrayOfValues] == cellValue) {
       countIfMin4 += 1;
-      // printf("~ %i ", countIfMin4);
     }
     indexOfArrayOfValues++;
   }
@@ -106,16 +88,6 @@ bool checkIfWonGivenSingleArray(char arrayOfValues[], int length) {
 // ~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~
 
 bool checkIfPlayerHasWon(char arrayOfRows[6][7], int rowNumber, int columnChoice, char playerNumber) {
-  /*
-  if (check_W_Left(arrayOfRows, rowNumber, columnChoice) || check_E_Right(arrayOfRows, rowNumber, columnChoice) || check_N_Up(arrayOfRows, rowNumber, columnChoice) || check_S_Down(arrayOfRows, rowNumber, columnChoice) || check_NW(arrayOfRows, rowNumber, columnChoice) || check_NE(arrayOfRows, rowNumber, columnChoice) || check_SW(arrayOfRows, rowNumber, columnChoice) || check_SE(arrayOfRows,
-  rowNumber, columnChoice) || check_l_and_r(arrayOfRows, rowNumber, columnChoice) || check_t_and_b(arrayOfRows, rowNumber, columnChoice) || check_diagonals(arrayOfRows, rowNumber, columnChoice)) { return 'w';
-  }
-
-  else {
-    return 'l';
-  }
-  */
-
   extractHorizontalValues(arrayOfRows, rowNumber);
   extractVerticalValues(arrayOfRows, columnChoice);
   extractDiagonalValuesFromLeftMargin(arrayOfRows, rowNumber, columnChoice);
@@ -126,36 +98,21 @@ bool checkIfPlayerHasWon(char arrayOfRows[6][7], int rowNumber, int columnChoice
   bool dResL = false;
   bool dResR = false;
 
-  // printf("Before ifs");
-
   if (checkIf4PresentInAnyOrder(globalHorizontalArray, playerNumber)) {
-    // printf("1> ");
     hRes = checkIfWonGivenSingleArray(globalHorizontalArray, 8);
-    // printf("hRes: %i", (int)hRes);
   }
 
   if (checkIf4PresentInAnyOrder(globalVerticalArray, playerNumber)) {
-    // printf("2> ");
     vRes = checkIfWonGivenSingleArray(globalVerticalArray, 7);
-    // printf("vRes: %i", (int)vRes);
   }
 
   if (checkIf4PresentInAnyOrder(globalDiagonalArrayLeft, playerNumber)) {
-    // printf("3> ");
     dResL = checkIfWonGivenSingleArray(globalDiagonalArrayLeft, ((8 > 7) ? 7 : 8));
-    // printf("dResL: %i", (int)dResL);
   }
 
   if (checkIf4PresentInAnyOrder(globalDiagonalArrayRight, playerNumber)) {
-    // printf("4> ");
     dResR = checkIfWonGivenSingleArray(globalDiagonalArrayRight, ((8 > 7) ? 7 : 8));
-    // printf("dResR: %i", (int)dResR);
   }
-
-  // printf("After ifs");
-
-  // printf("\n dResL: %i", (int)dResL);
-  // printf("\n dResR: %i", (int)dResR);
 
   return (hRes || vRes || dResL || dResR);
 }
