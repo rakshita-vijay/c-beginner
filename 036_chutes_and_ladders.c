@@ -33,15 +33,19 @@ int promptForNumberOfPlayers(int numberOfTokens) {
 }
 
 void assignValuesToArrayOfCellValues(char arrayOfCellValues[101][numberOfPlayers]) {
-  for (int outerCount = 0; outerCount < 101; outerCount++) {
+  for (int outerCount = 0; outerCount < 100; outerCount++) {
     for (int innerCount = 0; innerCount < numberOfPlayers; innerCount++) {
       // printf("(%i, %i) -%c/ \n", outerCount, innerCount, arrayOfCellValues[outerCount][innerCount]);
       arrayOfCellValues[outerCount][innerCount] = ' ';
-      arrayOfCellValues[101][innerCount] = '\0';
-      printf("(%i, %i) -%c/ \n", outerCount, innerCount, arrayOfCellValues[outerCount][innerCount]);
+      printf("(%i, %i) (%c) \n", outerCount, innerCount, arrayOfCellValues[outerCount][innerCount]);
     }
   }
+
+  for (int innerCount = 0; innerCount < numberOfPlayers; innerCount++) {
+    arrayOfCellValues[100][innerCount] = '\0';
+  }
 }
+
 void drawBoard(char arrayOfCellValues[101][numberOfPlayers], char playerTokens[]) {
 
   printf("                                    Chutes and Ladders: A Game \n");
@@ -141,6 +145,10 @@ int playUntilOnePlayerWins(char arrayOfCellValues[101][numberOfPlayers]) {
   }
 }
 
+void displayCongratulatoryMessage(int playerNumber) {
+  printf("Congrats, Player %i! You have won! \n", playerNumber);
+}
+
 int main() {
 
   char arrayOfCellValues[101][numberOfPlayers];
@@ -155,9 +163,11 @@ int main() {
 
   assignValuesToArrayOfCellValues(arrayOfCellValues);
 
-  drawBoard(arrayOfCellValues, playerTokens);
+  // drawBoard(arrayOfCellValues, playerTokens);
 
-  int playerNumber = playUntilOnePlayerWins(arrayOfCellValues);
+  // int playerNumber = playUntilOnePlayerWins(arrayOfCellValues);
+
+  // displayCongratulatoryMessage(playerNumber);
 
   // int indexOfArrayOfCellValues = 0;
   // for (; arrayOfCellValues[indexOfArrayOfCellValues][0] != '\0', indexOfArrayOfCellValues++) {
