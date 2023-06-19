@@ -161,6 +161,7 @@ int promptForColumnChoice(char arrayOfRows[6][7], int playerNumber) {
     printf("Invalid choice. Select another, Player %c: ", playerNumber);
     scanf("%i", &columnChoice);
   }
+
   bool resultOfCheckIfColumnIsFilled = checkIfColumnIsFilled(arrayOfRows, columnChoice);
   while (resultOfCheckIfColumnIsFilled) {
     printf("Invalid choice. Select another, Player %c: ", playerNumber);
