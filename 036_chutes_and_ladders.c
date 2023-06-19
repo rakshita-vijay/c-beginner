@@ -103,11 +103,13 @@ int obtainRandomNumberOnDice(int playerNumber) {
   return numberOnDice;
 }
 
+/*
 // int climbUpIfRequired() {
 // }
 
 // int slideDownIfRequired() {
 // }
+*/
 
 int calculateFinalTile(int numberOnDice) {
   // normal move
