@@ -32,7 +32,7 @@ int promptForNumberOfPlayers(int numberOfTokens) {
   return numberOfPlayers;
 }
 
-void assignValuesToArrayOfCellValues(char arrayOfCellValues[101][numberOfPlayers]) {
+void assignValuesToArrayOfCellValues(char arrayOfCellValues[100][numberOfPlayers]) {
   for (int outerCount = 0; outerCount < 100; outerCount++) {
     for (int innerCount = 0; innerCount < numberOfPlayers; innerCount++) {
       // printf("(%i, %i) -%c/ \n", outerCount, innerCount, arrayOfCellValues[outerCount][innerCount]);
@@ -41,12 +41,12 @@ void assignValuesToArrayOfCellValues(char arrayOfCellValues[101][numberOfPlayers
     }
   }
 
-  for (int innerCount = 0; innerCount < numberOfPlayers; innerCount++) {
-    arrayOfCellValues[100][innerCount] = '\0';
-  }
+  // for (int innerCount = 0; innerCount < numberOfPlayers; innerCount++) {
+  //   arrayOfCellValues[100][innerCount] = '\0';
+  // }
 }
 
-void drawBoard(char arrayOfCellValues[101][numberOfPlayers], char playerTokens[]) {
+void drawBoard(char arrayOfCellValues[100][numberOfPlayers], char playerTokens[]) {
 
   printf("                                    Chutes and Ladders: A Game \n");
 
@@ -126,10 +126,10 @@ int calculateFinalTile(int numberOnDice) {
 void markChoiceOnGrid(int finalTile) {
 }
 
-int playUntilOnePlayerWins(char arrayOfCellValues[101][numberOfPlayers]) {
+int playUntilOnePlayerWins(char arrayOfCellValues[100][numberOfPlayers]) {
   for (;;) {
     int playerNumber = 0;
-    for (; arrayOfCellValues[100][playerNumber] != ' '; playerNumber++) {
+    for (; arrayOfCellValues[99][playerNumber] != ' '; playerNumber++) {
       bool playerChoice = askIfPlayerWantsToPlay(playerNumber);
       if (playerChoice) {
         int numberOnDice = obtainRandomNumberOnDice(playerNumber);
@@ -139,7 +139,7 @@ int playUntilOnePlayerWins(char arrayOfCellValues[101][numberOfPlayers]) {
         continue;
       }
     }
-    if (arrayOfCellValues[100][playerNumber] != ' ') {
+    if (arrayOfCellValues[99][playerNumber] != ' ') {
       return playerNumber;
     }
   }
@@ -151,7 +151,7 @@ void displayCongratulatoryMessage(int playerNumber) {
 
 int main() {
 
-  char arrayOfCellValues[101][numberOfPlayers];
+  char arrayOfCellValues[100][numberOfPlayers];
 
   // {{'1', '2', '3', '4', '5', '6', '7'}, {'b', ' ', ' ', ' ', ' ', ' ', ' '}, {'c', ' ', ' ', ' ', ' ', ' ', ' '}, {'d', ' ', ' ', ' ', ' ', ' ', ' '}, {'e', ' ', ' ', ' ', ' ', ' ', ' '}, {'f', ' ', ' ', ' ', ' ', ' ', ' '}, {'g', ' ', ' ', ' ', ' ', ' ', ' '}, {'h', ' ', ' ', ' ', ' ', ' ', ' '}, {'i', ' ', ' ', ' ', ' ', ' ', ' '}, {'j', ' ', ' ', ' ', ' ', ' ', ' '}, {'k', ' ', ' ', ' ', ' ', ' ', ' '}, {'l', ' ', ' ', ' ', ' ', ' ', ' '}, {'m', ' ', ' ', ' ', ' ', ' ', ' '}, {'n', ' ', ' ', ' ', ' ', ' ', ' '}, {'o', ' ', ' ', ' ', ' ', ' ', ' '}, {'p', ' ', ' ', ' ', ' ', ' ', ' '}, {'q', ' ', ' ', ' ', ' ', ' ', ' '}, {'r', ' ', ' ', ' ', ' ', ' ', ' '}, {'s', ' ', ' ', ' ', ' ', ' ', ' '}, {'t', ' ', ' ', ' ', ' ', ' ', ' '}, {'u', ' ', ' ', ' ', ' ', ' ', ' '}, {'v', ' ', ' ', ' ', ' ', ' ', ' '}, {'w', ' ', ' ', ' ', ' ', ' ', ' '}, {'x', ' ', ' ', ' ', ' ', ' ', ' '}, {'y', ' ', ' ', ' ', ' ', ' ', ' '}, {'z', ' ', ' ', ' ', ' ', ' ', ' '}, {'\0', '\0', '\0', '\0', '\0', '\0', '\0'}};
 
