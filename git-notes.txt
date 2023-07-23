@@ -1,0 +1,23 @@
+Dirty, Staged, Local, Remote
+
+// ~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*
+
+git init - to create a file for dirty code
+git add - to go to staged version of code
+git commit - to store in local
+git push - to store in remote
+git status - to show staged code not yet commited
+git branch BRANCHNAME - to create a new branch
+git checkout BRANCHNAME - to check out a previously created branch
+git checkout -b BRANCHNAME - to create and check out a branch
+git branch -d BRANCHNAME - to delete a branch
+ls - lists the content in a directory (?)
+
+// ~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*
+
+cannot create array with variable length
+return array from a function using struct or global
+
+// ~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*
+
+unit test, integration test, end-to-end test
