@@ -21,3 +21,19 @@ return array from a function using struct or global
 // ~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*
 
 unit test, integration test, end-to-end test
+
+// ~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*
+
+To connect GitHub and VSCodium and get the repository to edit:
+-------------------------------------------------------------
+cd ~/dev/rakshita/c-beginner 
+code .
+
+// ~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*
+
+To download a new App:
+---------------------
+brew search chrome (for example)
+code ~/Brewfile
+bupc
+# With GUI, then in casks, else in brew/formulae 
