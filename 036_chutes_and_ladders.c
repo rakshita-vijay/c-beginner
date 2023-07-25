@@ -92,6 +92,33 @@ void drawBoard(char arrayOfCellValues[100][numberOfPlayers], char playerTokens[]
   printf("      /_ _ _/_ _ _ _|_ _ _|_ _ _/         \\_ _ _|_ _ _|_ _ _/                         \\ _ _ _ _ _ _ _ _/ \n");
 }
 
+int promptForNumberOfCells(){
+  int numberOfCells;
+  printf("Enter the number of cells you want in the game (Default is 100): ");
+  scanf("%i", &numberOfCells);
+  printf("\n");
+
+  while ((numberOfCells > 200) || (numberOfCells < 10)) {
+    printf("Too ");
+    (numberOfCells > 200) ? printf("many") : printf("less");
+    printf(" cells. Maximum is 200. Minimum is 10. Re-enter the number of cells: ");
+    scanf("%i", &numberOfCells);
+    printf("\n");
+  }
+
+  return numberOfCells;
+}
+
+void drawBoard(char arrayOfCellValues[100][numberOfPlayers], char playerTokens[]) {
+
+  printf("                                    Chutes and Ladders: A Game \n");
+
+  int countNumberOfPlayers = 0;
+  for (; countNumberOfPlayers < numberOfPlayers; countNumberOfPlayers++) {
+    printf("                                           Player %i: %c \n", (countNumberOfPlayers + 1), playerTokens[countNumberOfPlayers]);
+  }
+}
+
 bool askIfPlayerWantsToPlay(int playerNumber) {
   char playerChoice;
   printf("Player %i, do you want to roll the dice - y/n? ", playerNumber);
@@ -102,7 +129,7 @@ bool askIfPlayerWantsToPlay(int playerNumber) {
 
 // #define RAND_MAX = 6;
 int obtainRandomNumberOnDice(int playerNumber) {
-  int numberOnDice = random() % 6 + 1;
+  int numberOnDice = ((rand() % 6) + 1);
   printf("Player %i, move forward %i spaces", playerNumber, numberOnDice);
   return numberOnDice;
 }
@@ -162,6 +189,8 @@ int main() {
   // printf("%i \n", numberOfPlayers);
 
   assignValuesToArrayOfCellValues(arrayOfCellValues);
+
+  int numberOfCells = promptForNumberOfCells();
 
   // drawBoard(arrayOfCellValues, playerTokens);
 
