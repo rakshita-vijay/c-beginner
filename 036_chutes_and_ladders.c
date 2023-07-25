@@ -109,6 +109,14 @@ int promptForNumberOfCells(){
   return numberOfCells;
 }
 
+int numberOfRows = 5;
+int numberOfCellsInRows;
+int numberOfBridges = 5;
+int numberOfCellsInBridges = 2;
+splitNumberOfCells(int numberOfCells){
+  numberOfCellsInRows = (numberOfCells - (numberOfBridges * numberOfCellsInBridges)) / numberOfRows;
+}
+
 void drawBoard(char arrayOfCellValues[100][numberOfPlayers], char playerTokens[]) {
 
   printf("                                    Chutes and Ladders: A Game \n");
@@ -191,6 +199,7 @@ int main() {
   assignValuesToArrayOfCellValues(arrayOfCellValues);
 
   int numberOfCells = promptForNumberOfCells();
+  splitNumberOfCells(numberOfCells);
 
   // drawBoard(arrayOfCellValues, playerTokens);
 
