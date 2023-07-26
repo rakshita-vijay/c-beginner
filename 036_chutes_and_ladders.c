@@ -57,12 +57,12 @@ int promptForNumberOfCells(){
   numberOfCells = (int) (floor(num));
   printf("\n");
 
-  while ((numberOfCells > 150) || (numberOfCells < 10)) {
+  while ((numberOfCells > 174) || (numberOfCells < 20)) {
     int choice;
 
     printf("Too ");
-    (numberOfCells > 150) ? printf("many") : printf("less");
-    printf(" cells. Maximum is 150. Minimum is 10. Default is 100. \nDo you want to: \n1) Re-enter the number of cells? \n2) Let it remain 100? \nEnter your choice: ");
+    (numberOfCells > 174) ? printf("many") : printf("less");
+    printf(" cells. Maximum is 174. Minimum is 20. Default is 100. \nDo you want to: \n1) Re-enter the number of cells? \n2) Let it remain 100? \nEnter your choice: ");
     scanf("%i", &choice);
     printf("\n");
 
@@ -146,7 +146,7 @@ void drawRightBridge(int startIndex) {
         if ((index - outerCount) > 99) {
         (lineCount == 0) ? printf("|%i  | \n", (index - outerCount)) : printf("|     | \n");
         } else {
-        (lineCount == 0) ? ((index > 9) ? printf("|%i   | \n", (index - outerCount)) : printf("|0%i   | \n", (index - outerCount))) : ((index > 9) ? printf("|     | \n") : printf("|     | \n"));
+        (lineCount == 0) ? (((index - outerCount) > 9) ? printf("|%i   | \n", (index - outerCount)) : printf("|0%i   | \n", (index - outerCount))) : (((index - outerCount) > 9) ? printf("|     | \n") : printf("|     | \n"));
         }
     }
 
@@ -164,11 +164,11 @@ void drawLeftBridge(int startIndex) {
     if ((index - outerCount) != 0) {
       for (int lineCount = 0; lineCount < 2; lineCount++) {
         printf("   ");
-        if (index > 99) {
+        if ((index - outerCount) > 99) {
           (lineCount == 0) ? printf("|%i  | \n", (index - outerCount)) : printf("|    | \n");
-          } else {
-            (lineCount == 0) ? ((index > 9) ? printf("|%i   | \n", (index - outerCount)) : printf("|0%i   | \n", (index - outerCount))) : ((index > 9) ? printf("|     | \n") : printf("|     | \n"));
-            }
+        } else {
+          (lineCount == 0) ? (((index - outerCount) > 9) ? printf("|%i   | \n", (index - outerCount)) : printf("|0%i   | \n", (index - outerCount))) : (((index - outerCount) > 9) ? printf("|     | \n") : printf("|     | \n"));
+        }
         }
       }
 
@@ -198,23 +198,37 @@ void drawRemainingCellsOnRightAsColumn(int numberOfCellsRemaining) {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void drawRemainingCellsOnRightAsRow(int numberOfCellsRemaining) {
   printf("    ");
-  for (int spaceCount = 0; spaceCount < ((numberOfCellsInARow - 1 - numberOfCellsRemaining) * 6); spaceCount++) {
+  for (int spaceCount = 0; spaceCount < ((numberOfCellsInARow - numberOfCellsRemaining) * 6); spaceCount++) {
     printf(" ");
   }
+  for (int count = 0; count < (numberOfCellsRemaining * 3); count++) {
+    printf("_ ");
+  }
+  printf("\n");
 
-  for (int innerCount = 0; innerCount < numberOfCellsInARow; innerCount++, numberOfCellsRemaining--) {
-    (numberOfCellsRemaining > 9) ? printf("|%i   ", numberOfCellsRemaining) : printf("|0%i   ", numberOfCellsRemaining);
+  printf("   ");
+  for (int spaceCount = 0; spaceCount < ((numberOfCellsInARow - numberOfCellsRemaining) * 6); spaceCount++) {
+    printf(" ");
+  }
+  for (int count = 1; count <= numberOfCellsRemaining; count++) {
+    (count > 9) ? printf("|%i   ", count) : printf("|0%i   ", count);
   }
   printf("| \n");
 
   printf("   ");
-  for (int innerCount = 0; innerCount < numberOfCellsInARow; innerCount++) {
+  for (int spaceCount = 0; spaceCount < ((numberOfCellsInARow - numberOfCellsRemaining) * 6); spaceCount++) {
+    printf(" ");
+  }
+  for (int count = 0; count < numberOfCellsRemaining; count++) {
     printf("|     ");
   }
   printf("| \n");
 
   printf("   ");
-  for (int count = 0; count < numberOfCellsInARow; count++) {
+  for (int spaceCount = 0; spaceCount < ((numberOfCellsInARow - numberOfCellsRemaining) * 6); spaceCount++) {
+    printf(" ");
+  }
+  for (int count = 0; count < numberOfCellsRemaining; count++) {
     printf("|_ _ _");
   }
   printf("| \n");
