@@ -195,6 +195,7 @@ void drawRemainingCellsOnRightAsColumn(int numberOfCellsRemaining) {
   }
 }
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void drawRemainingCellsOnRightAsRow(int numberOfCellsRemaining) {
   printf("    ");
   for (int spaceCount = 0; spaceCount < ((numberOfCellsInARow - 1 - numberOfCellsRemaining) * 6); spaceCount++) {
@@ -218,6 +219,7 @@ void drawRemainingCellsOnRightAsRow(int numberOfCellsRemaining) {
   }
   printf("| \n");
 }
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 void drawBoard(char arrayOfCellValues[numberOfCells][numberOfPlayers], char playerTokens[]) {
 
