@@ -113,7 +113,8 @@ int numberOfRows = 5;
 int numberOfCellsInRows;
 int numberOfBridges = 5;
 int numberOfCellsInBridges = 2;
-splitNumberOfCells(int numberOfCells){
+
+int splitNumberOfCells(int numberOfCells){
   numberOfCellsInRows = (numberOfCells - (numberOfBridges * numberOfCellsInBridges)) / numberOfRows;
 }
 
