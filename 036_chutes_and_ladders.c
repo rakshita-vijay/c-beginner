@@ -136,7 +136,7 @@ void drawRow(int startIndex, char startSide) {
 }
 
 void drawRightBridge(int startIndex) {
-  int index = startIndex + numberOfCellsInABridge;
+  int index = (startIndex + numberOfCellsInABridge);
   for (int outerCount = 0; ((outerCount < numberOfCellsInABridge) && ((index - outerCount) >= 1)); outerCount++) {
     for (int lineCount = 0; lineCount < 2; lineCount++) {
         printf("   ");
@@ -159,19 +159,18 @@ void drawRightBridge(int startIndex) {
 }
 
 void drawLeftBridge(int startIndex) {
-  int index = startIndex + numberOfCellsInABridge;
+  int index = (startIndex + numberOfCellsInABridge);
   for (int outerCount = 0; outerCount < numberOfCellsInABridge; outerCount++) {
     if ((index - outerCount) != 0) {
       for (int lineCount = 0; lineCount < 2; lineCount++) {
-      printf("   ");
-      if (index > 99) {
-        (lineCount == 0) ? printf("|%i  | \n", (index - outerCount)) : printf("|    | \n");
-      } else {
-        (lineCount == 0) ? ((index > 9) ? printf("|%i   | \n", (index - outerCount)) : printf("|0%i   | \n", (index - outerCount))) : ((index > 9) ? printf("|     | \n") : printf("|     | \n"));
+        printf("   ");
+        if (index > 99) {
+          (lineCount == 0) ? printf("|%i  | \n", (index - outerCount)) : printf("|    | \n");
+          } else {
+            (lineCount == 0) ? ((index > 9) ? printf("|%i   | \n", (index - outerCount)) : printf("|0%i   | \n", (index - outerCount))) : ((index > 9) ? printf("|     | \n") : printf("|     | \n"));
+            }
+        }
       }
-      // printf("|     | \n");
-      }
-    }
 
     printf("   ");
     printf("|_ _ _| \n");
@@ -218,19 +217,6 @@ void drawRemainingCellsOnRightAsRow(int numberOfCellsRemaining) {
     printf("|_ _ _");
   }
   printf("| \n");
-
-  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-  for (; numberOfCellsRemaining > 0; numberOfCellsRemaining--) {
-    printf("    ");
-    for (int lineCount = 0; lineCount < 2; lineCount++) {
-      printf("   ");
-      for (int spaceCount = 0; spaceCount < ((numberOfCellsInARow - 1 - numberOfCellsRemaining) * 6); spaceCount++) {
-        printf(" ");
-      }
-      printf("_ _ _ \n");
-    }
-  }
 }
 
 void drawBoard(char arrayOfCellValues[numberOfCells][numberOfPlayers], char playerTokens[]) {
