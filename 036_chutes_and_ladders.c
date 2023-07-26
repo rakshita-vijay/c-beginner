@@ -1,7 +1,9 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 
+int numberOfCells;
 int numberOfPlayers;
 char playerTokens[] = {'*', 'o', '$', '#', '=', '%', 'v', '\0'};
 
@@ -32,8 +34,8 @@ int promptForNumberOfPlayers(int numberOfTokens) {
   return numberOfPlayers;
 }
 
-void assignValuesToArrayOfCellValues(char arrayOfCellValues[100][numberOfPlayers]) {
-  for (int outerCount = 0; outerCount < 100; outerCount++) {
+void assignValuesToArrayOfCellValues(char arrayOfCellValues[numberOfCells][numberOfPlayers]) {
+  for (int outerCount = 0; outerCount < numberOfCells; outerCount++) {
     for (int innerCount = 0; innerCount < numberOfPlayers; innerCount++) {
       // printf("(%i, %i) -%c/ \n", outerCount, innerCount, arrayOfCellValues[outerCount][innerCount]);
       arrayOfCellValues[outerCount][innerCount] = ' ';
@@ -42,11 +44,11 @@ void assignValuesToArrayOfCellValues(char arrayOfCellValues[100][numberOfPlayers
   }
 
   // for (int innerCount = 0; innerCount < numberOfPlayers; innerCount++) {
-  //   arrayOfCellValues[100][innerCount] = '\0';
+  //   arrayOfCellValues[numberOfCells][innerCount] = '\0';
   // }
 }
 
-void drawBoard(char arrayOfCellValues[100][numberOfPlayers], char playerTokens[]) {
+void drawBoard(char arrayOfCellValues[numberOfCells][numberOfPlayers], char playerTokens[]) {
 
   printf("                                    Chutes and Ladders: A Game \n");
 
@@ -94,7 +96,8 @@ void drawBoard(char arrayOfCellValues[100][numberOfPlayers], char playerTokens[]
 
 int promptForNumberOfCells(){
   int numberOfCells;
-  printf("Enter the number of cells you want in the game (Default is 100): ");
+  // printf("Enter the number of cells you want in the game (Default is 100): ");
+  printf("Enter the number of cells you want in the game: ");
   scanf("%i", &numberOfCells);
   printf("\n");
 
@@ -110,22 +113,61 @@ int promptForNumberOfCells(){
 }
 
 int numberOfRows = 5;
-int numberOfCellsInRows;
+int numberOfCellsInOneRow;
 int numberOfBridges = 5;
 int numberOfCellsInBridges = 2;
+int remainingNumberOfCells;
 
-int splitNumberOfCells(int numberOfCells){
-  numberOfCellsInRows = (numberOfCells - (numberOfBridges * numberOfCellsInBridges)) / numberOfRows;
+int calculateNumberOfCellsInOneRow(int numberOfCells) {
+  numberOfCellsInOneRow = (int)(floor((numberOfCells - (numberOfBridges * numberOfCellsInBridges)) / numberOfRows));
+  remainingNumberOfCells = numberOfCells - ((numberOfCellsInOneRow * numberOfRows) + (numberOfBridges * numberOfCellsInBridges));
+
+  return numberOfCellsInOneRow;
 }
 
-void drawBoard(char arrayOfCellValues[100][numberOfPlayers], char playerTokens[]) {
-
+void drawBoard(char arrayOfCellValues[numberOfCells][numberOfPlayers], char playerTokens[]) {
   printf("                                    Chutes and Ladders: A Game \n");
 
   int countNumberOfPlayers = 0;
   for (; countNumberOfPlayers < numberOfPlayers; countNumberOfPlayers++) {
     printf("                                           Player %i: %c \n", (countNumberOfPlayers + 1), playerTokens[countNumberOfPlayers]);
   }
+
+  printf("   ");
+  for (int count = 0; count < (numberOfCellsInOneRow * 3); count++){
+    printf("_ ");
+  }
+  printf("\n");
+
+  printf("   ");
+  for (int count = 0; count < numberOfCellsInOneRow; count++) {
+    printf("|     ");
+  }
+  printf("| \n");
+
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  printf("   ");
+  for (int count = 0; count < numberOfCellsInOneRow; count++) {
+    printf("|     ");
+  }
+  printf("| \n");
+
+  for (int outerCount = 0; outerCount < numberOfCells; outerCount++) {
+    for (int innerCount = 0; innerCount < numberOfPlayers; innerCount++) {
+      // printf("(%i, %i) -%c/ \n", outerCount, innerCount, arrayOfCellValues[outerCount][innerCount]);
+      arrayOfCellValues[outerCount][innerCount] = ' ';
+      printf("(%i, %i) (%c) \n", outerCount, innerCount, arrayOfCellValues[outerCount][innerCount]);
+    }
+  }
+
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  printf("   ");
+  for (int count = 0; count < numberOfCellsInOneRow; count++) {
+    printf("|_ _ _");
+  }
+  printf("| \n");
 }
 
 bool askIfPlayerWantsToPlay(int playerNumber) {
@@ -162,7 +204,7 @@ int calculateFinalTile(int numberOnDice) {
 void markChoiceOnGrid(int finalTile) {
 }
 
-int playUntilOnePlayerWins(char arrayOfCellValues[100][numberOfPlayers]) {
+int playUntilOnePlayerWins(char arrayOfCellValues[numberOfCells][numberOfPlayers]) {
   for (;;) {
     int playerNumber = 0;
     for (; arrayOfCellValues[99][playerNumber] != ' '; playerNumber++) {
@@ -187,7 +229,7 @@ void displayCongratulatoryMessage(int playerNumber) {
 
 int main() {
 
-  char arrayOfCellValues[100][numberOfPlayers];
+  char arrayOfCellValues[numberOfCells][numberOfPlayers];
 
   // {{'1', '2', '3', '4', '5', '6', '7'}, {'b', ' ', ' ', ' ', ' ', ' ', ' '}, {'c', ' ', ' ', ' ', ' ', ' ', ' '}, {'d', ' ', ' ', ' ', ' ', ' ', ' '}, {'e', ' ', ' ', ' ', ' ', ' ', ' '}, {'f', ' ', ' ', ' ', ' ', ' ', ' '}, {'g', ' ', ' ', ' ', ' ', ' ', ' '}, {'h', ' ', ' ', ' ', ' ', ' ', ' '}, {'i', ' ', ' ', ' ', ' ', ' ', ' '}, {'j', ' ', ' ', ' ', ' ', ' ', ' '}, {'k', ' ', ' ', ' ', ' ', ' ', ' '}, {'l', ' ', ' ', ' ', ' ', ' ', ' '}, {'m', ' ', ' ', ' ', ' ', ' ', ' '}, {'n', ' ', ' ', ' ', ' ', ' ', ' '}, {'o', ' ', ' ', ' ', ' ', ' ', ' '}, {'p', ' ', ' ', ' ', ' ', ' ', ' '}, {'q', ' ', ' ', ' ', ' ', ' ', ' '}, {'r', ' ', ' ', ' ', ' ', ' ', ' '}, {'s', ' ', ' ', ' ', ' ', ' ', ' '}, {'t', ' ', ' ', ' ', ' ', ' ', ' '}, {'u', ' ', ' ', ' ', ' ', ' ', ' '}, {'v', ' ', ' ', ' ', ' ', ' ', ' '}, {'w', ' ', ' ', ' ', ' ', ' ', ' '}, {'x', ' ', ' ', ' ', ' ', ' ', ' '}, {'y', ' ', ' ', ' ', ' ', ' ', ' '}, {'z', ' ', ' ', ' ', ' ', ' ', ' '}, {'\0', '\0', '\0', '\0', '\0', '\0', '\0'}};
 
@@ -200,7 +242,8 @@ int main() {
   assignValuesToArrayOfCellValues(arrayOfCellValues);
 
   int numberOfCells = promptForNumberOfCells();
-  splitNumberOfCells(numberOfCells);
+
+  int numberOfCellsInOneRow = calculateNumberOfCellsInOneRow(numberOfCells);
 
   // drawBoard(arrayOfCellValues, playerTokens);
 
