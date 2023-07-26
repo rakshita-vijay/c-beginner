@@ -6,6 +6,7 @@
 int numberOfCells;
 int numberOfPlayers;
 char playerTokens[] = {'*', 'o', '$', '#', '=', '%', 'v', '\0'};
+int numberOfCells;
 
 int calculateNumberOfTokens(char playerTokens[]) {
   int numberOfTokens = 0;
@@ -48,6 +49,7 @@ void assignValuesToArrayOfCellValues(char arrayOfCellValues[numberOfCells][numbe
   // }
 }
 
+/*
 void drawBoard(char arrayOfCellValues[numberOfCells][numberOfPlayers], char playerTokens[]) {
 
   printf("                                    Chutes and Ladders: A Game \n");
@@ -93,9 +95,9 @@ void drawBoard(char arrayOfCellValues[numberOfCells][numberOfPlayers], char play
   printf("       / 28  /  27  | 26  |      /       \\      | 18  |      |                       |        \\__/ _|_ |_ _ _|_ _ _|_ _ _| \n");
   printf("      /_ _ _/_ _ _ _|_ _ _|_ _ _/         \\_ _ _|_ _ _|_ _ _/                         \\ _ _ _ _ _ _ _ _/ \n");
 }
+*/
 
 int promptForNumberOfCells(){
-  int numberOfCells;
   // printf("Enter the number of cells you want in the game (Default is 100): ");
   printf("Enter the number of cells you want in the game: ");
   scanf("%i", &numberOfCells);
@@ -113,19 +115,70 @@ int promptForNumberOfCells(){
 }
 
 int numberOfRows = 5;
-int numberOfCellsInOneRow;
+int numberOfCellsInARow;
 int numberOfBridges = 5;
-int numberOfCellsInBridges = 2;
-int remainingNumberOfCells;
+int numberOfCellsInABridge = 2;
+int numberOfCellsRemaining;
 
-int calculateNumberOfCellsInOneRow(int numberOfCells) {
-  numberOfCellsInOneRow = (int)(floor((numberOfCells - (numberOfBridges * numberOfCellsInBridges)) / numberOfRows));
-  remainingNumberOfCells = numberOfCells - ((numberOfCellsInOneRow * numberOfRows) + (numberOfBridges * numberOfCellsInBridges));
+void splitNumberOfCells(int numberOfCells){
+  numberOfCellsInARow = floor((numberOfCells - (numberOfBridges * numberOfCellsInABridge)) / numberOfRows);
+  numberOfCellsRemaining = numberOfCells - ((numberOfCellsInARow * numberOfRows) + (numberOfBridges * numberOfCellsInABridge));
+}
 
-  return numberOfCellsInOneRow;
+void drawRow(){
+  printf("    ");
+  for (int count = 0; count < (numberOfCellsInARow * 3); count++) {
+    printf("_ ");
+  }
+  printf("\n");
+
+  for (int outerCount = 0; outerCount < 2; outerCount++) {
+    printf("   ");
+    for (int innerCount = 0; innerCount < numberOfCellsInARow; innerCount++) {
+      printf("|     ");
+    }
+    printf("| \n");
+  }
+
+  printf("   ");
+  for (int count = 0; count < numberOfCellsInARow; count++) {
+    printf("|_ _ _");
+  }
+  printf("| \n");
+}
+
+void drawRightBridge() {
+  for (int outerCount = 0; outerCount < numberOfCellsInABridge; outerCount++) {
+    for (int innerCount = 0; innerCount < 2; innerCount++) {
+      printf("   ");
+      for (int spaceCount1 = 0; spaceCount1 < ((numberOfCellsInARow-1) * 6); spaceCount1++) {
+        printf(" ");
+      }
+      printf("|     | \n");
+    }
+
+    printf("   ");
+    for (int spaceCount2 = 0; spaceCount2 < ((numberOfCellsInARow - 1) * 6); spaceCount2++) {
+      printf(" ");
+    }
+    printf("|_ _ _| \n");
+  }
+}
+
+void drawLeftBridge() {
+  for (int outerCount = 0; outerCount < numberOfCellsInABridge; outerCount++) {
+    for (int innerCount = 0; innerCount < 2; innerCount++) {
+      printf("   ");
+      printf("|     | \n");
+    }
+
+    printf("   ");
+    printf("|_ _ _| \n");
+  }
 }
 
 void drawBoard(char arrayOfCellValues[numberOfCells][numberOfPlayers], char playerTokens[]) {
+
   printf("                                    Chutes and Ladders: A Game \n");
 
   int countNumberOfPlayers = 0;
@@ -133,41 +186,15 @@ void drawBoard(char arrayOfCellValues[numberOfCells][numberOfPlayers], char play
     printf("                                           Player %i: %c \n", (countNumberOfPlayers + 1), playerTokens[countNumberOfPlayers]);
   }
 
-  printf("   ");
-  for (int count = 0; count < (numberOfCellsInOneRow * 3); count++){
-    printf("_ ");
-  }
-  printf("\n");
-
-  printf("   ");
-  for (int count = 0; count < numberOfCellsInOneRow; count++) {
-    printf("|     ");
-  }
-  printf("| \n");
-
-  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-  printf("   ");
-  for (int count = 0; count < numberOfCellsInOneRow; count++) {
-    printf("|     ");
-  }
-  printf("| \n");
-
-  for (int outerCount = 0; outerCount < numberOfCells; outerCount++) {
-    for (int innerCount = 0; innerCount < numberOfPlayers; innerCount++) {
-      // printf("(%i, %i) -%c/ \n", outerCount, innerCount, arrayOfCellValues[outerCount][innerCount]);
-      arrayOfCellValues[outerCount][innerCount] = ' ';
-      printf("(%i, %i) (%c) \n", outerCount, innerCount, arrayOfCellValues[outerCount][innerCount]);
-    }
+  for(int count =0; count< 2; count++){
+    drawRow();
+    drawRightBridge();
+    drawRow();
+    drawLeftBridge();
   }
 
-  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-  printf("   ");
-  for (int count = 0; count < numberOfCellsInOneRow; count++) {
-    printf("|_ _ _");
-  }
-  printf("| \n");
+  drawRow();
+  drawRightBridge();
 }
 
 bool askIfPlayerWantsToPlay(int playerNumber) {
