@@ -196,42 +196,42 @@ void drawRemainingCellsOnRightAsColumn(int numberOfCellsRemaining) {
   }
 }
 
-// void drawRemainingCellsOnRightAsRow(int numberOfCellsRemaining) {
-//   printf("    ");
-//   for (int spaceCount = 0; spaceCount < ((numberOfCellsInARow - 1 - numberOfCellsRemaining) * 6); spaceCount++) {
-//     printf(" ");
-//   }
+void drawRemainingCellsOnRightAsRow(int numberOfCellsRemaining) {
+  printf("    ");
+  for (int spaceCount = 0; spaceCount < ((numberOfCellsInARow - 1 - numberOfCellsRemaining) * 6); spaceCount++) {
+    printf(" ");
+  }
 
-//   for (int innerCount = 0; innerCount < numberOfCellsInARow; innerCount++, numberOfCellsRemaining--) {
-//     (numberOfCellsRemaining > 9) ? printf("|%i   ", numberOfCellsRemaining) : printf("|0%i   ", numberOfCellsRemaining);
-//   }
-//   printf("| \n");
+  for (int innerCount = 0; innerCount < numberOfCellsInARow; innerCount++, numberOfCellsRemaining--) {
+    (numberOfCellsRemaining > 9) ? printf("|%i   ", numberOfCellsRemaining) : printf("|0%i   ", numberOfCellsRemaining);
+  }
+  printf("| \n");
 
-//   printf("   ");
-//   for (int innerCount = 0; innerCount < numberOfCellsInARow; innerCount++) {
-//     printf("|     ");
-//   }
-//   printf("| \n");
+  printf("   ");
+  for (int innerCount = 0; innerCount < numberOfCellsInARow; innerCount++) {
+    printf("|     ");
+  }
+  printf("| \n");
 
-//   printf("   ");
-//   for (int count = 0; count < numberOfCellsInARow; count++) {
-//     printf("|_ _ _");
-//   }
-//   printf("| \n");
+  printf("   ");
+  for (int count = 0; count < numberOfCellsInARow; count++) {
+    printf("|_ _ _");
+  }
+  printf("| \n");
 
-//   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-//   for (; numberOfCellsRemaining > 0; numberOfCellsRemaining--) {
-//     printf("    ");
-//     for (int lineCount = 0; lineCount < 2; lineCount++) {
-//       printf("   ");
-//       for (int spaceCount = 0; spaceCount < ((numberOfCellsInARow - 1 - numberOfCellsRemaining) * 6); spaceCount++) {
-//         printf(" ");
-//       }
-//       printf("_ _ _ \n");
-//     }
-//   }
-// }
+  for (; numberOfCellsRemaining > 0; numberOfCellsRemaining--) {
+    printf("    ");
+    for (int lineCount = 0; lineCount < 2; lineCount++) {
+      printf("   ");
+      for (int spaceCount = 0; spaceCount < ((numberOfCellsInARow - 1 - numberOfCellsRemaining) * 6); spaceCount++) {
+        printf(" ");
+      }
+      printf("_ _ _ \n");
+    }
+  }
+}
 
 void drawBoard(char arrayOfCellValues[numberOfCells][numberOfPlayers], char playerTokens[]) {
 
