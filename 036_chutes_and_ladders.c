@@ -7,6 +7,11 @@ int numberOfCells;
 int numberOfPlayers;
 char playerTokens[] = {'*', 'o', '$', '#', '=', '%', 'v', '\0'};
 int numberOfCells;
+int numberOfRows = 5;
+int numberOfCellsInARow;
+int numberOfBridges = 5;
+int numberOfCellsInABridge = 2;
+int numberOfCellsRemaining;
 
 int calculateNumberOfTokens(char playerTokens[]) {
   int numberOfTokens = 0;
@@ -20,17 +25,13 @@ int promptForNumberOfPlayers(int numberOfTokens) {
 
   printf("\nEnter the number of players: ");
   scanf("%i", &numberOfPlayers);
-  printf("\n");
 
   while ((numberOfPlayers > numberOfTokens) || (numberOfPlayers <= 0)) {
     printf("Too ");
     (numberOfPlayers > numberOfTokens) ? printf("many") : printf("less");
     printf(" players. Maximum is %i. Re-enter the number of players: ", numberOfTokens);
     scanf("%i", &numberOfPlayers);
-    printf("\n");
   }
-
-  printf("\n~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~ \n \n");
 
   return numberOfPlayers;
 }
@@ -40,7 +41,7 @@ void assignValuesToArrayOfCellValues(char arrayOfCellValues[numberOfCells][numbe
     for (int innerCount = 0; innerCount < numberOfPlayers; innerCount++) {
       // printf("(%i, %i) -%c/ \n", outerCount, innerCount, arrayOfCellValues[outerCount][innerCount]);
       arrayOfCellValues[outerCount][innerCount] = ' ';
-      printf("(%i, %i) (%c) \n", outerCount, innerCount, arrayOfCellValues[outerCount][innerCount]);
+      // printf("(%i, %i) (%c) \n", outerCount, innerCount, arrayOfCellValues[outerCount][innerCount]);
     }
   }
 
@@ -49,20 +50,30 @@ void assignValuesToArrayOfCellValues(char arrayOfCellValues[numberOfCells][numbe
   // }
 }
 
+void assignIndexToPlayers(int initialPlace[numberOfPlayers], int numberOnDice, char where, int playerNumber) {
+  if (where == 'a'){
+    for (int playerCount = 0; playerCount < numberOfPlayers; playerCount++) {
+      initialPlace[playerCount] = 1;
+      }
+    }
+  else{
+      initialPlace[playerNumber] += numberOnDice;
+  }
+}
+
 int promptForNumberOfCells(){
-  // printf("Enter the number of cells you want in the game (Default is 100): ");
+  printf("\n");
   int num;
   printf("Enter the number of cells you want in the game: ");
   scanf("%i", &num);
   numberOfCells = (int) (floor(num));
-  printf("\n");
 
-  while ((numberOfCells > 174) || (numberOfCells < 20)) {
+  while ((numberOfCells > 154) || (numberOfCells < 20)) {
     int choice;
 
     printf("Too ");
-    (numberOfCells > 174) ? printf("many") : printf("less");
-    printf(" cells. Maximum is 174. Minimum is 20. Default is 100. \nDo you want to: \n1) Re-enter the number of cells? \n2) Let it remain 100? \nEnter your choice: ");
+    (numberOfCells > 154) ? printf("many") : printf("less");
+    printf(" cells. Maximum is 154. Minimum is 20. Default is 100. \nDo you want to: \n1) Re-enter the number of cells? \n2) Let it remain 100? \nEnter your choice: ");
     scanf("%i", &choice);
     printf("\n");
 
@@ -70,7 +81,7 @@ int promptForNumberOfCells(){
       printf("Re-enter the number of cells: ");
       scanf("%i", &num);
       numberOfCells = (int) (floor(num));
-      printf("\n");
+      // printf("\n");
     }
     else{
       printf("The number of cells in the game is 100 \n");
@@ -81,18 +92,13 @@ int promptForNumberOfCells(){
   return numberOfCells;
 }
 
-int numberOfRows = 5;
-int numberOfCellsInARow;
-int numberOfBridges = 5;
-int numberOfCellsInABridge = 2;
-int numberOfCellsRemaining;
-
 void splitNumberOfCells(int numberOfCells){
   numberOfCellsInARow = (int) (floor((numberOfCells - (numberOfBridges * numberOfCellsInABridge)) / numberOfRows));
   numberOfCellsRemaining = numberOfCells - ((numberOfCellsInARow * numberOfRows) + (numberOfBridges * numberOfCellsInABridge));
 }
 
 void drawRow(int startIndex, char startSide) {
+  printf("\n");
   printf("    ");
   for (int count = 0; count < (numberOfCellsInARow * 3); count++) {
     printf("_ ");
@@ -195,7 +201,6 @@ void drawRemainingCellsOnRightAsColumn(int numberOfCellsRemaining) {
   }
 }
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void drawRemainingCellsOnRightAsRow(int numberOfCellsRemaining) {
   printf("    ");
   for (int spaceCount = 0; spaceCount < ((numberOfCellsInARow - numberOfCellsRemaining) * 6); spaceCount++) {
@@ -233,7 +238,6 @@ void drawRemainingCellsOnRightAsRow(int numberOfCellsRemaining) {
   }
   printf("| \n");
 }
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 void drawBoard(char arrayOfCellValues[numberOfCells][numberOfPlayers], char playerTokens[]) {
 
@@ -243,13 +247,6 @@ void drawBoard(char arrayOfCellValues[numberOfCells][numberOfPlayers], char play
   for (; countNumberOfPlayers < numberOfPlayers; countNumberOfPlayers++) {
     printf("                                           Player %i: %c \n", (countNumberOfPlayers + 1), playerTokens[countNumberOfPlayers]);
   }
-
-  // for(int count =0; count< 2; count++){
-  //   drawRow();
-  //   drawRightBridge();
-  //   drawRow();
-  //   drawLeftBridge();
-  // }
 
   int startIndex = numberOfCells - numberOfCellsInARow;
   drawRow(startIndex, 'L');
@@ -281,9 +278,7 @@ void drawBoard(char arrayOfCellValues[numberOfCells][numberOfPlayers], char play
   startIndex -= numberOfCellsInABridge;
   drawRightBridge(startIndex);
 
-  // (numberOfCellsRemaining<2) ? drawRemainingCellsOnRightAsColumn(numberOfCellsRemaining) : drawRemainingCellsOnRightAsRow(numberOfCellsRemaining);
-
-  drawRemainingCellsOnRightAsColumn(numberOfCellsRemaining);
+  (numberOfCellsRemaining<2) ? drawRemainingCellsOnRightAsColumn(numberOfCellsRemaining) : drawRemainingCellsOnRightAsRow(numberOfCellsRemaining);
 }
 
 bool askIfPlayerWantsToPlay(int playerNumber) {
@@ -294,25 +289,54 @@ bool askIfPlayerWantsToPlay(int playerNumber) {
   return (((playerChoice == 'Y') || (playerChoice == 'y')) ? true : false);
 }
 
-// #define RAND_MAX = 6;
 int obtainRandomNumberOnDice(int playerNumber) {
   int numberOnDice = ((rand() % 6) + 1);
-  printf("Player %i, move forward %i spaces", playerNumber, numberOnDice);
+  printf("Player %i, move forward %i spaces \n", playerNumber+1, numberOnDice);
   return numberOnDice;
 }
 
-/*
-// int climbUpIfRequired() {
-// }
+void climbUpIfRequired(int initialPlace[numberOfPlayers]) {
+  for (int playerNumber = 0; playerNumber < numberOfPlayers; playerNumber++) {
+    if ((initialPlace[playerNumber] == 12) || (initialPlace[playerNumber] == 53) || (initialPlace[playerNumber] == 80)) {
+      assignIndexToPlayers(initialPlace, 5, 'b', playerNumber);
+    }
+    if ((initialPlace[playerNumber] == 15) || (initialPlace[playerNumber] == 24)) {
+      assignIndexToPlayers(initialPlace, 6, 'b', playerNumber);
+    }
+    if (initialPlace[playerNumber] == 42) {
+      assignIndexToPlayers(initialPlace, 10, 'b', playerNumber);
+    }
+    if (initialPlace[playerNumber] == 59) {
+      assignIndexToPlayers(initialPlace, 36, 'b', playerNumber);
+    }
+    printf("Player %i, you are now at %i \n", playerNumber + 1, initialPlace[playerNumber]);
+  }
+}
 
-// int slideDownIfRequired() {
-// }
-*/
+void slideDownIfRequired(int initialPlace[numberOfPlayers]) {
+  for (int playerNumber = 0; playerNumber < numberOfPlayers; playerNumber++) {
+    if (initialPlace[playerNumber] == 32) {
+      assignIndexToPlayers(initialPlace, -9, 'b', playerNumber);
+    }
+    if (initialPlace[playerNumber] == 58) {
+      assignIndexToPlayers(initialPlace, -5, 'b', playerNumber);
+    }
+    if (initialPlace[playerNumber] == 87) {
+      assignIndexToPlayers(initialPlace, -43, 'b', playerNumber);
+    }
+    if (initialPlace[playerNumber] == 99) {
+      assignIndexToPlayers(initialPlace, -33, 'b', playerNumber);
+    }
+    printf("Player %i, you are now at %i \n", playerNumber + 1, initialPlace[playerNumber]);
+  }
+}
 
-int calculateFinalTile(int numberOnDice) {
+int calculateFinalTile(int numberOnDice, int initialPlace[numberOfPlayers], int playerNumber) {
   // normal move
-  // climbUpIfRequired();
-  // slideDownIfRequired();
+  assignIndexToPlayers(initialPlace, numberOnDice, 'b', playerNumber);
+
+  climbUpIfRequired(initialPlace);
+  slideDownIfRequired(initialPlace);
 
   return 0;
 }
@@ -320,20 +344,21 @@ int calculateFinalTile(int numberOnDice) {
 void markChoiceOnGrid(int finalTile) {
 }
 
-int playUntilOnePlayerWins(char arrayOfCellValues[numberOfCells][numberOfPlayers]) {
+int playUntilOnePlayerWins(char arrayOfCellValues[numberOfCells][numberOfPlayers], int initialPlace[numberOfPlayers]) {
   for (;;) {
     int playerNumber = 0;
-    for (; arrayOfCellValues[99][playerNumber] != ' '; playerNumber++) {
-      bool playerChoice = askIfPlayerWantsToPlay(playerNumber);
+    for (; arrayOfCellValues[numberOfCells-1][playerNumber] != ' '; playerNumber++) {
+      bool playerChoice = askIfPlayerWantsToPlay(playerNumber+1);
       if (playerChoice) {
         int numberOnDice = obtainRandomNumberOnDice(playerNumber);
-        int finalTile = calculateFinalTile(numberOnDice);
+        int finalTile = calculateFinalTile(numberOnDice, initialPlace, playerNumber);
         markChoiceOnGrid(finalTile);
-      } else {
-        continue;
+      }
+      if (playerNumber == (numberOfPlayers-1)) {
+        playerNumber = 0;
       }
     }
-    if (arrayOfCellValues[99][playerNumber] != ' ') {
+    if (arrayOfCellValues[numberOfCells-1][playerNumber] != ' ') {
       return playerNumber;
     }
   }
@@ -344,78 +369,56 @@ void displayCongratulatoryMessage(int playerNumber) {
 }
 
 int main() {
-
   char arrayOfCellValues[numberOfCells][numberOfPlayers];
-
-  // {{'1', '2', '3', '4', '5', '6', '7'}, {'b', ' ', ' ', ' ', ' ', ' ', ' '}, {'c', ' ', ' ', ' ', ' ', ' ', ' '}, {'d', ' ', ' ', ' ', ' ', ' ', ' '}, {'e', ' ', ' ', ' ', ' ', ' ', ' '}, {'f', ' ', ' ', ' ', ' ', ' ', ' '}, {'g', ' ', ' ', ' ', ' ', ' ', ' '}, {'h', ' ', ' ', ' ', ' ', ' ', ' '}, {'i', ' ', ' ', ' ', ' ', ' ', ' '}, {'j', ' ', ' ', ' ', ' ', ' ', ' '}, {'k', ' ', ' ', ' ', ' ', ' ', ' '}, {'l', ' ', ' ', ' ', ' ', ' ', ' '}, {'m', ' ', ' ', ' ', ' ', ' ', ' '}, {'n', ' ', ' ', ' ', ' ', ' ', ' '}, {'o', ' ', ' ', ' ', ' ', ' ', ' '}, {'p', ' ', ' ', ' ', ' ', ' ', ' '}, {'q', ' ', ' ', ' ', ' ', ' ', ' '}, {'r', ' ', ' ', ' ', ' ', ' ', ' '}, {'s', ' ', ' ', ' ', ' ', ' ', ' '}, {'t', ' ', ' ', ' ', ' ', ' ', ' '}, {'u', ' ', ' ', ' ', ' ', ' ', ' '}, {'v', ' ', ' ', ' ', ' ', ' ', ' '}, {'w', ' ', ' ', ' ', ' ', ' ', ' '}, {'x', ' ', ' ', ' ', ' ', ' ', ' '}, {'y', ' ', ' ', ' ', ' ', ' ', ' '}, {'z', ' ', ' ', ' ', ' ', ' ', ' '}, {'\0', '\0', '\0', '\0', '\0', '\0', '\0'}};
+  int initialPlace[numberOfPlayers];
 
   int numberOfTokens = calculateNumberOfTokens(playerTokens);
-  // printf("%i \n", numberOfTokens);
-
   numberOfPlayers = promptForNumberOfPlayers(numberOfTokens);
-  // printf("%i \n", numberOfPlayers);
-
   assignValuesToArrayOfCellValues(arrayOfCellValues);
-
+  assignIndexToPlayers(initialPlace, 1, 'a', 0);
   int numberOfCells = promptForNumberOfCells();
+  splitNumberOfCells(numberOfCells);
 
-  int numberOfCellsInOneRow = calculateNumberOfCellsInOneRow(numberOfCells);
+  drawBoard(arrayOfCellValues, playerTokens);
 
-  // drawBoard(arrayOfCellValues, playerTokens);
-
-  // int playerNumber = playUntilOnePlayerWins(arrayOfCellValues);
+  int playerNumber = playUntilOnePlayerWins(arrayOfCellValues, initialPlace);
 
   // displayCongratulatoryMessage(playerNumber);
 
-  // int indexOfArrayOfCellValues = 0;
-  // for (; arrayOfCellValues[indexOfArrayOfCellValues][0] != '\0', indexOfArrayOfCellValues++) {
-  // }
+
+printf("   _ _ _ _ _ \n");
+printf("  /          \\_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _   \n");
+printf(" |           |99   |98   |97   |96   |95   |94   |93   |92   |91   |90   |89   |88   |87   |86   |85   |84   /\\ \n");
+printf(" |  FINISH!  |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |    /  \\ \n");
+printf(" |           |_   _|_ _ _|_ _ _|_ _ _|_|_ _|_ _ _|_ _ _|_ _ _|_ _ _|_ _ _|_ _ _|_ _ _|_   _|_ _ _|_ /_/|_ _/    \\ \n");
+printf("  \\ _ _ _ _ /  ( (                   |_|                                               ) )         /_/     | 83  \\ \n");
+printf("               ) )                   |_|                                              / /         /_/      /\\    / \n");
+printf("              / /                    |_|                                             / /         /_/      /  \\  / \n");
+printf("              ) )                    |_|                                            / /         /_/      /    \\/ \n");
+printf("    _ _ _ _ _/ /_ _ _ _ _ _ _ _ _ _ _|_|_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _( (_ _ _ _ _/_/_ _ _ /  82  | \n");
+printf("   |    \\      |     |     |     |   |_|     |     |     |     |     |     |     |  \\ \\|     |/ /  |    \\      / \n");
+printf("   | 65  \\ 66  | 67  | 68  | 69  |70 |_| 71  | 72  | 73  | 74  | 75  | 76  | 77  |78 | | 79  | 80  | 81  \\    / \n");
+printf("    \\_ _ _\\ _ _|_ _ _|_ _ _|_ _ _|_ _|_|_ _ _|_ _ _|_ _ _|_ _ _|_ _ _|_ _ _|_ _ _|_ _| |_ _ _|_ _ _|_ _ _|_ _/ \n");
+printf("     \\     \\                         |_|                                            / /    _ _ _ _            \n");
+printf("      \\ 64  \\_ _ _ _ _ _ _ _ _ _ _ _ |_| _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\\ \\_ _/ _ _ _ \\_ _ _ _ _ _  \n");
+printf("       \\    /     |     |     |     || |  |     |     |     |     |     |     |     |\\_ _ _/    |\\ \\    |     \\ \n");
+printf("        \\  /  63  | 62  | 61  | 60  | 59  | 58  | 57  | 56  | 55  | 54  | 53  | 52  | 51  | 50  | ) )49 | 48   \\ \n");
+printf("         \\/_ _ _ _|_ _ _|_ _ _|_ _ _|_ _ _|_   _|_ _ _|_ _ _|_ _ _|_ _ _|_   _|_\\_\\_|_ _ _|_ _ _|/ / _ _|_ _ _ _\\ \n");
+printf("                                            \\  \\ _ _/  \\       _ _ _ _ _ /  /    \\_\\            / /      \\       \\ \n");
+printf("                                             \\_ _ _ _/\\ \\_ _ _/ _ _ _ _ _ _/      \\_\\          / /        \\  47   \\ \n");
+printf("                    _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\\_ _ _ _/_ _ _ _ _ _ _ _ _ _\\_\\_ _ _ _ _\\ \\_ _ _ _ /_ _ _ _/ \n");
+printf("                   /\\       |     |     |     |     |     |     |     |     |     | \\ \\ |     |     |     |      / \n");
+printf("                  /  \\ 32   | 33  | 34  | 35  | 36  | 37  | 38  | 39  | 40  | 41  | 42  | 43  | 44  | 45  | 46  / \n");
+printf("                 /    \\_ _ _|_ _ _|_ _ _|_ _ _|_ _ _|_ _ _|_ _ _|_ _ _|_ _ _|_ _ _|_ _ _|_ _ _|_ _ _|_ _ _|_ _ / \n");
+printf("                / 31  /      _ _ _ _ _ _ _ _ _                _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _  \n");
+printf("               /_ _ _/      |     |     |     |              /     /     |     |     |     |     |     |     |     |     | \n");
+printf("              /     /       | 23  | 22  | 21  |             / 15  /  14  | 13  | 12  | 11  | 10  | 09  | 08  | 07  | 06  | \n");
+printf("             / 30  /        |_ _ _|_ _ _|_ _ _|            /_ _ _/_ _ _ _|_ _ _|_ _ _|_ _ _|_ _ _|_ _ _|_ _ _|_ _ _|_ _ _| \n");
+printf("            /_ _ _/         |     |     |     |           /     /                                                  |     | \n");
+printf("           /     /          | 24  |     | 20  |          / 16  /                        _ _ _ _ _ _ _ _            | 05  | \n");
+printf("          / 29  /           |_ _ _|     |_ _ _|         /_ _ _/                       /        __   .  \\_ _ _ _ _ _|_ _ _| \n");
+printf("         /_ _ _/_ _ _ _ _ _/      |     |      \\_ _ _ _/     /                       |        /  \\ /|  |     |     |     | \n");
+printf("        /     /     |     |  25   |     |   19  |     |  17  |                       |        |  |  |  | 02  | 03  | 04  | \n");
+printf("       / 28  /  27  | 26  |      /       \\      | 18  |      |                       |        \\__/ _|_ |_ _ _|_ _ _|_ _ _| \n");
+printf("      /_ _ _/_ _ _ _|_ _ _|_ _ _/         \\_ _ _|_ _ _|_ _ _/                         \\ _ _ _ _ _ _ _ _/ \n");
 }
-
-/*
-void drawBoard(char arrayOfCellValues[numberOfCells][numberOfPlayers], char playerTokens[]) {
-
-  printf("                                    Chutes and Ladders: A Game \n");
-
-  int countNumberOfPlayers = 0;
-  for (; countNumberOfPlayers < numberOfPlayers; countNumberOfPlayers++) {
-    printf("                                           Player %i: %c \n", (countNumberOfPlayers + 1), playerTokens[countNumberOfPlayers]);
-  }
-
-  printf("   _ _ _ _ _ \n");
-  printf("  /          \\_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _   \n");
-  printf(" |           |99   |98   |97   |96   |95   |94   |93   |92   |91   |90   |89   |88   |87   |86   |85   |84   /\\ \n");
-  printf(" |  FINISH!  |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |    /  \\ \n");
-  printf(" |           |_   _|_ _ _|_ _ _|_ _ _|_|_ _|_ _ _|_ _ _|_ _ _|_ _ _|_ _ _|_ _ _|_ _ _|_   _|_ _ _|_ /_/|_ _/    \\ \n");
-  printf("  \\ _ _ _ _ /  ( (                   |_|                                               ) )         /_/     | 83  \\ \n");
-  printf("               ) )                   |_|                                              / /         /_/      /\\    / \n");
-  printf("              / /                    |_|                                             / /         /_/      /  \\  / \n");
-  printf("              ) )                    |_|                                            / /         /_/      /    \\/ \n");
-  printf("    _ _ _ _ _/ /_ _ _ _ _ _ _ _ _ _ _|_|_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _( (_ _ _ _ _/_/_ _ _ /  82  | \n");
-  printf("   |    \\      |     |     |     |   |_|     |     |     |     |     |     |     |  \\ \\|     |/ /  |    \\      / \n");
-  printf("   | 65  \\ 66  | 67  | 68  | 69  |70 |_| 71  | 72  | 73  | 74  | 75  | 76  | 77  |78 | | 79  | 80  | 81  \\    / \n");
-  printf("    \\_ _ _\\ _ _|_ _ _|_ _ _|_ _ _|_ _|_|_ _ _|_ _ _|_ _ _|_ _ _|_ _ _|_ _ _|_ _ _|_ _| |_ _ _|_ _ _|_ _ _|_ _/ \n");
-  printf("     \\     \\                         |_|                                            / /    _ _ _ _            \n");
-  printf("      \\ 64  \\_ _ _ _ _ _ _ _ _ _ _ _ |_| _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\\ \\_ _/ _ _ _ \\_ _ _ _ _ _  \n");
-  printf("       \\    /     |     |     |     || |  |     |     |     |     |     |     |     |\\_ _ _/    |\\ \\    |     \\ \n");
-  printf("        \\  /  63  | 62  | 61  | 60  | 59  | 58  | 57  | 56  | 55  | 54  | 53  | 52  | 51  | 50  | ) )49 | 48   \\ \n");
-  printf("         \\/_ _ _ _|_ _ _|_ _ _|_ _ _|_ _ _|_   _|_ _ _|_ _ _|_ _ _|_ _ _|_   _|_\\_\\_|_ _ _|_ _ _|/ / _ _|_ _ _ _\\ \n");
-  printf("                                            \\  \\ _ _/  \\       _ _ _ _ _ /  /    \\_\\            / /      \\       \\ \n");
-  printf("                                             \\_ _ _ _/\\ \\_ _ _/ _ _ _ _ _ _/      \\_\\          / /        \\  47   \\ \n");
-  printf("                    _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\\_ _ _ _/_ _ _ _ _ _ _ _ _ _\\_\\_ _ _ _ _\\ \\_ _ _ _ /_ _ _ _/ \n");
-  printf("                   /\\       |     |     |     |     |     |     |     |     |     | \\ \\ |     |     |     |      / \n");
-  printf("                  /  \\ 32   | 33  | 34  | 35  | 36  | 37  | 38  | 39  | 40  | 41  | 42  | 43  | 44  | 45  | 46  / \n");
-  printf("                 /    \\_ _ _|_ _ _|_ _ _|_ _ _|_ _ _|_ _ _|_ _ _|_ _ _|_ _ _|_ _ _|_ _ _|_ _ _|_ _ _|_ _ _|_ _ / \n");
-  printf("                / 31  /      _ _ _ _ _ _ _ _ _                _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _  \n");
-  printf("               /_ _ _/      |     |     |     |              /     /     |     |     |     |     |     |     |     |     | \n");
-  printf("              /     /       | 23  | 22  | 21  |             / 15  /  14  | 13  | 12  | 11  | 10  | 09  | 08  | 07  | 06  | \n");
-  printf("             / 30  /        |_ _ _|_ _ _|_ _ _|            /_ _ _/_ _ _ _|_ _ _|_ _ _|_ _ _|_ _ _|_ _ _|_ _ _|_ _ _|_ _ _| \n");
-  printf("            /_ _ _/         |     |     |     |           /     /                                                  |     | \n");
-  printf("           /     /          | 24  |     | 20  |          / 16  /                        _ _ _ _ _ _ _ _            | 05  | \n");
-  printf("          / 29  /           |_ _ _|     |_ _ _|         /_ _ _/                       /        __   .  \\_ _ _ _ _ _|_ _ _| \n");
-  printf("         /_ _ _/_ _ _ _ _ _/      |     |      \\_ _ _ _/     /                       |        /  \\ /|  |     |     |     | \n");
-  printf("        /     /     |     |  25   |     |   19  |     |  17  |                       |        |  |  |  | 02  | 03  | 04  | \n");
-  printf("       / 28  /  27  | 26  |      /       \\      | 18  |      |                       |        \\__/ _|_ |_ _ _|_ _ _|_ _ _| \n");
-  printf("      /_ _ _/_ _ _ _|_ _ _|_ _ _/         \\_ _ _|_ _ _|_ _ _/                         \\ _ _ _ _ _ _ _ _/ \n");
-}
-*/
