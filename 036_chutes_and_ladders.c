@@ -339,7 +339,7 @@ void calculateFinalTile(int numberOnDice, int initialPlace[numberOfPlayers], int
 
 void markChoiceOnGrid(char arrayOfCellValues[numberOfCells][numberOfPlayers], int initialPlace[numberOfPlayers]) {
   for (int playerNumber = 0; playerNumber < numberOfPlayers; playerNumber++) {
-    arrayOfCellValues[(initialPlace[playerNumber])][playerNumber] = playerTokens[playerNumber];
+    arrayOfCellValues[(initialPlace[playerNumber])-1][playerNumber] = playerTokens[playerNumber];
   }
 }
 
