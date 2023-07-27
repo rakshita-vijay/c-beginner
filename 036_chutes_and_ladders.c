@@ -331,17 +331,16 @@ void slideDownIfRequired(int initialPlace[numberOfPlayers]) {
   }
 }
 
-int calculateFinalTile(int numberOnDice, int initialPlace[numberOfPlayers], int playerNumber) {
-  // normal move
+void calculateFinalTile(int numberOnDice, int initialPlace[numberOfPlayers], int playerNumber) {
   assignIndexToPlayers(initialPlace, numberOnDice, 'b', playerNumber);
-
   climbUpIfRequired(initialPlace);
   slideDownIfRequired(initialPlace);
-
-  return 0;
 }
 
-void markChoiceOnGrid(int finalTile) {
+void markChoiceOnGrid(char arrayOfCellValues[numberOfCells][numberOfPlayers], int initialPlace[numberOfPlayers]) {
+  for (int playerNumber = 0; playerNumber < numberOfPlayers; playerNumber++) {
+    arrayOfCellValues[(initialPlace[playerNumber])][playerNumber] = playerTokens[playerNumber];
+  }
 }
 
 int playUntilOnePlayerWins(char arrayOfCellValues[numberOfCells][numberOfPlayers], int initialPlace[numberOfPlayers]) {
@@ -351,8 +350,9 @@ int playUntilOnePlayerWins(char arrayOfCellValues[numberOfCells][numberOfPlayers
       bool playerChoice = askIfPlayerWantsToPlay(playerNumber+1);
       if (playerChoice) {
         int numberOnDice = obtainRandomNumberOnDice(playerNumber);
-        int finalTile = calculateFinalTile(numberOnDice, initialPlace, playerNumber);
-        markChoiceOnGrid(finalTile);
+        calculateFinalTile(numberOnDice, initialPlace, playerNumber);
+        printf("~~~");
+        markChoiceOnGrid(arrayOfCellValues, initialPlace);
       }
       if (playerNumber == (numberOfPlayers-1)) {
         playerNumber = 0;
@@ -383,42 +383,6 @@ int main() {
 
   int playerNumber = playUntilOnePlayerWins(arrayOfCellValues, initialPlace);
 
-  // displayCongratulatoryMessage(playerNumber);
+  displayCongratulatoryMessage(playerNumber);
 
-
-printf("   _ _ _ _ _ \n");
-printf("  /          \\_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _   \n");
-printf(" |           |99   |98   |97   |96   |95   |94   |93   |92   |91   |90   |89   |88   |87   |86   |85   |84   /\\ \n");
-printf(" |  FINISH!  |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |    /  \\ \n");
-printf(" |           |_   _|_ _ _|_ _ _|_ _ _|_|_ _|_ _ _|_ _ _|_ _ _|_ _ _|_ _ _|_ _ _|_ _ _|_   _|_ _ _|_ /_/|_ _/    \\ \n");
-printf("  \\ _ _ _ _ /  ( (                   |_|                                               ) )         /_/     | 83  \\ \n");
-printf("               ) )                   |_|                                              / /         /_/      /\\    / \n");
-printf("              / /                    |_|                                             / /         /_/      /  \\  / \n");
-printf("              ) )                    |_|                                            / /         /_/      /    \\/ \n");
-printf("    _ _ _ _ _/ /_ _ _ _ _ _ _ _ _ _ _|_|_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _( (_ _ _ _ _/_/_ _ _ /  82  | \n");
-printf("   |    \\      |     |     |     |   |_|     |     |     |     |     |     |     |  \\ \\|     |/ /  |    \\      / \n");
-printf("   | 65  \\ 66  | 67  | 68  | 69  |70 |_| 71  | 72  | 73  | 74  | 75  | 76  | 77  |78 | | 79  | 80  | 81  \\    / \n");
-printf("    \\_ _ _\\ _ _|_ _ _|_ _ _|_ _ _|_ _|_|_ _ _|_ _ _|_ _ _|_ _ _|_ _ _|_ _ _|_ _ _|_ _| |_ _ _|_ _ _|_ _ _|_ _/ \n");
-printf("     \\     \\                         |_|                                            / /    _ _ _ _            \n");
-printf("      \\ 64  \\_ _ _ _ _ _ _ _ _ _ _ _ |_| _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\\ \\_ _/ _ _ _ \\_ _ _ _ _ _  \n");
-printf("       \\    /     |     |     |     || |  |     |     |     |     |     |     |     |\\_ _ _/    |\\ \\    |     \\ \n");
-printf("        \\  /  63  | 62  | 61  | 60  | 59  | 58  | 57  | 56  | 55  | 54  | 53  | 52  | 51  | 50  | ) )49 | 48   \\ \n");
-printf("         \\/_ _ _ _|_ _ _|_ _ _|_ _ _|_ _ _|_   _|_ _ _|_ _ _|_ _ _|_ _ _|_   _|_\\_\\_|_ _ _|_ _ _|/ / _ _|_ _ _ _\\ \n");
-printf("                                            \\  \\ _ _/  \\       _ _ _ _ _ /  /    \\_\\            / /      \\       \\ \n");
-printf("                                             \\_ _ _ _/\\ \\_ _ _/ _ _ _ _ _ _/      \\_\\          / /        \\  47   \\ \n");
-printf("                    _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\\_ _ _ _/_ _ _ _ _ _ _ _ _ _\\_\\_ _ _ _ _\\ \\_ _ _ _ /_ _ _ _/ \n");
-printf("                   /\\       |     |     |     |     |     |     |     |     |     | \\ \\ |     |     |     |      / \n");
-printf("                  /  \\ 32   | 33  | 34  | 35  | 36  | 37  | 38  | 39  | 40  | 41  | 42  | 43  | 44  | 45  | 46  / \n");
-printf("                 /    \\_ _ _|_ _ _|_ _ _|_ _ _|_ _ _|_ _ _|_ _ _|_ _ _|_ _ _|_ _ _|_ _ _|_ _ _|_ _ _|_ _ _|_ _ / \n");
-printf("                / 31  /      _ _ _ _ _ _ _ _ _                _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _  \n");
-printf("               /_ _ _/      |     |     |     |              /     /     |     |     |     |     |     |     |     |     | \n");
-printf("              /     /       | 23  | 22  | 21  |             / 15  /  14  | 13  | 12  | 11  | 10  | 09  | 08  | 07  | 06  | \n");
-printf("             / 30  /        |_ _ _|_ _ _|_ _ _|            /_ _ _/_ _ _ _|_ _ _|_ _ _|_ _ _|_ _ _|_ _ _|_ _ _|_ _ _|_ _ _| \n");
-printf("            /_ _ _/         |     |     |     |           /     /                                                  |     | \n");
-printf("           /     /          | 24  |     | 20  |          / 16  /                        _ _ _ _ _ _ _ _            | 05  | \n");
-printf("          / 29  /           |_ _ _|     |_ _ _|         /_ _ _/                       /        __   .  \\_ _ _ _ _ _|_ _ _| \n");
-printf("         /_ _ _/_ _ _ _ _ _/      |     |      \\_ _ _ _/     /                       |        /  \\ /|  |     |     |     | \n");
-printf("        /     /     |     |  25   |     |   19  |     |  17  |                       |        |  |  |  | 02  | 03  | 04  | \n");
-printf("       / 28  /  27  | 26  |      /       \\      | 18  |      |                       |        \\__/ _|_ |_ _ _|_ _ _|_ _ _| \n");
-printf("      /_ _ _/_ _ _ _|_ _ _|_ _ _/         \\_ _ _|_ _ _|_ _ _/                         \\ _ _ _ _ _ _ _ _/ \n");
 }
