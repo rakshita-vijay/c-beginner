@@ -379,6 +379,8 @@ void markChoiceOnGrid(char arrayOfCellValues[numberOfCells][numberOfPlayers], in
   for (int playerNumber = 0; playerNumber < numberOfPlayers; playerNumber++) {
     arrayOfCellValues[(initialPlace[playerNumber])-1][playerNumber] = playerTokens[playerNumber];
   }
+
+  drawBoard(arrayOfCellValues, playerTokens);
 }
 
 int playUntilOnePlayerWins(char arrayOfCellValues[numberOfCells][numberOfPlayers], int initialPlace[numberOfPlayers]) {
