@@ -40,7 +40,7 @@ void assignValuesToArrayOfCellValues(char arrayOfCellValues[numberOfCells][numbe
   for (int outerCount = 0; outerCount < numberOfCells; outerCount++) {
     for (int innerCount = 0; innerCount < numberOfPlayers; innerCount++) {
       // printf("(%i, %i) -%c/ \n", outerCount, innerCount, arrayOfCellValues[outerCount][innerCount]);
-      arrayOfCellValues[outerCount][innerCount] = '/';
+      arrayOfCellValues[outerCount][innerCount] = '.';
       // printf("(%i, %i) (%c) \n", outerCount, innerCount, arrayOfCellValues[outerCount][innerCount]);
     }
   }
