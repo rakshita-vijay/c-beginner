@@ -472,9 +472,9 @@ int playUntilOnePlayerWins(char arrayOfCellValues[numberOfCells][numberOfPlayers
     for (; arrayOfCellValues[numberOfCells - 1][playerNumber] == ' '; playerNumber++) {
       bool playerChoice = askIfPlayerWantsToPlay(playerNumber + 1);
       if (playerChoice) {
-        ////////////////////////////////////////////////////////////////////////
+        //////////////////////////////////////////////////////////////////////////////////
         /**/ arrayOfCellValues[(initialPlace[playerNumber]) - 1][playerNumber] = ' '; /**/
-        ////////////////////////////////////////////////////////////////////////
+        //////////////////////////////////////////////////////////////////////////////////
         int numberOnDice = obtainRandomNumberOnDice(playerNumber);
         calculateFinalTile(numberOnDice, initialPlace, playerNumber);
         printf("~~~");
