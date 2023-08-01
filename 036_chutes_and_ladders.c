@@ -1,7 +1,7 @@
+#include <math.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <math.h>
 
 int numberOfCells;
 int numberOfPlayers;
@@ -51,22 +51,21 @@ void assignValuesToArrayOfCellValues(char arrayOfCellValues[numberOfCells][numbe
 }
 
 void assignIndexToPlayers(int initialPlace[numberOfPlayers], int numberOnDice, char where, int playerNumber) {
-  if (where == 'a'){
+  if (where == 'a') {
     for (int playerCount = 0; playerCount < numberOfPlayers; playerCount++) {
       initialPlace[playerCount] = 1;
-      }
     }
-  else{
-      initialPlace[playerNumber] += numberOnDice;
+  } else {
+    initialPlace[playerNumber] += numberOnDice;
   }
 }
 
-int promptForNumberOfCells(){
+int promptForNumberOfCells() {
   printf("\n");
   int num;
   printf("Enter the number of cells you want in the game: ");
   scanf("%i", &num);
-  numberOfCells = (int) (floor(num));
+  numberOfCells = (int)(floor(num));
 
   while ((numberOfCells > 154) || (numberOfCells < 20)) {
     int choice;
@@ -77,23 +76,22 @@ int promptForNumberOfCells(){
     scanf("%i", &choice);
     printf("\n");
 
-    if (choice==1){
+    if (choice == 1) {
       printf("Re-enter the number of cells: ");
       scanf("%i", &num);
-      numberOfCells = (int) (floor(num));
+      numberOfCells = (int)(floor(num));
       // printf("\n");
-    }
-    else{
+    } else {
       printf("The number of cells in the game is 100 \n");
-      numberOfCells=100;
+      numberOfCells = 100;
     }
   }
 
   return numberOfCells;
 }
 
-void splitNumberOfCells(int numberOfCells){
-  numberOfCellsInARow = (int) (floor((numberOfCells - (numberOfBridges * numberOfCellsInABridge)) / numberOfRows));
+void splitNumberOfCells(int numberOfCells) {
+  numberOfCellsInARow = (int)(floor((numberOfCells - (numberOfBridges * numberOfCellsInABridge)) / numberOfRows));
   numberOfCellsRemaining = numberOfCells - ((numberOfCellsInARow * numberOfRows) + (numberOfBridges * numberOfCellsInABridge));
 }
 
@@ -244,21 +242,38 @@ void drawRightBridge(int startIndex, char arrayOfCellValues[numberOfCells][numbe
 }
 
 void drawLeftBridge(int startIndex, char arrayOfCellValues[numberOfCells][numberOfPlayers]) {
-  int index = (startIndex + numberOfCellsInABridge);
-  for (int outerCount = 0; outerCount < numberOfCellsInABridge; outerCount++) {
-    if ((index - outerCount) != 0) {
-      for (int lineCount = 0; lineCount < 2; lineCount++) {
-        printf("   ");
+  int index = startIndex + numberOfCellsInABridge;
+  for (int outerCount = 0; ((outerCount < numberOfCellsInABridge) && ((index - outerCount) >= 1)); outerCount++) {
+    for (int lineCount = 0; lineCount <= 2; lineCount++) {
+      printf("   ");
+      if (lineCount == 0) { /* FIRST LINE */
         if ((index - outerCount) > 99) {
-          (lineCount == 0) ? printf("|%i  | \n", (index - outerCount)) : printf("|    | \n");
+          printf("|%i %c| \n", (index - outerCount), arrayOfCellValues[index - outerCount - 1][0]);
+        } else if ((index - outerCount) > 9) {
+          printf("|%i  %c| \n", (index - outerCount), arrayOfCellValues[index - outerCount - 1][0]);
         } else {
-          (lineCount == 0) ? (((index - outerCount) > 9) ? printf("|%i   | \n", (index - outerCount)) : printf("|0%i   | \n", (index - outerCount))) : (((index - outerCount) > 9) ? printf("|     | \n") : printf("|     | \n"));
+          printf("|0%i  %c| \n", (index - outerCount), arrayOfCellValues[index - outerCount - 1][0]);
         }
+      } else if (lineCount == 1) { /* SECOND LINE */
+        if (numberOfPlayers == 2) {
+          printf("|    %c| \n", arrayOfCellValues[index - 1][numberOfPlayers - 1]);
+        } else if (numberOfPlayers == 3) {
+          printf("|   %c%c| \n", arrayOfCellValues[index - 1][numberOfPlayers - 2], arrayOfCellValues[index - 1][numberOfPlayers - 1]);
+        } else if (numberOfPlayers == 4) {
+          printf("|  %c%c%c| \n", arrayOfCellValues[index - 1][numberOfPlayers - 3], arrayOfCellValues[index - 1][numberOfPlayers - 2], arrayOfCellValues[index - 1][numberOfPlayers - 1]);
+        } else if (numberOfPlayers >= 5) {
+          printf("| %c%c%c%c| \n", arrayOfCellValues[index - 1][numberOfPlayers - 4], arrayOfCellValues[index - 1][numberOfPlayers - 3], arrayOfCellValues[index - 1][numberOfPlayers - 2], arrayOfCellValues[index - 1][numberOfPlayers - 1]);
+        }
+      } else { /* THIRD LINE */
+        if (numberOfPlayers == 6) {
+          printf("|_ _%c_| \n", arrayOfCellValues[index - 1][numberOfPlayers - 1]);
+        } else if (numberOfPlayers == 7) {
+          printf("|_%c_%c_| \n", arrayOfCellValues[index - 1][numberOfPlayers - 2], arrayOfCellValues[index - 1][numberOfPlayers - 1]);
+        } else {
+          printf("|_ _ _| \n");
         }
       }
-
-    printf("   ");
-    printf("|_ _ _| \n");
+    }
   }
 }
 
@@ -356,7 +371,7 @@ void drawBoard(char arrayOfCellValues[numberOfCells][numberOfPlayers], char play
   startIndex -= numberOfCellsInABridge;
   drawRightBridge(startIndex, arrayOfCellValues);
 
-  (numberOfCellsRemaining<2) ? drawRemainingCellsOnRightAsColumn(numberOfCellsRemaining) : drawRemainingCellsOnRightAsRow(numberOfCellsRemaining);
+  (numberOfCellsRemaining < 2) ? drawRemainingCellsOnRightAsColumn(numberOfCellsRemaining) : drawRemainingCellsOnRightAsRow(numberOfCellsRemaining);
 }
 
 bool askIfPlayerWantsToPlay(int playerNumber) {
@@ -369,7 +384,7 @@ bool askIfPlayerWantsToPlay(int playerNumber) {
 
 int obtainRandomNumberOnDice(int playerNumber) {
   int numberOnDice = ((rand() % 6) + 1);
-  printf("Player %i, move forward %i spaces \n", playerNumber+1, numberOnDice);
+  printf("Player %i, move forward %i spaces \n", playerNumber + 1, numberOnDice);
   return numberOnDice;
 }
 
@@ -417,7 +432,7 @@ void calculateFinalTile(int numberOnDice, int initialPlace[numberOfPlayers], int
 
 void markChoiceOnGrid(char arrayOfCellValues[numberOfCells][numberOfPlayers], int initialPlace[numberOfPlayers]) {
   for (int playerNumber = 0; playerNumber < numberOfPlayers; playerNumber++) {
-    arrayOfCellValues[(initialPlace[playerNumber])-1][playerNumber] = playerTokens[playerNumber];
+    arrayOfCellValues[(initialPlace[playerNumber]) - 1][playerNumber] = playerTokens[playerNumber];
   }
 
   drawBoard(arrayOfCellValues, playerTokens);
@@ -426,19 +441,19 @@ void markChoiceOnGrid(char arrayOfCellValues[numberOfCells][numberOfPlayers], in
 int playUntilOnePlayerWins(char arrayOfCellValues[numberOfCells][numberOfPlayers], int initialPlace[numberOfPlayers]) {
   for (;;) {
     int playerNumber = 0;
-    for (; arrayOfCellValues[numberOfCells-1][playerNumber] != ' '; playerNumber++) {
-      bool playerChoice = askIfPlayerWantsToPlay(playerNumber+1);
+    for (; arrayOfCellValues[numberOfCells - 1][playerNumber] != ' '; playerNumber++) {
+      bool playerChoice = askIfPlayerWantsToPlay(playerNumber + 1);
       if (playerChoice) {
         int numberOnDice = obtainRandomNumberOnDice(playerNumber);
         calculateFinalTile(numberOnDice, initialPlace, playerNumber);
         printf("~~~");
         markChoiceOnGrid(arrayOfCellValues, initialPlace);
       }
-      if (playerNumber == (numberOfPlayers-1)) {
+      if (playerNumber == (numberOfPlayers - 1)) {
         playerNumber = 0;
       }
     }
-    if (arrayOfCellValues[numberOfCells-1][playerNumber] != ' ') {
+    if (arrayOfCellValues[numberOfCells - 1][playerNumber] != ' ') {
       return playerNumber;
     }
   }
@@ -468,5 +483,4 @@ int main() {
   // int playerNumber = playUntilOnePlayerWins(arrayOfCellValues, initialPlace);
 
   // displayCongratulatoryMessage(playerNumber);
-
 }
