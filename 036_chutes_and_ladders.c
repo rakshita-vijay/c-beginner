@@ -274,25 +274,39 @@ void drawLeftBridge(int startIndex, char arrayOfCellValues[numberOfCells][number
   }
 }
 
-void drawRemainingCellsOnRightAsColumn(int numberOfCellsRemaining) {
+void drawRemainingCellsOnRightAsColumn(int numberOfCellsRemaining, char arrayOfCellValues[numberOfCells][numberOfPlayers]) {
   for (; numberOfCellsRemaining > 0; numberOfCellsRemaining--) {
-    for (int lineCount = 0; lineCount < 2; lineCount++) {
+    for (int lineCount = 0; lineCount <= 2; lineCount++) {
       printf("   ");
-      for (int spaceCount = 0; spaceCount < ((numberOfCellsInARow - 1) * 6); spaceCount++) {
+      for (int spaceCount1 = 0; spaceCount1 < ((numberOfCellsInARow - 1) * 6); spaceCount1++) {
         printf(" ");
       }
-      (lineCount == 0) ? (printf("|0%i   | \n", numberOfCellsRemaining)) : (printf("|     | \n"));
+      if (lineCount == 0) { /* FIRST LINE */
+        printf("|0%i  %c| \n", numberOfCellsRemaining, arrayOfCellValues[numberOfCellsRemaining - 1][0]);
+      } else if (lineCount == 1) { /* SECOND LINE */
+        if (numberOfPlayers == 2) {
+          printf("|    %c| \n", arrayOfCellValues[numberOfCellsRemaining - 1][numberOfPlayers - 1]);
+        } else if (numberOfPlayers == 3) {
+          printf("|   %c%c| \n", arrayOfCellValues[numberOfCellsRemaining - 1][numberOfPlayers - 2], arrayOfCellValues[numberOfCellsRemaining - 1][numberOfPlayers - 1]);
+        } else if (numberOfPlayers == 4) {
+          printf("|  %c%c%c| \n", arrayOfCellValues[numberOfCellsRemaining - 1][numberOfPlayers - 3], arrayOfCellValues[numberOfCellsRemaining - 1][numberOfPlayers - 2], arrayOfCellValues[numberOfCellsRemaining - 1][numberOfPlayers - 1]);
+        } else if (numberOfPlayers >= 5) {
+          printf("| %c%c%c%c| \n", arrayOfCellValues[numberOfCellsRemaining - 1][numberOfPlayers - 4], arrayOfCellValues[numberOfCellsRemaining - 1][numberOfPlayers - 3], arrayOfCellValues[numberOfCellsRemaining - 1][numberOfPlayers - 2], arrayOfCellValues[numberOfCellsRemaining - 1][numberOfPlayers - 1]);
+        }
+      } else { /* THIRD LINE */
+        if (numberOfPlayers == 6) {
+          printf("|_ _%c_| \n", arrayOfCellValues[numberOfCellsRemaining - 1][numberOfPlayers - 1]);
+        } else if (numberOfPlayers == 7) {
+          printf("|_%c_%c_| \n", arrayOfCellValues[numberOfCellsRemaining - 1][numberOfPlayers - 2], arrayOfCellValues[numberOfCellsRemaining - 1][numberOfPlayers - 1]);
+        } else {
+          printf("|_ _ _| \n");
+        }
+      }
     }
-
-    printf("   ");
-    for (int spaceCount2 = 0; spaceCount2 < ((numberOfCellsInARow - 1) * 6); spaceCount2++) {
-      printf(" ");
-    }
-    printf("|_ _ _| \n");
   }
 }
 
-void drawRemainingCellsOnRightAsRow(int numberOfCellsRemaining) {
+void drawRemainingCellsOnRightAsRow(int numberOfCellsRemaining, char arrayOfCellValues[numberOfCells][numberOfPlayers]) {
   printf("    ");
   for (int spaceCount = 0; spaceCount < ((numberOfCellsInARow - numberOfCellsRemaining) * 6); spaceCount++) {
     printf(" ");
@@ -368,7 +382,7 @@ void drawBoard(char arrayOfCellValues[numberOfCells][numberOfPlayers], char play
   startIndex -= numberOfCellsInABridge;
   drawRightBridge(startIndex, arrayOfCellValues);
 
-  (numberOfCellsRemaining < 2) ? drawRemainingCellsOnRightAsColumn(numberOfCellsRemaining) : drawRemainingCellsOnRightAsRow(numberOfCellsRemaining);
+  (numberOfCellsRemaining < 2) ? drawRemainingCellsOnRightAsColumn(numberOfCellsRemaining, arrayOfCellValues) : drawRemainingCellsOnRightAsRow(numberOfCellsRemaining, arrayOfCellValues);
 }
 
 bool askIfPlayerWantsToPlay(int playerNumber) {
