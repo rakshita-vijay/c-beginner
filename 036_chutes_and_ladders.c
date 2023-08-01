@@ -143,7 +143,7 @@ void drawRow(int startIndex, char startSide, char arrayOfCellValues[numberOfCell
 
     printf("   ");
     index = startIndex + numberOfCellsInARow;
-    for (int count = 0; count < numberOfCellsInARow; count++, index--) {
+    for (int innerCount = 0; innerCount < numberOfCellsInARow; innerCount++, index--) {
       if (numberOfPlayers == 6) {
         printf("|_ _%c_", arrayOfCellValues[index - 1][numberOfPlayers - 1]);
       } else if (numberOfPlayers == 7) {
@@ -155,56 +155,95 @@ void drawRow(int startIndex, char startSide, char arrayOfCellValues[numberOfCell
     printf("| \n");
   }
 
-  else { // if (startSide=='R')
-      index = startIndex+1;
-      for (int innerCount = 0; innerCount < numberOfCellsInARow; innerCount++, index++) {
-        int playerNumber = 0;
-        if (index > 99) {
-        printf("|%i %c", index, arrayOfCellValues[index - 1][playerNumber]);
-        } else {
-        (index > 9) ? printf("|%i  %c", index, arrayOfCellValues[index - 1][playerNumber]) : printf("|0%i  %c", index, arrayOfCellValues[index - 1][playerNumber]);
-        }
-      }
-      printf("| \n");
+  else /*if (startSide == 'R')*/ {
+    // FIRST LINE
 
-      printf("   ");
-      for (int innerCount = 0; innerCount < numberOfCellsInARow; innerCount++) {
-        printf("|     ");
+    index = startIndex + 1;
+    // printf("~~~%i~~~", index);
+    for (int innerCount = 0; innerCount < numberOfCellsInARow; innerCount++, index++) {
+      if (index > 99) {
+        printf("|%i %c", index, arrayOfCellValues[index - 1][0]);
+      } else {
+        // (index > 9) ? printf("|%i  %c", index, arrayOfCellValues[index - 1][0]) : printf("|0%i  %c", index, arrayOfCellValues[index - 1][0]);
+        printf(((index > 9) ? "|%i  %c" : "|0%i  %c"), index, arrayOfCellValues[index - 1][0]);
       }
-      printf("| \n");
-
-      printf("   ");
-      for (int count = 0; count < numberOfCellsInARow; count++) {
-        printf("|_ _ _");
-      }
-      printf("| \n");
     }
-}
+    printf("| \n");
 
-void drawRightBridge(int startIndex) {
-  int index = (startIndex + numberOfCellsInABridge);
-  for (int outerCount = 0; ((outerCount < numberOfCellsInABridge) && ((index - outerCount) >= 1)); outerCount++) {
-    for (int lineCount = 0; lineCount < 2; lineCount++) {
-        printf("   ");
-        for (int spaceCount1 = 0; spaceCount1 < ((numberOfCellsInARow - 1) * 6); spaceCount1++) {
-        printf(" ");
-        }
-        if ((index - outerCount) > 99) {
-        (lineCount == 0) ? printf("|%i  | \n", (index - outerCount)) : printf("|     | \n");
-        } else {
-        (lineCount == 0) ? (((index - outerCount) > 9) ? printf("|%i   | \n", (index - outerCount)) : printf("|0%i   | \n", (index - outerCount))) : (((index - outerCount) > 9) ? printf("|     | \n") : printf("|     | \n"));
-        }
-    }
+    // SECOND LINE
 
     printf("   ");
-    for (int spaceCount2 = 0; spaceCount2 < ((numberOfCellsInARow - 1) * 6); spaceCount2++) {
-        printf(" ");
+    index = startIndex + 1;
+    for (int innerCount = 0; innerCount < numberOfCellsInARow; innerCount++, index++) {
+      if (numberOfPlayers == 2) {
+        printf("|    %c", arrayOfCellValues[index - 1][numberOfPlayers - 1]);
+      } else if (numberOfPlayers == 3) {
+        printf("|   %c%c", arrayOfCellValues[index - 1][numberOfPlayers - 2], arrayOfCellValues[index - 1][numberOfPlayers - 1]);
+      } else if (numberOfPlayers == 4) {
+        printf("|  %c%c%c", arrayOfCellValues[index - 1][numberOfPlayers - 3], arrayOfCellValues[index - 1][numberOfPlayers - 2], arrayOfCellValues[index - 1][numberOfPlayers - 1]);
+      } else if (numberOfPlayers >= 5) {
+        printf("| %c%c%c%c", arrayOfCellValues[index - 1][numberOfPlayers - 4], arrayOfCellValues[index - 1][numberOfPlayers - 3], arrayOfCellValues[index - 1][numberOfPlayers - 2], arrayOfCellValues[index - 1][numberOfPlayers - 1]);
+      }
     }
-    printf("|_ _ _| \n");
+    printf("| \n");
+
+    // THIRD LINE
+
+    printf("   ");
+    index = startIndex + 1;
+    for (int innerCount = 0; innerCount < numberOfCellsInARow; innerCount++, index++) {
+      if (numberOfPlayers == 6) {
+        printf("|_ _%c_", arrayOfCellValues[index - 1][numberOfPlayers - 1]);
+      } else if (numberOfPlayers == 7) {
+        printf("|_%c_%c_", arrayOfCellValues[index - 1][numberOfPlayers - 2], arrayOfCellValues[index - 1][numberOfPlayers - 1]);
+      } else {
+        printf("|_ _ _");
+      }
+    }
+    printf("| \n");
   }
 }
 
-void drawLeftBridge(int startIndex) {
+void drawRightBridge(int startIndex, char arrayOfCellValues[numberOfCells][numberOfPlayers]) {
+  int index = startIndex + numberOfCellsInABridge;
+  for (int outerCount = 0; ((outerCount < numberOfCellsInABridge) && ((index - outerCount) >= 1)); outerCount++) {
+    for (int lineCount = 0; lineCount <= 2; lineCount++) {
+      printf("   ");
+      for (int spaceCount1 = 0; spaceCount1 < ((numberOfCellsInARow - 1) * 6); spaceCount1++) {
+        printf(" ");
+      }
+      if (lineCount == 0) { /* FIRST LINE */
+        if ((index - outerCount) > 99) {
+          printf("|%i %c| \n", (index - outerCount), arrayOfCellValues[index - outerCount - 1][0]);
+        } else if ((index - outerCount) > 9) {
+          printf("|%i  %c| \n", (index - outerCount), arrayOfCellValues[index - outerCount - 1][0]);
+        } else {
+          printf("|0%i  %c| \n", (index - outerCount), arrayOfCellValues[index - outerCount - 1][0]);
+        }
+      } else if (lineCount == 1) { /* SECOND LINE */
+        if (numberOfPlayers == 2) {
+          printf("|    %c| \n", arrayOfCellValues[index - 1][numberOfPlayers - 1]);
+        } else if (numberOfPlayers == 3) {
+          printf("|   %c%c| \n", arrayOfCellValues[index - 1][numberOfPlayers - 2], arrayOfCellValues[index - 1][numberOfPlayers - 1]);
+        } else if (numberOfPlayers == 4) {
+          printf("|  %c%c%c| \n", arrayOfCellValues[index - 1][numberOfPlayers - 3], arrayOfCellValues[index - 1][numberOfPlayers - 2], arrayOfCellValues[index - 1][numberOfPlayers - 1]);
+        } else if (numberOfPlayers >= 5) {
+          printf("| %c%c%c%c| \n", arrayOfCellValues[index - 1][numberOfPlayers - 4], arrayOfCellValues[index - 1][numberOfPlayers - 3], arrayOfCellValues[index - 1][numberOfPlayers - 2], arrayOfCellValues[index - 1][numberOfPlayers - 1]);
+        }
+      } else { /* THIRD LINE */
+        if (numberOfPlayers == 6) {
+          printf("|_ _%c_| \n", arrayOfCellValues[index - 1][numberOfPlayers - 1]);
+        } else if (numberOfPlayers == 7) {
+          printf("|_%c_%c_| \n", arrayOfCellValues[index - 1][numberOfPlayers - 2], arrayOfCellValues[index - 1][numberOfPlayers - 1]);
+        } else {
+          printf("|_ _ _| \n");
+        }
+      }
+    }
+  }
+}
+
+void drawLeftBridge(int startIndex, char arrayOfCellValues[numberOfCells][numberOfPlayers]) {
   int index = (startIndex + numberOfCellsInABridge);
   for (int outerCount = 0; outerCount < numberOfCellsInABridge; outerCount++) {
     if ((index - outerCount) != 0) {
@@ -291,31 +330,31 @@ void drawBoard(char arrayOfCellValues[numberOfCells][numberOfPlayers], char play
   drawRow(startIndex, 'L', arrayOfCellValues);
 
   startIndex -= numberOfCellsInABridge;
-  drawRightBridge(startIndex);
+  drawRightBridge(startIndex, arrayOfCellValues);
 
   startIndex -= numberOfCellsInARow;
   drawRow(startIndex, 'R', arrayOfCellValues);
 
   startIndex -= numberOfCellsInABridge;
-  drawLeftBridge(startIndex);
+  drawLeftBridge(startIndex, arrayOfCellValues);
 
   startIndex -= numberOfCellsInARow;
   drawRow(startIndex, 'L', arrayOfCellValues);
 
   startIndex -= numberOfCellsInABridge;
-  drawRightBridge(startIndex);
+  drawRightBridge(startIndex, arrayOfCellValues);
 
   startIndex -= numberOfCellsInARow;
   drawRow(startIndex, 'R', arrayOfCellValues);
 
   startIndex -= numberOfCellsInABridge;
-  drawLeftBridge(startIndex);
+  drawLeftBridge(startIndex, arrayOfCellValues);
 
   startIndex -= numberOfCellsInARow;
   drawRow(startIndex, 'L', arrayOfCellValues);
 
   startIndex -= numberOfCellsInABridge;
-  drawRightBridge(startIndex);
+  drawRightBridge(startIndex, arrayOfCellValues);
 
   (numberOfCellsRemaining<2) ? drawRemainingCellsOnRightAsColumn(numberOfCellsRemaining) : drawRemainingCellsOnRightAsRow(numberOfCellsRemaining);
 }
