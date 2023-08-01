@@ -39,8 +39,9 @@ int promptForNumberOfPlayers(int numberOfTokens) {
 void assignValuesToArrayOfCellValues(char arrayOfCellValues[numberOfCells][numberOfPlayers]) {
   for (int outerCount = 0; outerCount < numberOfCells; outerCount++) {
     for (int innerCount = 0; innerCount < numberOfPlayers; innerCount++) {
+      // printf("(%i, %i) -(%c)- \n", outerCount, innerCount, arrayOfCellValues[outerCount-1][innerCount-1]);
       arrayOfCellValues[outerCount][innerCount] = ' ';
-      printf("(%i, %i)  (%c) \n", outerCount, innerCount, arrayOfCellValues[outerCount][innerCount]);
+      printf("(%i, %i) -(%c)- \n", outerCount, innerCount, arrayOfCellValues[outerCount][innerCount]);
     }
   }
 
@@ -409,14 +410,15 @@ void displayCongratulatoryMessage(int playerNumber) {
 }
 
 int main() {
-  char arrayOfCellValues[numberOfCells][numberOfPlayers];
-  int initialPlace[numberOfPlayers];
-
   int numberOfTokens = calculateNumberOfTokens(playerTokens);
   numberOfPlayers = promptForNumberOfPlayers(numberOfTokens);
 
+  int initialPlace[numberOfPlayers];
+
   int numberOfCells = promptForNumberOfCells();
   splitNumberOfCells(numberOfCells);
+
+  char arrayOfCellValues[numberOfCells][numberOfPlayers];
 
   assignValuesToArrayOfCellValues(arrayOfCellValues);
 
