@@ -513,7 +513,9 @@ int main() {
 
   drawBoard(arrayOfCellValues, playerTokens);
 
-  int playerNumber = playUntilOnePlayerWins(arrayOfCellValues, initialPlace);
+  /////////////////////////////////////////////////////////////////////////////////////
+  /**/ int playerNumber = playUntilOnePlayerWins(arrayOfCellValues, initialPlace); /**/
+  /////////////////////////////////////////////////////////////////////////////////////
 
   displayCongratulatoryMessage(playerNumber);
 }
