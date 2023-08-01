@@ -18,6 +18,7 @@ int calculateNumberOfTokens(char playerTokens[]) {
     numberOfTokens++;
     // printf("%i", numberOfTokens);
   }
+
   return numberOfTokens;
 }
 
@@ -109,12 +110,10 @@ void drawRow(int startIndex, char startSide, char arrayOfCellValues[numberOfCell
     // FIRST LINE
 
     index = startIndex + numberOfCellsInARow;
-    // printf("~~~%i~~~", index);
     for (int innerCount = 0; innerCount < numberOfCellsInARow; innerCount++, index--) {
       if (index > 99) {
         printf("|%i %c", index, arrayOfCellValues[index - 1][0]);
       } else {
-        // (index > 9) ? printf("|%i  %c", index, arrayOfCellValues[index - 1][0]) : printf("|0%i  %c", index, arrayOfCellValues[index - 1][0]);
         printf(((index > 9) ? "|%i  %c" : "|0%i  %c"), index, arrayOfCellValues[index - 1][0]);
       }
     }
@@ -153,16 +152,14 @@ void drawRow(int startIndex, char startSide, char arrayOfCellValues[numberOfCell
     printf("| \n");
   }
 
-  else /*if (startSide == 'R')*/ {
+  else /* if (startSide == 'R') */ {
     // FIRST LINE
 
     index = startIndex + 1;
-    // printf("~~~%i~~~", index);
     for (int innerCount = 0; innerCount < numberOfCellsInARow; innerCount++, index++) {
       if (index > 99) {
         printf("|%i %c", index, arrayOfCellValues[index - 1][0]);
       } else {
-        // (index > 9) ? printf("|%i  %c", index, arrayOfCellValues[index - 1][0]) : printf("|0%i  %c", index, arrayOfCellValues[index - 1][0]);
         printf(((index > 9) ? "|%i  %c" : "|0%i  %c"), index, arrayOfCellValues[index - 1][0]);
       }
     }
