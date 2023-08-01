@@ -422,9 +422,9 @@ int main() {
 
   assignValuesToArrayOfCellValues(arrayOfCellValues);
 
-  // assignIndexToPlayers(initialPlace, 1, 'a', 0);
+  assignIndexToPlayers(initialPlace, 1, 'a', 0);
 
-  // drawBoard(arrayOfCellValues, playerTokens);
+  drawBoard(arrayOfCellValues, playerTokens);
 
   // int playerNumber = playUntilOnePlayerWins(arrayOfCellValues, initialPlace);
 
