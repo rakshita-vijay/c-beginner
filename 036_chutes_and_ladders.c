@@ -5,7 +5,8 @@
 
 int numberOfCells;
 int numberOfPlayers;
-char playerTokens[] = {'*', 'o', '$', '#', '=', '%', 'v', '\0'};
+// char playerTokens[] = {'*', 'o', '$', '#', '=', '%', 'v', '\0'};
+char playerTokens[] = {'1', '2', '3', '4', '5', '6', '7', '\0'};
 int numberOfRows = 5;
 int numberOfCellsInARow;
 int numberOfBridges = 5;
@@ -16,7 +17,6 @@ int calculateNumberOfTokens(char playerTokens[]) {
   int numberOfTokens = 0;
   while (playerTokens[numberOfTokens] != '\0') {
     numberOfTokens++;
-    // printf("%i", numberOfTokens);
   }
 
   return numberOfTokens;
@@ -42,7 +42,7 @@ void assignValuesToArrayOfCellValues(char arrayOfCellValues[numberOfCells][numbe
     for (int innerCount = 0; innerCount < numberOfPlayers; innerCount++) {
       // printf("(%i, %i) -(%c)- \n", outerCount, innerCount, arrayOfCellValues[outerCount-1][innerCount-1]);
       arrayOfCellValues[outerCount][innerCount] = ' ';
-      printf("(%i, %i) -(%c)- \n", outerCount, innerCount, arrayOfCellValues[outerCount][innerCount]);
+      // printf("(%i, %i) -(%c)- \n", outerCount, innerCount, arrayOfCellValues[outerCount][innerCount]);
     }
   }
 
@@ -353,7 +353,7 @@ void drawRemainingCellsOnRightAsRow(int numberOfCellsRemaining, char arrayOfCell
 }
 
 void drawBoard(char arrayOfCellValues[numberOfCells][numberOfPlayers], char playerTokens[]) {
-  printf("                                    Chutes and Ladders: A Game \n");
+  printf("\n                                    Chutes and Ladders: A Game \n");
 
   int countNumberOfPlayers = 0;
   for (; countNumberOfPlayers < numberOfPlayers; countNumberOfPlayers++) {
@@ -395,14 +395,23 @@ void drawBoard(char arrayOfCellValues[numberOfCells][numberOfPlayers], char play
 
 bool askIfPlayerWantsToPlay(int playerNumber) {
   char playerChoice;
-  printf("Player %i, do you want to roll the dice - y/n? ", playerNumber);
+  printf("Player %i (%c), do you want to roll the dice - y/n? ", playerNumber, playerTokens[playerNumber-1]);
   scanf("%c", &playerChoice);
 
   return (((playerChoice == 'Y') || (playerChoice == 'y')) ? true : false);
 }
 
 int obtainRandomNumberOnDice(int playerNumber) {
-  int numberOnDice = ((rand() % 6) + 1);
+  int numberOfRandNumsToAverage = ((rand() % 6) + 1);
+  printf("numberOfRandNumsToAverage = %i \n", numberOfRandNumsToAverage);
+  int sum = 0;
+  for (int count = 0; count < numberOfRandNumsToAverage; count++) {
+    int randNum = ((rand() % 6) + 1);
+    printf("randNum = %i \n", randNum);
+    sum += randNum;
+    printf("sum = %i \n", sum);
+  }
+  int numberOnDice = sum/numberOfRandNumsToAverage;
   printf("Player %i, move forward %i spaces \n", playerNumber + 1, numberOnDice);
   return numberOnDice;
 }
@@ -460,9 +469,12 @@ void markChoiceOnGrid(char arrayOfCellValues[numberOfCells][numberOfPlayers], in
 int playUntilOnePlayerWins(char arrayOfCellValues[numberOfCells][numberOfPlayers], int initialPlace[numberOfPlayers]) {
   for (;;) {
     int playerNumber = 0;
-    for (; arrayOfCellValues[numberOfCells - 1][playerNumber] != ' '; playerNumber++) {
+    for (; arrayOfCellValues[numberOfCells - 1][playerNumber] == ' '; playerNumber++) {
       bool playerChoice = askIfPlayerWantsToPlay(playerNumber + 1);
       if (playerChoice) {
+        ////////////////////////////////////////////////////////////////////////
+        /**/ arrayOfCellValues[(initialPlace[playerNumber]) - 1][playerNumber] = ' '; /**/
+        ////////////////////////////////////////////////////////////////////////
         int numberOnDice = obtainRandomNumberOnDice(playerNumber);
         calculateFinalTile(numberOnDice, initialPlace, playerNumber);
         printf("~~~");
@@ -499,7 +511,7 @@ int main() {
 
   drawBoard(arrayOfCellValues, playerTokens);
 
-  // int playerNumber = playUntilOnePlayerWins(arrayOfCellValues, initialPlace);
+  int playerNumber = playUntilOnePlayerWins(arrayOfCellValues, initialPlace);
 
   // displayCongratulatoryMessage(playerNumber);
 }
