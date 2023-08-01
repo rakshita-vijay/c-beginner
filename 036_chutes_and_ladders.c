@@ -108,6 +108,8 @@ void drawRow(int startIndex, char startSide, char arrayOfCellValues[numberOfCell
   printf("   ");
   int index;
   if (startSide == 'L') {
+    // FIRST LINE
+
     index = startIndex + numberOfCellsInARow;
     // printf("~~~%i~~~", index);
     for (int innerCount = 0; innerCount < numberOfCellsInARow; innerCount++, index--) {
@@ -121,6 +123,8 @@ void drawRow(int startIndex, char startSide, char arrayOfCellValues[numberOfCell
         }
       }
     printf("| \n");
+
+    // SECOND LINE
 
     printf("   ");
     index = startIndex + numberOfCellsInARow;
@@ -139,6 +143,8 @@ void drawRow(int startIndex, char startSide, char arrayOfCellValues[numberOfCell
         }
     }
     printf("| \n");
+
+    // THIRD LINE
 
     printf("   ");
     index = startIndex + numberOfCellsInARow;
