@@ -395,7 +395,7 @@ void drawBoard(char arrayOfCellValues[numberOfCells][numberOfPlayers], char play
 
 bool askIfPlayerWantsToPlay(int playerNumber) {
   char playerChoice;
-  printf("Player %i (%c), do you want to roll the dice - y/n? ", playerNumber, playerTokens[playerNumber-1]);
+  printf("Player %i (%c), do you want to roll the dice - y/n? ", playerNumber, playerTokens[playerNumber - 1]);
   scanf("%c", &playerChoice);
 
   return (((playerChoice == 'Y') || (playerChoice == 'y')) ? true : false);
@@ -413,7 +413,7 @@ int obtainRandomNumberOnDice(int playerNumber) {
     sum += randNum;
     printf("sum = %i \n", sum);
   }
-  int numberOnDice = sum/numberOfRandNumsToAverage;
+  int numberOnDice = sum / numberOfRandNumsToAverage;
   printf("Player %i, move forward %i spaces \n", playerNumber + 1, numberOnDice);
   return numberOnDice;
 }
