@@ -401,6 +401,8 @@ bool askIfPlayerWantsToPlay(int playerNumber) {
   return (((playerChoice == 'Y') || (playerChoice == 'y')) ? true : false);
 }
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 int obtainRandomNumberOnDice(int playerNumber) {
   int numberOfRandNumsToAverage = ((rand() % 6) + 1);
   printf("numberOfRandNumsToAverage = %i \n", numberOfRandNumsToAverage);
@@ -513,5 +515,5 @@ int main() {
 
   int playerNumber = playUntilOnePlayerWins(arrayOfCellValues, initialPlace);
 
-  // displayCongratulatoryMessage(playerNumber);
+  displayCongratulatoryMessage(playerNumber);
 }
