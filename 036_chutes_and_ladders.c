@@ -321,17 +321,31 @@ void drawRemainingCellsOnRightAsRow(int numberOfCellsRemaining, char arrayOfCell
     }
     if (lineCount == 0) { /* FIRST LINE */
       for (int count = 1; count <= numberOfCellsRemaining; count++) {
-        (count > 9) ? printf("|%i   ", count) : printf("|0%i   ", count);
+        printf(((count > 9) ? "|%i  %c" : "|0%i  %c"), count, arrayOfCellValues[count - 1][0]);
       }
       printf("| \n");
     } else if (lineCount == 1) { /* SECOND LINE */
       for (int count = 0; count < numberOfCellsRemaining; count++) {
-        printf("|     ");
+        if (numberOfPlayers == 2) {
+          printf("|    %c", arrayOfCellValues[count][numberOfPlayers - 1]);
+        } else if (numberOfPlayers == 3) {
+          printf("|   %c%c", arrayOfCellValues[count][numberOfPlayers - 2], arrayOfCellValues[count][numberOfPlayers - 1]);
+        } else if (numberOfPlayers == 4) {
+          printf("|  %c%c%c", arrayOfCellValues[count][numberOfPlayers - 3], arrayOfCellValues[count][numberOfPlayers - 2], arrayOfCellValues[count][numberOfPlayers - 1]);
+        } else if (numberOfPlayers >= 5) {
+          printf("| %c%c%c%c", arrayOfCellValues[count][numberOfPlayers - 4], arrayOfCellValues[count][numberOfPlayers - 3], arrayOfCellValues[count][numberOfPlayers - 2], arrayOfCellValues[count][numberOfPlayers - 1]);
+        }
       }
       printf("| \n");
     } else { /* THIRD LINE */
       for (int count = 0; count < numberOfCellsRemaining; count++) {
-        printf("|_ _ _");
+        if (numberOfPlayers == 6) {
+          printf("|_ _%c_", arrayOfCellValues[count][numberOfPlayers - 1]);
+        } else if (numberOfPlayers == 7) {
+          printf("|_%c_%c_", arrayOfCellValues[count][numberOfPlayers - 2], arrayOfCellValues[count][numberOfPlayers - 1]);
+        } else {
+          printf("|_ _ _");
+        }
       }
       printf("| \n");
     }
