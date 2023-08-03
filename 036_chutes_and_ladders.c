@@ -461,7 +461,7 @@ int playUntilOnePlayerWins(char arrayOfCellValues[numberOfCells][numberOfPlayers
         calculateFinalTile(numberOnDice, initialPlace, playerNumber);
         markChoiceOnGrid(arrayOfCellValues, initialPlace);
       }
-      if (playerNumber == (numberOfPlayers - 1)) {
+      if ((playerNumber + 1) == numberOfPlayers) {
         playerNumber = 0;
       }
     }
