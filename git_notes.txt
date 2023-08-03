@@ -41,7 +41,7 @@ bupc
 // ~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*
 
 To save code in GitHub:
-git add .
+git add -p
 st
 git ci "036 - minor changes"
 git push
@@ -52,3 +52,9 @@ st
 To run the program:
 clang ./036_chutes_and_ladders.c -o ./036_chutes_and_ladders
 ./036_chutes_and_ladders
+
+// ~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*
+
+every week:
+cd
+git fo (git fetch origin)
