@@ -476,7 +476,6 @@ int playUntilOnePlayerWins(char arrayOfCellValues[numberOfCells][numberOfPlayers
         //////////////////////////////////////////////////////////////////////////////////
         int numberOnDice = obtainRandomNumberOnDice(playerNumber);
         calculateFinalTile(numberOnDice, initialPlace, playerNumber);
-        printf("~~~");
         markChoiceOnGrid(arrayOfCellValues, initialPlace);
       }
       if (playerNumber == (numberOfPlayers - 1)) {
