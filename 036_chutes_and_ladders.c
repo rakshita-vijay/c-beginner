@@ -169,11 +169,7 @@ void drawRow(int startIndex, char startSide, char arrayOfCellValues[numberOfCell
         printf("|   %c%c", arrayOfCellValues[index - 1][1], arrayOfCellValues[index - 1][2]);
       } else if (numberOfPlayers == 4) {
         printf("|  %c%c%c", arrayOfCellValues[index - 1][1], arrayOfCellValues[index - 1][2], arrayOfCellValues[index - 1][3]);
-      } else if (numberOfPlayers == 5) {
-        printf("| %c%c%c%c", arrayOfCellValues[index - 1][1], arrayOfCellValues[index - 1][2], arrayOfCellValues[index - 1][3], arrayOfCellValues[index - 1][4]);
-      } else if (numberOfPlayers == 6) {
-        printf("| %c%c%c%c", arrayOfCellValues[index - 1][1], arrayOfCellValues[index - 1][2], arrayOfCellValues[index - 1][3], arrayOfCellValues[index - 1][4]);
-      } else if (numberOfPlayers == 7) {
+      } else if (numberOfPlayers >= 5) {
         printf("| %c%c%c%c", arrayOfCellValues[index - 1][1], arrayOfCellValues[index - 1][2], arrayOfCellValues[index - 1][3], arrayOfCellValues[index - 1][4]);
       }
     }
@@ -197,38 +193,43 @@ void drawRow(int startIndex, char startSide, char arrayOfCellValues[numberOfCell
 void drawRightBridge(int startIndex, char arrayOfCellValues[numberOfCells][numberOfPlayers]) {
   int index = startIndex + numberOfCellsInABridge;
   for (int outerCount = 0; ((outerCount < numberOfCellsInABridge) && ((index - outerCount) >= 1)); outerCount++) {
-    for (int lineCount = 0; lineCount <= 2; lineCount++) {
-      printf("   ");
-      for (int spaceCount1 = 0; spaceCount1 < ((numberOfCellsInARow - 1) * 6); spaceCount1++) {
-        printf(" ");
-      }
-      if (lineCount == 0) { /* FIRST LINE */
-        if ((index - outerCount) > 99) {
-          printf("|%i %c| \n", (index - outerCount), arrayOfCellValues[index - outerCount - 1][0]);
-        } else if ((index - outerCount) > 9) {
-          printf("|%i  %c| \n", (index - outerCount), arrayOfCellValues[index - outerCount - 1][0]);
-        } else {
-          printf("|0%i  %c| \n", (index - outerCount), arrayOfCellValues[index - outerCount - 1][0]);
-        }
-      } else if (lineCount == 1) { /* SECOND LINE */
-        if (numberOfPlayers == 2) {
-          printf("|    %c| \n", arrayOfCellValues[index - 1][numberOfPlayers - 1]);
-        } else if (numberOfPlayers == 3) {
-          printf("|   %c%c| \n", arrayOfCellValues[index - 1][numberOfPlayers - 2], arrayOfCellValues[index - 1][numberOfPlayers - 1]);
-        } else if (numberOfPlayers == 4) {
-          printf("|  %c%c%c| \n", arrayOfCellValues[index - 1][numberOfPlayers - 3], arrayOfCellValues[index - 1][numberOfPlayers - 2], arrayOfCellValues[index - 1][numberOfPlayers - 1]);
-        } else if (numberOfPlayers >= 5) {
-          printf("| %c%c%c%c| \n", arrayOfCellValues[index - 1][numberOfPlayers - 4], arrayOfCellValues[index - 1][numberOfPlayers - 3], arrayOfCellValues[index - 1][numberOfPlayers - 2], arrayOfCellValues[index - 1][numberOfPlayers - 1]);
-        }
-      } else { /* THIRD LINE */
-        if (numberOfPlayers == 6) {
-          printf("|_ _%c_| \n", arrayOfCellValues[index - 1][numberOfPlayers - 1]);
-        } else if (numberOfPlayers == 7) {
-          printf("|_%c_%c_| \n", arrayOfCellValues[index - 1][numberOfPlayers - 2], arrayOfCellValues[index - 1][numberOfPlayers - 1]);
-        } else {
-          printf("|_ _ _| \n");
-        }
-      }
+    /* FIRST LINE */
+    printf("   ");
+    for (int spaceCount1 = 0; spaceCount1 < ((numberOfCellsInARow - 1) * 6); spaceCount1++) {
+      printf(" ");
+    }
+    if ((index - outerCount) > 99) {
+      printf("|%i %c| \n", (index - outerCount), arrayOfCellValues[index - outerCount - 1][0]);
+    } else if ((index - outerCount) > 9) {
+      printf("|%i  %c| \n", (index - outerCount), arrayOfCellValues[index - outerCount - 1][0]);
+    } else {
+      printf("|0%i  %c| \n", (index - outerCount), arrayOfCellValues[index - outerCount - 1][0]);
+    }
+    /* SECOND LINE */
+    printf("   ");
+    for (int spaceCount1 = 0; spaceCount1 < ((numberOfCellsInARow - 1) * 6); spaceCount1++) {
+      printf(" ");
+    }
+    if (numberOfPlayers == 2) {
+      printf("|    %c| \n", arrayOfCellValues[index - 1][1]);
+    } else if (numberOfPlayers == 3) {
+      printf("|   %c%c| \n", arrayOfCellValues[index - 1][1], arrayOfCellValues[index - 1][2]);
+    } else if (numberOfPlayers == 4) {
+      printf("|  %c%c%c| \n", arrayOfCellValues[index - 1][1], arrayOfCellValues[index - 1][2], arrayOfCellValues[index - 1][3]);
+    } else if (numberOfPlayers >= 5) {
+      printf("| %c%c%c%c| \n", arrayOfCellValues[index - 1][1], arrayOfCellValues[index - 1][2], arrayOfCellValues[index - 1][3], arrayOfCellValues[index - 1][4]);
+    }
+    /* THIRD LINE */
+    printf("   ");
+    for (int spaceCount1 = 0; spaceCount1 < ((numberOfCellsInARow - 1) * 6); spaceCount1++) {
+      printf(" ");
+    }
+    if (numberOfPlayers == 6) {
+      printf("|_ _%c_| \n", arrayOfCellValues[index - 1][5]);
+    } else if (numberOfPlayers == 7) {
+      printf("|_%c_%c_| \n", arrayOfCellValues[index - 1][5], arrayOfCellValues[index - 1][6]);
+    } else {
+      printf("|_ _ _| \n");
     }
   }
 }
@@ -236,67 +237,71 @@ void drawRightBridge(int startIndex, char arrayOfCellValues[numberOfCells][numbe
 void drawLeftBridge(int startIndex, char arrayOfCellValues[numberOfCells][numberOfPlayers]) {
   int index = startIndex + numberOfCellsInABridge;
   for (int outerCount = 0; ((outerCount < numberOfCellsInABridge) && ((index - outerCount) >= 1)); outerCount++) {
-    for (int lineCount = 0; lineCount <= 2; lineCount++) {
-      printf("   ");
-      if (lineCount == 0) { /* FIRST LINE */
-        if ((index - outerCount) > 99) {
-          printf("|%i %c| \n", (index - outerCount), arrayOfCellValues[index - outerCount - 1][0]);
-        } else if ((index - outerCount) > 9) {
-          printf("|%i  %c| \n", (index - outerCount), arrayOfCellValues[index - outerCount - 1][0]);
-        } else {
-          printf("|0%i  %c| \n", (index - outerCount), arrayOfCellValues[index - outerCount - 1][0]);
-        }
-      } else if (lineCount == 1) { /* SECOND LINE */
-        if (numberOfPlayers == 2) {
-          printf("|    %c| \n", arrayOfCellValues[index - 1][numberOfPlayers - 1]);
-        } else if (numberOfPlayers == 3) {
-          printf("|   %c%c| \n", arrayOfCellValues[index - 1][numberOfPlayers - 2], arrayOfCellValues[index - 1][numberOfPlayers - 1]);
-        } else if (numberOfPlayers == 4) {
-          printf("|  %c%c%c| \n", arrayOfCellValues[index - 1][numberOfPlayers - 3], arrayOfCellValues[index - 1][numberOfPlayers - 2], arrayOfCellValues[index - 1][numberOfPlayers - 1]);
-        } else if (numberOfPlayers >= 5) {
-          printf("| %c%c%c%c| \n", arrayOfCellValues[index - 1][numberOfPlayers - 4], arrayOfCellValues[index - 1][numberOfPlayers - 3], arrayOfCellValues[index - 1][numberOfPlayers - 2], arrayOfCellValues[index - 1][numberOfPlayers - 1]);
-        }
-      } else { /* THIRD LINE */
-        if (numberOfPlayers == 6) {
-          printf("|_ _%c_| \n", arrayOfCellValues[index - 1][numberOfPlayers - 1]);
-        } else if (numberOfPlayers == 7) {
-          printf("|_%c_%c_| \n", arrayOfCellValues[index - 1][numberOfPlayers - 2], arrayOfCellValues[index - 1][numberOfPlayers - 1]);
-        } else {
-          printf("|_ _ _| \n");
-        }
-      }
+    /* FIRST LINE */
+    printf("   ");
+    if ((index - outerCount) > 99) {
+      printf("|%i %c| \n", (index - outerCount), arrayOfCellValues[index - outerCount - 1][0]);
+    } else if ((index - outerCount) > 9) {
+      printf("|%i  %c| \n", (index - outerCount), arrayOfCellValues[index - outerCount - 1][0]);
+    } else {
+      printf("|0%i  %c| \n", (index - outerCount), arrayOfCellValues[index - outerCount - 1][0]);
+    }
+    /* SECOND LINE */
+    printf("   ");
+    if (numberOfPlayers == 2) {
+      printf("|    %c| \n", arrayOfCellValues[index - 1][1]);
+    } else if (numberOfPlayers == 3) {
+      printf("|   %c%c| \n", arrayOfCellValues[index - 1][1], arrayOfCellValues[index - 1][2]);
+    } else if (numberOfPlayers == 4) {
+      printf("|  %c%c%c| \n", arrayOfCellValues[index - 1][1], arrayOfCellValues[index - 1][2], arrayOfCellValues[index - 1][3]);
+    } else if (numberOfPlayers >= 5) {
+      printf("| %c%c%c%c| \n", arrayOfCellValues[index - 1][1], arrayOfCellValues[index - 1][2], arrayOfCellValues[index - 1][3], arrayOfCellValues[index - 1][4]);
+    }
+    /* THIRD LINE */
+    printf("   ");
+    if (numberOfPlayers == 6) {
+      printf("|_ _%c_| \n", arrayOfCellValues[index - 1][5]);
+    } else if (numberOfPlayers == 7) {
+      printf("|_%c_%c_| \n", arrayOfCellValues[index - 1][5], arrayOfCellValues[index - 1][6]);
+    } else {
+      printf("|_ _ _| \n");
     }
   }
 }
 
 void drawRemainingCellsOnRightAsColumn(int numberOfCellsRemaining, char arrayOfCellValues[numberOfCells][numberOfPlayers]) {
   for (; numberOfCellsRemaining > 0; numberOfCellsRemaining--) {
-    for (int lineCount = 0; lineCount <= 2; lineCount++) {
-      printf("   ");
-      for (int spaceCount1 = 0; spaceCount1 < ((numberOfCellsInARow - 1) * 6); spaceCount1++) {
-        printf(" ");
-      }
-      if (lineCount == 0) { /* FIRST LINE */
-        printf("|0%i  %c| \n", numberOfCellsRemaining, arrayOfCellValues[numberOfCellsRemaining - 1][0]);
-      } else if (lineCount == 1) { /* SECOND LINE */
-        if (numberOfPlayers == 2) {
-          printf("|    %c| \n", arrayOfCellValues[numberOfCellsRemaining - 1][numberOfPlayers - 1]);
-        } else if (numberOfPlayers == 3) {
-          printf("|   %c%c| \n", arrayOfCellValues[numberOfCellsRemaining - 1][numberOfPlayers - 2], arrayOfCellValues[numberOfCellsRemaining - 1][numberOfPlayers - 1]);
-        } else if (numberOfPlayers == 4) {
-          printf("|  %c%c%c| \n", arrayOfCellValues[numberOfCellsRemaining - 1][numberOfPlayers - 3], arrayOfCellValues[numberOfCellsRemaining - 1][numberOfPlayers - 2], arrayOfCellValues[numberOfCellsRemaining - 1][numberOfPlayers - 1]);
-        } else if (numberOfPlayers >= 5) {
-          printf("| %c%c%c%c| \n", arrayOfCellValues[numberOfCellsRemaining - 1][numberOfPlayers - 4], arrayOfCellValues[numberOfCellsRemaining - 1][numberOfPlayers - 3], arrayOfCellValues[numberOfCellsRemaining - 1][numberOfPlayers - 2], arrayOfCellValues[numberOfCellsRemaining - 1][numberOfPlayers - 1]);
-        }
-      } else { /* THIRD LINE */
-        if (numberOfPlayers == 6) {
-          printf("|_ _%c_| \n", arrayOfCellValues[numberOfCellsRemaining - 1][numberOfPlayers - 1]);
-        } else if (numberOfPlayers == 7) {
-          printf("|_%c_%c_| \n", arrayOfCellValues[numberOfCellsRemaining - 1][numberOfPlayers - 2], arrayOfCellValues[numberOfCellsRemaining - 1][numberOfPlayers - 1]);
-        } else {
-          printf("|_ _ _| \n");
-        }
-      }
+    /* FIRST LINE */
+    printf("   ");
+    for (int spaceCount1 = 0; spaceCount1 < ((numberOfCellsInARow - 1) * 6); spaceCount1++) {
+      printf(" ");
+    }
+    printf("|0%i  %c| \n", numberOfCellsRemaining, arrayOfCellValues[numberOfCellsRemaining - 1][0]);
+    /* SECOND LINE */
+    printf("   ");
+    for (int spaceCount1 = 0; spaceCount1 < ((numberOfCellsInARow - 1) * 6); spaceCount1++) {
+      printf(" ");
+    }
+    if (numberOfPlayers == 2) {
+      printf("|    %c| \n", arrayOfCellValues[numberOfCellsRemaining - 1][1]);
+    } else if (numberOfPlayers == 3) {
+      printf("|   %c%c| \n", arrayOfCellValues[numberOfCellsRemaining - 1][1], arrayOfCellValues[numberOfCellsRemaining - 1][2]);
+    } else if (numberOfPlayers == 4) {
+      printf("|  %c%c%c| \n", arrayOfCellValues[numberOfCellsRemaining - 1][1], arrayOfCellValues[numberOfCellsRemaining - 1][2], arrayOfCellValues[numberOfCellsRemaining - 1][3]);
+    } else if (numberOfPlayers >= 5) {
+      printf("| %c%c%c%c| \n", arrayOfCellValues[numberOfCellsRemaining - 1][1], arrayOfCellValues[numberOfCellsRemaining - 1][2], arrayOfCellValues[numberOfCellsRemaining - 1][3], arrayOfCellValues[numberOfCellsRemaining - 1][4]);
+    }
+    /* THIRD LINE */
+    printf("   ");
+    for (int spaceCount1 = 0; spaceCount1 < ((numberOfCellsInARow - 1) * 6); spaceCount1++) {
+      printf(" ");
+    }
+    if (numberOfPlayers == 6) {
+      printf("|_ _%c_| \n", arrayOfCellValues[numberOfCellsRemaining - 1][5]);
+    } else if (numberOfPlayers == 7) {
+      printf("|_%c_%c_| \n", arrayOfCellValues[numberOfCellsRemaining - 1][5], arrayOfCellValues[numberOfCellsRemaining - 1][6]);
+    } else {
+      printf("|_ _ _| \n");
     }
   }
 }
@@ -311,42 +316,47 @@ void drawRemainingCellsOnRightAsRow(int numberOfCellsRemaining, char arrayOfCell
   }
   printf("\n");
 
-  for (int lineCount = 0; lineCount <= 2; lineCount++) {
-    printf("   ");
-    for (int spaceCount1 = 0; spaceCount1 < ((numberOfCellsInARow - numberOfCellsRemaining) * 6); spaceCount1++) {
-      printf(" ");
-    }
-    if (lineCount == 0) { /* FIRST LINE */
-      for (int count = 1; count <= numberOfCellsRemaining; count++) {
-        printf(((count > 9) ? "|%i  %c" : "|0%i  %c"), count, arrayOfCellValues[count - 1][0]);
-      }
-      printf("| \n");
-    } else if (lineCount == 1) { /* SECOND LINE */
-      for (int count = 0; count < numberOfCellsRemaining; count++) {
-        if (numberOfPlayers == 2) {
-          printf("|    %c", arrayOfCellValues[count][numberOfPlayers - 1]);
-        } else if (numberOfPlayers == 3) {
-          printf("|   %c%c", arrayOfCellValues[count][numberOfPlayers - 2], arrayOfCellValues[count][numberOfPlayers - 1]);
-        } else if (numberOfPlayers == 4) {
-          printf("|  %c%c%c", arrayOfCellValues[count][numberOfPlayers - 3], arrayOfCellValues[count][numberOfPlayers - 2], arrayOfCellValues[count][numberOfPlayers - 1]);
-        } else if (numberOfPlayers >= 5) {
-          printf("| %c%c%c%c", arrayOfCellValues[count][numberOfPlayers - 4], arrayOfCellValues[count][numberOfPlayers - 3], arrayOfCellValues[count][numberOfPlayers - 2], arrayOfCellValues[count][numberOfPlayers - 1]);
-        }
-      }
-      printf("| \n");
-    } else { /* THIRD LINE */
-      for (int count = 0; count < numberOfCellsRemaining; count++) {
-        if (numberOfPlayers == 6) {
-          printf("|_ _%c_", arrayOfCellValues[count][numberOfPlayers - 1]);
-        } else if (numberOfPlayers == 7) {
-          printf("|_%c_%c_", arrayOfCellValues[count][numberOfPlayers - 2], arrayOfCellValues[count][numberOfPlayers - 1]);
-        } else {
-          printf("|_ _ _");
-        }
-      }
-      printf("| \n");
+  /* FIRST LINE */
+  printf("   ");
+  for (int spaceCount1 = 0; spaceCount1 < ((numberOfCellsInARow - numberOfCellsRemaining) * 6); spaceCount1++) {
+    printf(" ");
+  }
+  for (int count = 1; count <= numberOfCellsRemaining; count++) {
+    printf(((count > 9) ? "|%i  %c" : "|0%i  %c"), count, arrayOfCellValues[count - 1][0]);
+  }
+  printf("| \n");
+  /* SECOND LINE */
+  printf("   ");
+  for (int spaceCount1 = 0; spaceCount1 < ((numberOfCellsInARow - numberOfCellsRemaining) * 6); spaceCount1++) {
+    printf(" ");
+  }
+  for (int count = 0; count < numberOfCellsRemaining; count++) {
+    if (numberOfPlayers == 2) {
+      printf("|    %c", arrayOfCellValues[count][1]);
+    } else if (numberOfPlayers == 3) {
+      printf("|   %c%c", arrayOfCellValues[count][1], arrayOfCellValues[count][2]);
+    } else if (numberOfPlayers == 4) {
+      printf("|  %c%c%c", arrayOfCellValues[count][1], arrayOfCellValues[count][2], arrayOfCellValues[count][3]);
+    } else if (numberOfPlayers >= 5) {
+      printf("| %c%c%c%c", arrayOfCellValues[count][1], arrayOfCellValues[count][2], arrayOfCellValues[count][3], arrayOfCellValues[count][4]);
     }
   }
+  printf("| \n");
+  /* THIRD LINE */
+  printf("   ");
+  for (int spaceCount1 = 0; spaceCount1 < ((numberOfCellsInARow - numberOfCellsRemaining) * 6); spaceCount1++) {
+    printf(" ");
+  }
+  for (int count = 0; count < numberOfCellsRemaining; count++) {
+    if (numberOfPlayers == 6) {
+      printf("|_ _%c_", arrayOfCellValues[count][5]);
+    } else if (numberOfPlayers == 7) {
+      printf("|_%c_%c_", arrayOfCellValues[count][5], arrayOfCellValues[count][6]);
+    } else {
+      printf("|_ _ _");
+    }
+  }
+  printf("| \n");
 }
 
 void drawBoard(char arrayOfCellValues[numberOfCells][numberOfPlayers], char playerTokens[]) {
