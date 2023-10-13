@@ -18,16 +18,6 @@ char checkIfPlayerHasWon(char arr[9]) {
 
   // 1 2 4 5 = 1+2+1 // 1 2 5 6 = 1+3+1
 
-  /*
-  int varInt;
-
-  char indices[varInt];
-
-  for(varInt = 1; varInt <= 3; varInt++)
-  {
-
-  }
-  */
   if ((arr[0] == arr[1] && arr[1] == arr[2]) || (arr[3] == arr[4] && arr[4] == arr[5]) || (arr[6] == arr[7] && arr[7] == arr[8]) || (arr[0] == arr[3] && arr[3] == arr[6]) || (arr[1] == arr[4] && arr[4] == arr[7]) || (arr[2] == arr[5] && arr[5] == arr[8]) || (arr[0] == arr[4] && arr[4] == arr[8]) || (arr[2] == arr[4] && arr[4] == arr[6])) {
     return 'w'; // Win
   } else {

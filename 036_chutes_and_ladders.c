@@ -80,7 +80,7 @@ int promptForNumberOfCells() {
     if (choice == 1) {
       printf("Re-enter the number of cells: ");
       scanf("%i", &num);
-      numberOfCells = (int)(floor(num));
+      numberOfCells = (int) (floor(num));
       // printf("\n");
     } else {
       printf("The number of cells in the game is 100 \n");
