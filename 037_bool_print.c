@@ -1,4 +1,5 @@
 #include <stdbool.h>
+#include <stdio.h>
 
 bool validate(long digits) {
 
@@ -32,7 +33,8 @@ bool validate(long digits) {
   }
 }
 
-void main(){
+int main(){
   bool result = validate(123);
   printf("%i", (int) result);
+  return 0;
 }
