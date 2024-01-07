@@ -37,5 +37,25 @@ char *p2 = &alph;
 p = p+1 increments the pointer address by 4 bytes
 *p = (*p) + 1 increments the value at the address stored in p by 1;
 
-Address : &A[i] or (A + i) // simply using A gives base address
+Address : &A[i] or (A + i)  // simply using A gives base address
 Value : A[i] or *(A + i)
+
+int *A and int A[] are same in function definition
+
+// ~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*
+
+malloc() - allocates a single block of memory
+calloc() - allocates multiple blocks of memory
+realloc() - reallocates memory allocated to malloc() or calloc() functions
+
+malloc - void* malloc (size_t size)  // size to be allocated; initially, in the memory blocks, all are pre-existing, garbage values
+calloc - void* calloc (size_t num, size_t size)  // number of elements of data type, size of data type; initially, in the memory blocks, all values are initialized to zero
+realloc - void* realloc (void *ptr, size_t size)  // pointer to previously assigned memory block, size of new block - new can be > old block size. if so, either immediately subsequent memory is allotted or it is allotted in a totally new place
+
+void *p = malloc(4);
+void *p = malloc(sizeof(int));
+void *p = malloc(10 * sizeof(int));
+
+int *p = (int *)malloc(3 * sizeof(int))
+
+int *p = (int *)calloc(3, sizeof(int))
