@@ -4,9 +4,9 @@
 // char arr[9] = {'0', '1', '2', '3', '4', '5', '6', '7', '8'};
 
 // TO CORRECT:
-// Out of bounds error - 0>x or x>9 - CORRECTED :)
-// Congrats for which player?  - CORRECTED :)
-// End after winning  - CORRECTED :)
+// Out of bounds error - 0>x or x>9 :- CORRECTED :)
+// Congrats for which player? :- CORRECTED :)
+// End after winning :- CORRECTED :)
 // Reprogram checkIfPlayerHasWon with series/sequence *****************************************
 
 char checkIfPlayerHasWon(char arr[9]);
