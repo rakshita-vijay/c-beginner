@@ -8,11 +8,11 @@ double fact(long int count) {
 float val(float num, long int count, long int power_for_sign) {
   float sign = (pow(-1, (power_for_sign + 1)));
   float numerator = (pow(num, count));
-  float denomenator = fact(count);
-  return (count >= pow(10, 3)) ? (sign * (numerator / denomenator)) : (sign * (numerator / denomenator) + val(num, count + 2, power_for_sign + 1));
+  float denominator = fact(count);
+  return (count >= pow(10, 3)) ? (sign * (numerator / denominator)) : (sign * (numerator / denominator) + val(num, count + 2, power_for_sign + 1));
 }
 
-void main() {
+int main() {
   float num;
   long int count = 1;
   long int power_for_sign = 1;
@@ -22,4 +22,5 @@ void main() {
   
   float res = val(num, count, power_for_sign);
   printf("The result is: %f", res);
+  return 0;
 }
