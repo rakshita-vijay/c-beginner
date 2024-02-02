@@ -9,7 +9,7 @@ float val(int num, long int count, long int power_for_sign) {
   int sign = (pow(-1, (power_for_sign + 1)));
   int numerator = (pow(num, count));
   int denomenator = fact(count);
-  return count >= pow(10, 5) ? (sign * (numerator / denomenator)) : (sign * (numerator / denomenator) + val(num, count + 2, power_for_sign + 1));
+  return count >= pow(10, 3) ? (sign * (numerator / denomenator)) : (sign * (numerator / denomenator) + val(num, count + 2, power_for_sign + 1));
 }
 
 void main() {
