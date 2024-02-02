@@ -20,6 +20,8 @@ int main() {
   printf("Enter a number between 0 and 1, both included: ");
   scanf("%f", &num);
 
+  printf("~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~");
+
   while ((num < 0) || (num > 1)) {
     printf((num < 0) ? "Number is lesser than 0. " : "Number is greater than 1. ");
     printf("Re-enter a number between 0 and 1, both included: ");
