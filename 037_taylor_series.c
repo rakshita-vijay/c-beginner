@@ -20,6 +20,6 @@ void main() {
   printf("Enter a number: ");
   scanf("%d", &num);
   
-  float result = val(num, count, power_for_sign);
-  printf("The result is: %f", result);
+  float res = val(num, count, power_for_sign);
+  printf("The result is: %f", res);
 }
