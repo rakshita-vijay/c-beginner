@@ -1,5 +1,5 @@
-#include <stdio.h>
 #include <math.h>
+#include <stdio.h>
 
 double fact(long int count) {
   return (count == 1) ? 1 : (count * fact(count - 1));
@@ -16,11 +16,16 @@ int main() {
   float num;
   long int count = 1;
   long int power_for_sign = 1;
-  
-  printf("Enter a number: ");
+
+  printf("Enter a number between 0 and 1, both included: ");
   scanf("%f", &num);
-  
+  while ((num < 0) || (num > 1)) {
+    printf((num < 0) ? "Number is lesser than 0. " : "Number is greater than 1. ");
+    printf("Re-enter a number between 0 and 1, both included: ");
+    scanf("%f", &num);
+  }
+
   float res = val(num, count, power_for_sign);
-  printf("The result is: %f", res);
+  printf("\nThe result is: %f \n", res);
   return 0;
 }
