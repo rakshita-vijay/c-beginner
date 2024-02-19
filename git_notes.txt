@@ -12,6 +12,7 @@ git checkout BRANCHNAME - to check out a previously created branch
 git checkout -b BRANCHNAME - to create and check out a branch
 git branch -d BRANCHNAME - to delete a branch
 ls - lists the content in a directory (?)
+git commit --amend - to edit previous function
 
 // ~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*
 
