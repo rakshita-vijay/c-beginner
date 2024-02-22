@@ -8,7 +8,7 @@ void main() {
   int *p_num;
   p_num = &num;
 
-  printf("Number entered: %d \n", num);
+  printf("\nNumber entered: %d \n", num);
   printf("Number's address: %d \n \n", &num);
 
   printf("Pointer's value: %d \n", p_num);
