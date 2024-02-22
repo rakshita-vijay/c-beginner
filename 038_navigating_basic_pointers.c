@@ -18,5 +18,4 @@ int main () {
   printf("Pointer's address: %p \n \n", &p_num);
   // printf("Pointer is pointing at: %d through number address: %d \n", *p_num, &num);
   printf("Pointer is pointing at: %d through number address: %p \n", *p_num, &num);
-
 }

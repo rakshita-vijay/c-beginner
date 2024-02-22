@@ -44,9 +44,9 @@ int *A and int A[] are same in function definition
 
 // ~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*
 
-const int *p // value cannot be changed
-int *const p // pointer address cannot be changed
-const int *const p // both value and pointer address cannot be changed
+const int *p_num // value cannot be changed using pointer; pointer address can be changed; integer variable can be changed directly (without using pointer)
+int *const p_num // pointer address cannot be changed
+const int *const p_num // both value and pointer address cannot be changed; num cna still be changed directly
 
 // ~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*
 
@@ -65,3 +65,9 @@ void *p = malloc(10 * sizeof(int));
 int *p = (int *)malloc(3 * sizeof(int))
 
 int *p = (int *)calloc(3, sizeof(int))
+
+// ~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*
+
+arr[i] = *(arr + i)
+
+// ~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*
