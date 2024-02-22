@@ -13,10 +13,9 @@ int main () {
   printf("Number's address: %p \n \n", &num);
 
   // printf("Pointer's value: %d \n", p_num);
-  printf("Pointer's value: %p \n", p_num);
   printf("Pointer's value in hexadecimal: %p \n", p_num);
   // printf("Pointer's address: %d \n", &p_num);
-  printf("Pointer's address: %p \n", &p_num);
+  printf("Pointer's address: %p \n \n", &p_num);
   // printf("Pointer is pointing at: %d through number address: %d \n", *p_num, &num);
   printf("Pointer is pointing at: %d through number address: %p \n", *p_num, &num);
 
