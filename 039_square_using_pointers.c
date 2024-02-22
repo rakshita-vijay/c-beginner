@@ -5,7 +5,7 @@ int square(int *p_num) {
   return pow(*p_num, 2);
 }
 
-void main () {
+int main () {
   int num;
   printf("Enter a number: ");
   scanf("%d", &num);
@@ -14,5 +14,5 @@ void main () {
   p_num = &num;
 
   int res = square(p_num);
-  printf("Square of %d is %d", *p_num, res);
+  printf("Square of %d is %d \n", *p_num, res);
 }
