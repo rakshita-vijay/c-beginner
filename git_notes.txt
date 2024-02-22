@@ -59,7 +59,8 @@ git push
 
 To run the program:
 ------------------
-clang ./036_chutes_and_ladders.c -o ./036_chutes_and_ladders
+clang ./036_chutes_and_ladders.c -o ./036_chutes_and_ladders // (?)
+clang ./036_chutes_and_ladders.c; ./036_chutes_and_ladders.c
 ./036_chutes_and_ladders
 
 // ~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*
