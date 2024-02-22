@@ -44,6 +44,12 @@ int *A and int A[] are same in function definition
 
 // ~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*
 
+const int *p // value cannot be changed
+int *const p // pointer address cannot be changed
+const int *const p // both value and pointer address cannot be changed
+
+// ~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*
+
 malloc() - allocates a single block of memory
 calloc() - allocates multiple blocks of memory
 realloc() - reallocates memory allocated to malloc() or calloc() functions
