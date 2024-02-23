@@ -1,21 +1,23 @@
 #include <stdio.h>
+#include <stdlib.h>
 
-int string_length(const char *p_arr) {
-  const char *p_array = p_arr;
-  // while (p_arr != (void *)0) {
-  while (*p_arr != '\0') {
-    p_array++;
-  }
-  return p_array - p_arr;
+int string_length(const char *string) {
+  const char *lastAddress = string;
+
+  while (*lastAddress)
+    ++lastAddress;
+
+  return lastAddress - string;
 }
 
 int main() {
   char arr[] = "";
   printf("Enter a string: ");
   scanf("%s", arr);
-  printf("The string is: %s \n", arr);
-  const char *p_arr = arr;
 
-  int count = string_length(p_arr);
-  printf("The length of %s is: %i \n", arr, count);
+  printf("The length of '%s' is: %d \n", arr, string_length(arr));
+  printf("The length of '%s' is: %d \n", "rakshita", string_length("rakshita"));
+  printf("The length of '%s' is: %d \n", "", string_length(""));
+
+  return 0;
 }
