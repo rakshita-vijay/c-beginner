@@ -4,8 +4,9 @@
 int string_length(const char *string) {
   const char *lastAddress = string;
 
-  while (*lastAddress)
+  while (*lastAddress) {
     ++lastAddress;
+  }
 
   return lastAddress - string;
 }
