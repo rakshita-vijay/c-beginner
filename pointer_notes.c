@@ -50,6 +50,9 @@ const int *const p_num // both value and pointer address cannot be changed; num 
 
 // ~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*
 
+heap must be freed manually
+stack will be freed automatically when the program run time is over
+
 malloc() - allocates a single block of memory
 calloc() - allocates multiple blocks of memory
 realloc() - reallocates memory allocated to malloc() or calloc() functions
@@ -60,7 +63,7 @@ realloc - void* realloc (void *ptr, size_t size)  // pointer to previously assig
 
 void *p = malloc(4);
 void *p = malloc(sizeof(int));
-void *p = malloc(10 * sizeof(int));
+void *p = malloc(10 * sizeof(int)); // allows storage of 10 integers
 
 int *p = (int *)malloc(3 * sizeof(int))
 
