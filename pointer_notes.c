@@ -24,10 +24,11 @@ print &p;  // prints address of p
 print a;  // prints value of a
 print &a;  // prints address of a (& = address)
 
+*&p == p and &*p == p  // * and & are inverses of each other - they cancel each other out
+
 if you do:
 *p = 8;  // a = 8 ---> dereferencing
 print a;  // 8
-
 
 int num = 5;
 int *p1 = &num;
