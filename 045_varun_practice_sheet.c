@@ -1,37 +1,32 @@
-/*
-a) Given the length and the first two numbers, generate a fibonacci sequence.
+// // c) You generated a fibonacci sequence of a certain length, starting with 1 and 1. Your friend does not like even numbers, so starting from the first number, everytime he encounters an even number, he deletes that number as well as the previous number. Output the new sequence.
 
-Length: 6
-First number: 2
-Second number: 5
-2 5 7 12 19 31
-*/
+// // Length of original sequence: 8
+// // 1 3 13 21
+
+// // (The original sequence is 1, 1, 2, 3, 5, 8, 13, and 21.)
+
 
 #include <stdio.h>
 
-int main () {
-  int num_1;
-  int num_2;
-  int temp_num;
-  int length;
+int main() {
+  int numberOfValues;
+  int num_1 = 1;
+  int num_2 = 1;
+  int switchVar = 0;
+  int sum = num_1 + num_2;
 
-  printf("Enter the first number: ");
-  scanf("%d", &num_1);
-  printf("Enter the second number: ");
-  scanf("%d", &num_2);
-
-  printf("Enter the number of digits to be printed: ");
-  scanf("%d", &length);
-
-  int fibonacci[length] = {num_1, num_2};
-
-  for (int count = 0; count < length; count++) {
-    fibonacci[count + 2] = fibonacci[count] + fibonacci[count + 1];
-  }
+  printf("Enter the nunber of values to print in series: ");
+  scanf("%i", &numberOfValues);
 
   printf("\n");
+  printf("Fibonacci Series Sum: \n");
 
-  for (int count = 0; count < length; count++) {
-    printf("%d ", &fibonacci[count]);
+  for (int value = 2; value < numberOfValues; value++) {
+    switchVar = (num_1 + num_2);
+    sum += switchVar;
+    num_1 = num_2;
+    num_2 = switchVar;
   }
+
+  printf("Sum: %i", sum);
 }

@@ -13,7 +13,7 @@ int main() {
   printf("Fibonacci Series: \n");
   printf("%i %i ", x, y);
 
-  for (int value = 0; value < numberOfValues; value++) {
+  for (int value = 2; value < numberOfValues; value++) {
     printf("%i ", (x + y));
     switchVar = (x + y);
     x = y;
