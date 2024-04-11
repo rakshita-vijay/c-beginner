@@ -42,8 +42,10 @@ int main () {
   printf("Enter string 1: ");
   scanf("%[^\n]", arr_1);
 
+  fflush(stdin);
+
   printf("Enter string 2: ");
-  scanf("%s", arr_2);
+  scanf("%[^\n]", arr_2);
 
   int length_of_arr_1 = strlen(arr_1);
   int length_of_arr_2 = strlen(arr_2);
