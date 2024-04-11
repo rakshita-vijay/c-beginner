@@ -70,3 +70,11 @@ Every Week:
 ----------
 cd
 git fo (git fetch origin)
+
+// ~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*
+
+Note for accepting two strings with spaces:
+------------------------------------------
+
+scanf("%[^\n]", arr); // [^\n] stops the input only when it encounters a new line command and not space
+fflush(stdin); // to 'start over'
