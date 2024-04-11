@@ -30,8 +30,9 @@ int main () {
 }
 */
 
-// Anagram Checker: Create a program that checks if two given strings are anagrams of each other. Anagrams are words or phrases formed by rearranging the letters of another word or phrase.
+// 2. Anagram Checker: Create a program that checks if two given strings are anagrams of each other. Anagrams are words or phrases formed by rearranging the letters of another word or phrase.
 
+/*
 #include <stdio.h>
 #include <string.h>
 
@@ -105,4 +106,37 @@ int main () {
     }
     printf("They are anagrams :) \n");
   }
+}
+*/
+
+// 3. String Reversal: Write a program to reverse a given string without using any library function.
+
+#include <stdio.h>
+
+int str_len(char arr[]) {
+  int length_of_arr = 0;
+  for (int count = 0; arr[count] != '\0'; count++) {
+    length_of_arr++;
+  }
+  return length_of_arr;
+}
+
+int main() {
+  char arr[50];
+  char arr_rev[50];
+
+  printf("Enter the string: ");
+  scanf("%[^\n]", arr);
+
+  fflush(stdin);
+
+  int length_of_arr = str_len(arr);
+
+  for(int count = 0; count < length_of_arr; count++) {
+    arr_rev[count] = arr[length_of_arr - count - 1];
+  }
+
+  arr_rev[length_of_arr] = '\0';
+
+  printf("The reversed string is: %s \n", arr_rev);
 }
