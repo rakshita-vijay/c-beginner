@@ -24,24 +24,31 @@ struct member {
   char pass_word[20];
 };
 
+struct member arr[50] = {{'o', 'o'}};
+
 void sign_up() {
-  struct member;
+  struct member member_1;
   printf("Action 1: \n");
   printf("Enter username: ");
-  scanf("%s", user_name);
+  scanf("%s", member_1.user_name);
   printf("Enter password: ");
-  scanf("%s", pass_word);
+  scanf("%s", member_1.pass_word);
+
+  int count = 0;
+  if()
+  for(int count = 0; arr[count].user_name != 'o'; count++) {
+    h
+  }
   printf("New user registered! \n");
 }
 
 void sign_in() {
-  char user_name[20];
-  char pass_word[20];
+  struct member member_2;
   printf("Action 2: \n");
   printf("Enter username: ");
-  scanf("%s", user_name);
+  scanf("%s", member_2.user_name);
   printf("Enter password: ");
-  scanf("%s", pass_word);
+  scanf("%s", member_2.pass_word);
   printf("Successfully signed in! \n");
 }
 
