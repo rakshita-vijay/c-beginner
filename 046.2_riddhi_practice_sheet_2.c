@@ -111,6 +111,7 @@ int main () {
 
 // 3. String Reversal: Write a program to reverse a given string without using any library function.
 
+/*
 #include <stdio.h>
 
 int str_len(char arr[]) {
@@ -140,3 +141,68 @@ int main() {
 
   printf("The reversed string is: %s \n", arr_rev);
 }
+*/
+
+// 4. String Concatenation: Implement a function to concatenate two strings without using any library function.
+
+/*
+#include <stdio.h>
+
+int str_len(char arr[]) {
+  int length_of_arr = 0;
+  for (int count = 0; arr[count] != '\0'; count++) {
+    length_of_arr++;
+  }
+  return length_of_arr;
+}
+
+int main () {
+  char arr_1[40];
+  char arr_2[40];
+  char arr_concat[80];
+
+  printf("Enter string 1: ");
+  scanf("%[^\n]", arr_1);
+
+  fflush(stdin);
+
+  printf("Enter string 2: ");
+  scanf("%[^\n]", arr_2);
+
+  int length_of_arr_1 = str_len(arr_1);
+
+  for (int count = 0; arr_1[count] != '\0'; count++) {
+    arr_concat[count] = arr_1[count];
+  }
+
+  for (int count = 0; arr_2[count] != '\0'; count++) {
+    arr_concat[count + length_of_arr_1] = arr_2[count];
+  }
+
+  printf("The concatenated string is: %s \n", arr_concat);
+}
+*/
+
+// 5. String Tokenization: Create a program that tokenizes a given string into words. Each word should be printed on a separate line.
+
+/*
+#include <stdio.h>
+
+int main () {
+  char arr[50];
+
+  printf("Enter a string: ");
+  scanf("%[^\n]", arr);
+
+  fflush(stdin);
+
+  printf("\n");
+  for (int count = 0; arr[count] != '\0'; count++) {
+    printf("%c", arr[count]);
+    (arr[count] == ' ') ? printf("\n") : printf("");
+  }
+  printf("\n");
+}
+*/
+
+// 6. Substring Search: Write a program to find all occurrences of a substring within a given string.
