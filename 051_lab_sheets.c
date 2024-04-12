@@ -372,6 +372,50 @@ int main () {
 
 // LAB SHEET: 9
 
+// Q.2 Write a C program to insert a sub-string into a given main string from a given position.
+
+/*
+#include <stdio.h>
+#include <string.h>
+
+int main () {
+  char main_string[40];
+  char sub_string[40];
+
+  printf("Enter the main string: ");
+  scanf("%s", main_string);
+  printf("Enter the sub-string: ");
+  scanf("%s", sub_string);
+
+  int length_of_main_string = strlen(main_string);
+  int length_of_sub_string = strlen(sub_string);
+
+  char final_string[length_of_main_string + length_of_sub_string + 1];
+
+  int location_of_insertion;
+  printf("Enter the location where you want to insert the sub-string: ");
+  scanf("%i", &location_of_insertion);
+  location_of_insertion--;
+
+  location_of_insertion = (location_of_insertion < 0) ? 0 : location_of_insertion;
+  location_of_insertion = (location_of_insertion > length_of_main_string) ? length_of_main_string : location_of_insertion;
+
+  int count = 0;
+  for (; count < location_of_insertion; count++) {
+    final_string[count] = main_string[count];
+  }
+  for (; count < location_of_insertion + length_of_sub_string; count++) {
+    final_string[count] = sub_string[count - location_of_insertion];
+  }
+  for (; count < length_of_main_string + length_of_sub_string; count++) {
+    final_string[count] = main_string[count - length_of_sub_string];
+  }
+  final_string[count] = '\0';
+
+  printf("The final string is: %s \n", final_string);
+}
+*/
+
 // ~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*
 
 // LAB SHEET: 10
