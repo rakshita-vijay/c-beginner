@@ -300,6 +300,74 @@ int main () {
 
 // LAB SHEET: 8
 
+// Q1. Write a program to find out largest number from a list of numbers stored in an Array.
+
+/*
+#include <stdio.h>
+#include <math.h>
+
+int main () {
+  int num_of_elements;
+  printf("Enter the number of elements in the array: ");
+  scanf("%d", &num_of_elements);
+  int arr[num_of_elements];
+
+  int max_num = arr[0];
+
+  printf("Enter the elements of the array: \n");
+  for (int count = 0; count < num_of_elements; count++) {
+    printf("Element #%d: ", count + 1);
+    scanf("%i", &arr[count]);
+    // fflush(stdin);
+  }
+
+  for (int count = 0; count < num_of_elements; count++) {
+    max_num = (max_num < arr[count]) ? arr[count] : max_num;
+  }
+
+  printf("The maximum number in the array is: %d \n", max_num);
+}
+*/
+
+// Q2. Write a program to input a set of characters, words, lines into an Array terminated by ~. Find out how many words, lines and characters are there in the input.
+
+/*
+#include <stdio.h>
+#include <math.h>
+
+int main () {
+  char arr[40];
+  printf("Enter a string terminating with a '~': ");
+  scanf("%[^~]", arr);
+
+  int num_of_char = 0;
+  int num_of_words = 1;
+  int num_of_lines = 1;
+
+  int count = 0;
+
+  for (; arr[count] != '\0'; count++) {
+    if ((arr[count] == '.') || (arr[count] == '\n')) {
+      num_of_words++;
+      num_of_lines++;
+    } else {
+      if ((arr[count] == ' ') || (arr[count] == '\t')) {
+        num_of_char++;
+        num_of_words++;
+      } else {
+        num_of_char++;
+      }
+    }
+  }
+
+
+  printf("num_of_char: %d \n", num_of_char);
+  printf("num_of_words: %d \n", num_of_words);
+  printf("num_of_lines: %d \n", num_of_lines);
+
+}
+*/
+
 // ~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*
 
 // LAB SHEET: 9
