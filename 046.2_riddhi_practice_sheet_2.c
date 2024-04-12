@@ -206,3 +206,54 @@ int main () {
 */
 
 // 6. Substring Search: Write a program to find all occurrences of a substring within a given string.
+
+#include <stdio.h>
+
+int str_len(char arr[]) {
+  int length_of_arr = 0;
+  for(int count = 0; arr[count] != '\0'; count++) {
+    length_of_arr++;
+  }
+  return length_of_arr;
+}
+
+int main () {
+  char arr[50];
+  char substring[50];
+
+  printf("Enter the string: ");
+  scanf("%[^\n]", arr);
+
+  fflush(stdin);
+
+  printf("Enter the substring to be searched: ");
+  scanf("%[^\n]", substring);
+
+  int length_of_arr = str_len(arr);
+  int length_of_substring = str_len(substring);
+
+  int placeholders[50] = {0};
+  int counter = 0;
+
+  for(int count = 0; count < length_of_arr; count++) {
+    for(int substring_count = 0; substring_count < length_of_substring; substring_count++) {
+      if (arr[count + substring_count] == substring[substring_count]) {
+        counter++;
+      }
+      if (counter == length_of_substring) {
+        placeholders[count] = count + 1;
+        break;
+      }
+    }
+  }
+
+  printf("In %s, the substring occurs at: ", arr);
+
+  for(int count = 0; count < length_of_arr; count++) {
+    if (count != 0) {
+      printf("%d ", count);
+    } else {
+      printf("");
+    }
+  }
+}
