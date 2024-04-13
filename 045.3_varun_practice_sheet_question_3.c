@@ -89,6 +89,9 @@ int main() {
           }
         }
       }
+      if (output_printed == -1) {
+      break;
+      }
     }
   step_count++;
   }
