@@ -25,6 +25,13 @@ unit test, integration test, end-to-end test
 
 // ~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*
 
+To create a new GitHub repository, open it in VSCodium, and link it to main:
+---------------------------------------------------------------------------
+create the new repository in GitHub webpage
+in VSCodium, go to Source Control --> Clone Repository --> Clone from GitHub --> Allow --> copy code and continue to GitHub --> paste code --> activated --> go back to VSCodium --> choose repository to edit
+
+// ~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*
+
 To connect GitHub and VSCodium and get the repository to edit:
 -------------------------------------------------------------
 cd ~/dev/rakshita/c-beginner
