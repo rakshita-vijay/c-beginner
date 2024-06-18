@@ -7,7 +7,7 @@
 // Out of bounds error - 0>x or x>9 :- CORRECTED :)
 // Congrats for which player? :- CORRECTED :)
 // End after winning :- CORRECTED :)
-// Reprogram checkIfPlayerHasWon with series/sequence *****************************************
+// Reprogram checkIfPlayerHasWon with series/sequence ***************
 
 char checkIfPlayerHasWon(char arr[9]);
 char markChoiceOnGrid(char arr[9], int gridChoice, char playerNumber);
@@ -57,7 +57,7 @@ char drawGrid(char arr[9], char playerNumber) {
 
   res = checkIfPlayerHasWon(arr);
   if (res == 'w') { // Win
-    printf("Congrats, Player %c! You have won! ", playerNumber);
+    printf("Congrats, Player %c! You have won! \n", playerNumber);
     return 'b'; // Break
   }
 }
