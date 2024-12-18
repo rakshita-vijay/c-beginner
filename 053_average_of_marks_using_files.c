@@ -200,8 +200,8 @@ int main () {
       p
     }
 
-
     penalty = 0;
-
   }
+
+  fclose(f_ptr);
 }

@@ -33,9 +33,7 @@ a : appending only.
     if file doesn’t exist, a new file is created.
     if file cannot be opened, returns NULL.
 
-r+
-
-Searches file. Opens the file for both reading and writing. If opened successfully, fopen() loads it into memory and sets up a pointer that points to the first character in it. Returns NULL, if unable to open the file.
+r+: searches file. Opens the file for both reading and writing. If opened successfully, fopen() loads it into memory and sets up a pointer that points to the first character in it. Returns NULL, if unable to open the file.
 
 w+
 

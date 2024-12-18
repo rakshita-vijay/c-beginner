@@ -1,0 +1,95 @@
+stack trace (call stack) is generated whenever your app crashes because of a fatal error
+
+shows a list of the function calls that lead to the error:
+1) includes the filenames and line numbers of the code that cause the exception or error to occur
+2) top of the stack contains the last call that caused the error (nested calls)
+3) bottom of the stack contains the first call that started the chain of calls to cause the error
+4) you need to find the call in your application that is causing the crash
+
+a programmer can dump the stack trace manually at any point - .printStackTrace() in java
+
+in c, use break points
+they can monitor variables and function calls
+
+// ~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*
+
+debugger usage:
+--------------
+set up program in debugging mode + how to set up break points + see call stack + monitor variables
+
+in debug mode, not release mode
+
+// ~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*
+
+common mistakes:
+---------------
+1) wrong semi colon placement
+2) = instead of ==
+3) forgetting to declare functions at top of the file, or prototype declarations
+   assumption made by compiler: function returns an int
+4) forgetting to import stdio / stdlib / whatever library is required in the program
+5) character constant =/= character string
+   'a' is not = "a"
+6) use strcopy or pointers for character strings
+   pointer to char
+7) array out of bounds exception
+8) confusing . and ->
+   . is for structure variables
+   -> is for structure pointer variables
+9) omitting & in scanf() call
+10) using pointer variable before it is initialized - before assigning memory to it
+11) omitting break at the end of cases in a switch statement
+12) putting a semi colon after a "#define <variable> <variable_value>" statement (preprocessor definition)
+13) forgetting braces / parenthesis / quotations
+
+// ~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*
+
+compiler errors:
+---------------
+option for the compiler to notify all case when there are implicit decisions made:
+use -Wall
+
+always address the first error - mostly, other errors might get resolved if first is resolved
+
+errors: condition that prevents the creation of a final program
+        no executable is obtained until all the errors have been corrected
+        first errors shown are the most reliable because the translation is finished, but there are some errors that may derive from previous ones
+
+warnings: essages that the compiler shows about "special" situations in which an anomaly has been detected
+          non-fatal errors
+          final executable program may be obtained with any number of warnings
+do not consider the program correct until all warnings have been eliminated
+
+1) warning: <variable> undeclared (first use in this function)
+   symbol shown at the beginning of the message is used but has not been declared
+   solution: declare the variable
+
+2) warning: implicit declaration of function <...>
+   appears when the compiler finds a function used in the code, but no previous information (like a prototype) has been given about it
+   solution: Declare a function prototype
+
+3) warning: control reaches end of non-void function
+   appears when a function has been defined as returning a result, but no return statement has been included to return this result
+   cause: either the function is incorrectly defined, or the return statement is missing
+
+4) warning: unused variable <...>
+   printed by the compiler when a variable is declared but not used in the code
+   message disappears if the declaration is removed
+
+5) warning: undefined reference to <...>
+   appears when there is a function invoked in the code that has not been defined anywhere
+   compiler is telling us that there is a reference to a function with no definition
+   check which function is missing and make sure its definition is compiled
+
+6) error: conflicting types for <...>
+   two definitions of a function prototype have been found
+   one is the prototype (the result type, name, parenthesis including the parameters, and a semicolon)
+   the other is the definition with the function body
+   the information in both places is not identical, and a conflict has been detected
+   the compiler shows you in which line the conflict appears and the previous definition that caused the contradiction
+
+7) runtime errors: program terminates abruptly (crashes)
+   'Segmentation Fault' is printed
+   analize the core file and call stack
+
+// ~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*
