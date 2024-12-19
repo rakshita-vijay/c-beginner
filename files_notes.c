@@ -24,17 +24,14 @@ int main() {
 
   if (fp == NULL) {
     perror("Error in opening file");
-    return (-1);
+    return -1;
   }
 
-  // Read a single character
   while ((c = fgetc(fp)) != EOF)
-    printf("%c", c);
+    printf("%c", c); // prints out entire content of file
 
   fclose(fp);
   fp = NULL;
-  system("pause");
-  return (0);
 }
 
 // ~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*
@@ -67,17 +64,15 @@ int main () {
 
   if(fp == NULL) {
     perror("Error opening file");
-    return(-1);
+    return -1;
   }
 
   if(fgets(str, 60, fp) != NULL) {
-    /* writing content to stdout */
-    printf("%s", str);
+    printf("%s", str); // prints out entire content of file
   }
 
   fclose(fp);
   fp = NULL;
-  return(0);
 }
 
 fscanf(): function
@@ -93,7 +88,7 @@ format is a C string that contains one or more of the following items:
 3) format specifiers
 4) usage is similar to scanf, but, from a file
 
-function returns the number of input items successfully matched and assigned
+returns the number of input items successfully matched and assigned
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -101,24 +96,29 @@ function returns the number of input items successfully matched and assigned
 int main () {
   char str1[10], str2[10], str3[10];
   int year;
-  FILE *fp;
 
-  fp = fopen("file.txt", "w+");
+  FILE *fp = fopen("file.txt", "w+");
   if (fp != NULL)
     fputs("Hello how are you", fp);
 
   rewind(fp); // goes to the beginning of the file (places pointer there)
 
   fscanf(fp, "%s %s %s %d", str1, str2, str3, &year);
-
   printf("Read String1 |%s| \n", str1);
   printf("Read String2 |%s| \n", str2);
   printf("Read String3 |%s| \n", str3);
   printf("Read Integer |%d| \n", year);
 
   fclose(fp);
-  return 0;
 }
+
+/*
+O/P:
+Read String1 |Hello|
+Read String2 |how|
+Read String3 |are|
+Read Integer |0|
+*/
 
 // ~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*
 
@@ -144,18 +144,19 @@ difference: putc() may be implemented in the standard library as a macro, wherea
 #include <stdio.h>
 
 int main () {
-  FILE *fp;
-  int ch;
+  FILE *fp = fopen("file.txt", "w+");
 
-  fp = fopen("file.txt", "w+");
-
-  for(ch = 33; ch <= 100; ch++) {
+  for(int ch = 33; ch <= 100; ch++) {
     fputc(ch, fp);
   }
 
   fclose(fp);
-  return(0);
 }
+
+/*
+O/P:
+!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcd
+*/
 
 // ~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*
 
@@ -176,15 +177,17 @@ have to have '\0' written either implicitly or explicitly
 #include <stdio.h>
 
 int main () {
-  FILE *filePointer;
-  filePointer = fopen("file.txt", "w+");
-
-  fputs("This is Jason Fedin Course.", filePointer);
-  fputs("I am happy to be here", filePointer);
+  FILE *filePointer = fopen("file.txt", "w+");
+  fputs("This is a Jason Fedin Course. ", filePointer);
+  fputs("I am happy to be here :)", filePointer);
 
   fclose(filePointer);
-  return(0);
 }
+
+/*
+O/P:
+This is a Jason Fedin Course. I am happy to be here :)
+*/
 
 fprintf(): formatted output written to a file
 ---------
@@ -203,14 +206,15 @@ returns the total number of characters written if successful, else a negative nu
 #include <stdlib.h>
 
 int main() {
-  FILE *fp;
-  fp = fopen("file.txt", "w+");
-
+  FILE *fp = fopen("file.txt", "w+");
   fprintf(fp, "%s %s %s %s %d", "Hello", "my", "number", "is", 555);
-
   fclose(fp);
-  return 0;
 }
+
+/*
+O/P:
+Hello my number is 555
+*/
 
 // ~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*
 
@@ -234,36 +238,60 @@ value is the offset in bytes from the beginning of the file
 
 fseek():
 -------
-syntax: fseek(FILE *pointer, long int offset, int position);
+syntax: int fseek(FILE *pointer, long int offset, int position);
         pointer: source file
         offset: number of bytes to offset from the position
         position: position from where the offset is added. defines the point WRT which the file pointer needs to be moved
                   has three values:
                   SEEK_END: denotes EOF
                   SEEK_SET: denotes starting of file
-                  SEEK_CUR: denotes file pointer’s current position
-
+                  SEEK_CUR: denotes current position
 returns zero if successful, else returns a non-zero value
+
+for text mode file, 2nd argument must be value returned by ftell()
+                    3rd argument must be SEEK_SET
+                    all operations with fseek() are performed WRT beginning of file
+
+for binary files, offset: relative byte count
+                  user can enter (+ve) or (-ve) values when reference point: SEEK_CUR
+
+#include <stdio.h>
+
+int main() {
+  FILE *fp = fopen("file.txt", "w+");
+  fputs("This is Jason.", fp);
+
+  fseek(fp, 7, SEEK_SET); // 7 bytes from start of file
+  fputs(" Hello, how are you?", fp);
+  fclose(fp);
+}
+
+/*
+O/P:
+This is Hello, how are you?
+*/
 
 #include <stdio.h>
 #include <stdlib.h>
 
 int main() {
-  FILE *fp;
-  int len;
-
-  fp = fopen("file.txt", "r");
+  FILE *fp = fopen("file.txt", "r");
   if(fp == NULL) {
     perror("Error opening file");
     return -1;
   }
   fseek(fp, 0, SEEK_END); // denotes EOF
 
-  len = ftell(fp);
+  int len = ftell(fp);
   printf("Total size of file.txt = %d bytes \n", len);
 
   fclose(fp);
 }
+
+/*
+O/P:
+Total size of file.txt = 27 bytes   // from last program when content was "This is Hello, how are you?"
+*/
 
 fgetpos()
 ---------
@@ -274,12 +302,63 @@ fpos_t: a type that is able to record every position within a file
 designed to be used with the positioning function fsetpos()
 
 fgetpos(): stores current position and file state information for the file in position
-           returns 0 if successful
-           returns nonzero integer value if unsuccessful
+          returns 0 if successful
+          returns nonzero integer value if unsuccessful
 
 fpos_t here; // variable declaration
 fgetpos(pfile, &here);
-                       - records the current file position in the variable 'here'
+                      - records the current file position in the variable 'here'
 cannot declare a pointer of type fpos_t* because there will not be any memory allocated to store the position data
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+  fpos_t position;
+  FILE *fp = fopen("file.txt", "w+"); // opens at the start of file
+
+  fgetpos(fp, &position);
+  fputs("Hello, World!", fp);
+
+  fclose(fp);
+}
+
+/*
+O/P:
+Hello, World!
+*/
+
+fsetpos()
+---------
+syntax: int fsetpos(FILE *pfile, const fpos_t *position);
+        position that is stored at the address: obtained by calling fgetpos()
+
+fsetpos(pfile, &here);
+                      - sets the file position to the value in variable 'here'
+                      - value of 'here' is set by previous call to fgetpos()
+returns 0 if successful
+returns nonzero value if unsuccessful
+
+designed to work with a value returned by fgetpos()
+user can only use it to get to a place in a file that user has been before
+fseek() allows user to go to any position just by specifying appropriate offset
+
+#include <stdio.h>
+
+int main() {
+  fpos_t position;
+  FILE *fp = fopen("file.txt", "w+");
+  fgetpos(fp, &position); // position = 0 [start of file]
+  fputs("Hello, World!", fp);
+
+  fsetpos(fp, &position);
+  fputs("This is going to override previous content", fp);
+  fclose(fp);
+}
+
+/*
+O/P:
+This is going to override previous content
+*/
 
 // ~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*
