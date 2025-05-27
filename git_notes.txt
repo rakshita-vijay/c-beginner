@@ -16,6 +16,13 @@ git commit --amend - to edit previous function
 
 // ~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*
 
+cd - to go to home directory
+pwd - to see path name from home to current directory
+ls - to see files in current directory
+cd <one_of_the_folder_or_dirs_which_showed_up_in_the_list> - to go to that folder/directory
+
+// ~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*
+
 cannot create array with variable length
 return array from a function using struct or global
 
