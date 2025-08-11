@@ -77,6 +77,8 @@ clang ./036_chutes_and_ladders.c -o ./036_chutes_and_ladders
 ./036_chutes_and_ladders
 [OR]
 clang ./038_pointers.c -o ./038_pointers && ./038_pointers
+[OR]
+gcc process.c -o process.out && ./process.out
 
 // ~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*
 
